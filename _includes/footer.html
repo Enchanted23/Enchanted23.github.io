@@ -1,15 +1,20 @@
-<footer role="contentinfo" id="site-footer">
-	<nav role="navigation" class="menu bottom-menu">
-		<ul class="menu-item">
-		{% for link in site.data.footer %}
-      {% if link.url contains 'http' %}
-        {% assign domain = '' %}
-        {% else %}
-        {% assign domain = site.url %}
-      {% endif %}
-			<li><a href="{{ domain }}{{ link.url }}" {% if link.url contains 'http' %}target="_blank"{% endif %}>{{ link.title }}</a></li>
-		{% endfor %}
-		</ul>
-	</nav><!-- /.bottom-menu -->
-	<p class="copyright">&#169; {{ site.time | date: '%Y' }} <a href="{{ site.url }}">{{ site.title }}</a> powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> + <a href="http://mmistakes.github.io/skinny-bones-jekyll/" rel="nofollow">Skinny Bones</a>.</p>
+<!-- Footer Start -->
+
+<footer>
+
+    {% include social-buttons.html %}
+
+    <p><br><br></p>
+
+    <div class="container text-center">
+        <p>Copyright &copy; {{ site.author }} {{ site.time | date: "%Y" }}</p>
+        {% if site.keybase-in-footer %}
+        <p style="font-size: 16px;"><a href="https://keybase.io/{{site.keybase-username}}" target="_blank"><i
+                class="fa fa-key"></i> {{site.keybase-username}} on Keybase</a></p>
+        {% endif %}
+    </div>
 </footer>
+
+<p><br><br><br><br><br><br></p>
+
+<!-- Footer End -->

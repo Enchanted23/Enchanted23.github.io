@@ -1,15 +1,24 @@
-<nav class="pagination">
-  {% capture category_name %}{{ page.categories | first }}{% endcapture %}
-  {% for post in site.categories.[category_name] %}
-    {% if post.url == page.url %}
-      {% assign post_index0 = forloop.index0 %}
-      {% assign post_index1 = forloop.index %}
-    {% endif %}
-  {% endfor %}
-  {% for post in site.categories.[category_name] %}
-    {% if post_index0 == forloop.index %}{% assign next_post = post %}{% endif %}
-    {% if post_index1 == forloop.index0 %}{% assign prev_post = post %}{% endif %}
-  {% endfor %}
-  {% if prev_post %}<a class="prev" href="{{ site.url }}{{ prev_post.url }}">{{ prev_post.title }}</a>{% endif %}
-  {% if next_post %}<a class="next" href="{{ site.url }}{{ next_post.url }}">{{ next_post.title }}</a>{% endif %}
-</nav>
+
+<!-- Pagination Links Start -->
+
+<div class="pagination">
+
+  <h4>
+
+  {% if paginator.previous_page %}
+    <a href="{{site.baseurl}}{{paginator.previous_page_path}}" class="previous">Newer Posts</a>
+  {% endif %}
+
+  {% if paginator.previous_page and paginator.next_page %}
+    |
+  {% endif %}
+
+  {% if paginator.next_page %}
+    <a href="{{site.baseurl}}{{paginator.next_page_path}}" class="next">Older Posts</a>
+  {% endif %}
+
+  </h4>
+
+</div>
+
+<!-- Pagination Links End -->
