@@ -1,16 +1,25 @@
-<!-- Footer -->
-<footer id="footer">
-
-    <ul class="icons">
-        <li><a href="#" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
-        <li><a href="#" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
-        <li><a href="#" class="icon circle fa-google-plus"><span class="label">Google+</span></a></li>
-        <li><a href="#" class="icon circle fa-github"><span class="label">Github</span></a></li>
-        <li><a href="#" class="icon circle fa-dribbble"><span class="label">Dribbble</span></a></li>
-    </ul>
-
-    <ul class="copyright">
-        <li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-    </ul>
-
-</footer>
+  <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright &copy; {{ site.title }} {{ 'now' | date: "%Y" }}</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        {% for network in site.social %}
+                        <li><a href="{{ network.url }}"><i class="fa fa-{{ network.title }}"></i></a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks">
+                        <li><a href="#">Privacy Policy</a>
+                        </li>
+                        <li><a href="#">Terms of Use</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
