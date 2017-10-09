@@ -1,12 +1,14 @@
 # Site settings
 title: CHENG ZHAN
-email:  cz23@mail.ustc.edu.cn
+email: cz23@mail.ustc.edu.cn
 description: > # this means to ignore newlines until "baseurl:"
-  This is CHENG ZHAN's Homepage (cheng zhan)
-baseurl: "/blog/" # the subpath of your site, e.g. /blog/
+  Write an awesome description for your new site here. You can edit this
+  line in _config.yml. It will appear in your document head meta (for
+  Google search results) and in your feed.xml site description.
+baseurl: "https://enchanted23.github.io" # the subpath of your site, e.g. /blog/
 url: "https://enchanted23.github.io" # the base hostname & protocol for your site
-twitter_username: Enchanted
-github_username:  Enchanted23
+twitter_username: jekyllrb
+github_username:  jekyll
 
 # Build settings
 markdown: kramdown
