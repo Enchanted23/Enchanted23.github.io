@@ -1,26 +1,19 @@
-
-<!-- Intro Start -->
-
-<header class="intro">
-  <div class="intro-body">
-    <div class="container">
-      <div class="row">
-          <div class="col-md-10 col-md-offset-1">
-            <h1 class="brand-heading">&nbsp;</h1>
-            <h1 class="brand-heading">&nbsp;</h1>
-            <span class="intro-text">{{ content }}</span>
-            <h5>&nbsp;</h5>
-            <a href="#{{ site.pages_list['About'] }}" class="page-scroll">
-              {% if site.me-img contains "https://" %}
-                <img class="img-me" src="{{ site.me-img }}" alt="">
-              {% else %}
-                <img class="img-me" src="{{site.baseurl}}{{ site.me-img }}" alt="">
-              {% endif %}
-            </a>
-          </div>
-        </div>
-    </div>
-  </div>
+<!-- Header -->
+<header id="header" class="skel-layers-fixed">
+    <h1><a href="{{ site.baseurl }}/" class="site-title" >{{ site.title }}</a></h1>
+    <nav id="nav">
+        <ul>
+            <li><a href="{{ site.baseurl }}/">Home</a></li>
+            <li><a href="{{ site.baseurl }}/left-sidebar.html">Left Sidebar</a></li>
+            <li><a href="{{ site.baseurl }}/right-sidebar.html">Right Sidebar</a></li>
+            <li><a href="{{ site.baseurl }}/no-sidebar.html">No Sidebar</a></li>
+            <li><a href="{{ site.baseurl }}/blog.html">Blog</a></li>
+            {% for page in site.pages %}
+                  {% if page.title %}
+                    <li><a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>
+                  {% endif %}
+            {% endfor %}
+            <li><a href="#" class="button special">Sign Up</a></li>
+        </ul>
+    </nav>
 </header>
-
-<!-- Intro End -->
