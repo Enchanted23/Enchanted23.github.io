@@ -4,8 +4,8 @@ subtitle: deep learning
 layout: default
 modal-id: 1
 date: 2014-07-18
-img: deeplearning.jpg
-thumbnail: deeplearning-thumbnail.jpg
+img: dreams.png
+thumbnail: dreams-thumbnail.png
 alt: image-alt
 project-date: April 2014
 client: Start Bootstrap
