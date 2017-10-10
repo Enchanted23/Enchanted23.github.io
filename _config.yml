@@ -2,63 +2,50 @@ url: https://enchanted23.github.io
 baseurl: 
 
 # Site settings
-title: Awesome Title
-email: your-email@domain.com
-description: "Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description."
+title: CHENG ZHAN
+email: cz23@mail.ustc.edu.cn
+description: "Personal website and blog of CHENG ZHAN ( cheng zhan )."
 
 
-# Team names, titles and social links
+# basic information of myself and my education experiences
 people:
-- name: Kay Garland
+- name: Cheng Zhan
   pic: 1
-  position: Lead Designer
+  position: Senior Student Majoring In Computer Science
   social:
-    - title: twitter
-      url: #
     - title: facebook
-      url: #
-    - title: stack-overflow
-      url: #
+      url: https://www.facebook.com/zhan.cheng.9889
+    - title: github
+      url: https://github.com/Enchanted23
 
-- name: Larry Parker
+- name: University Of Science And Technology Of China
   pic: 2
-  position: Lead Marketer
+  position: College
   social:
-    - title: twitter
-      url: #
-    - title: facebook
-      url: #
-    - title: linkedin
-      url: #
+    - title: university
+      url: http://www.ustc.edu.cn
+    - title: google
+      url: https://en.wikipedia.org/wiki/University_of_Science_and_Technology_of_China
 
-- name: Diana Petersen
+- name: Chongqing Nankai Middle School
   pic: 3
-  position: Lead Developer
+  position: High School
   social:
-    - title: twitter
-      url: #
-    - title: facebook
-      url: #
-    - title: google-plus
-      url: #
+    - title: google
+      url: https://en.wikipedia.org/wiki/Chongqing_Nankai_Secondary_School
 
 # Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
 social:
   - title: twitter
-    url: http://twitter.com/jekyllrb
+    url: http://twitter.com/
   - title: facebook
-    url:
+    url: https://www.facebook.com/
   - title: stack-overflow
-    url: http://stackoverflow.com/questions/tagged/jekyll
+    url: http://stackoverflow.com/questions/tagged/
   - title: bitbucket 
-    url: http://bitbucket.org/jekyll
+    url: http://bitbucket.org/
   - title: github
-    url: http://github.com/jekyll
-
-# Postal address (add as many lines as necessary)
-address:
-  - line: 3481 Melrose Place
-  - line: Beverly Hills, CA 90210
+    url: http://github.com/
 
 # Build settings
 markdown: kramdown
