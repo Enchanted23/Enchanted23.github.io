@@ -1,6 +1,6 @@
 ---
-title: deep learning
-subtitle: deep learning
+title: deeplearning
+subtitle: deeplearning
 layout: default
 modal-id: 1
 date: 2014-07-18
