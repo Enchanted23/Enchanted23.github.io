@@ -1,5 +1,5 @@
 ---
-title: Dreams
+title: Dream
 subtitle: Website Design
 layout: default
 modal-id: 1
