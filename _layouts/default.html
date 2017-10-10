@@ -3,29 +3,19 @@
 
   {% include head.html %}
 
-<body class="home-template">
-  <div id="page" class="site">
 
+    <body id="page-top" class="index">
 
     {% include header.html %}
-
-
-
-    <div class="page-content">
-      <div class="wrapper">
-        {{ content }}
-      </div>
-    </div>
-
+    {% include services.html %}
+    {% include portfolio_grid.html %}
+    {% include about.html %}
+    {% include team.html %}
+    {% include clients.html %}
+    {% include contact.html %}
     {% include footer.html %}
+    {% include modals.html %}
+    {% include js.html %}
 
-
-            <div class="overlay"></div>
-  </div><!-- #page -->  
-
-
-    <script id="dsq-count-scr" src="//lucasgatsas.disqus.com/count.js" async></script>
-
-  </body>
-
+    </body>
 </html>
