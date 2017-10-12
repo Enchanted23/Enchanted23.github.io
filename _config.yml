@@ -1,53 +1,34 @@
-url: https://enchanted23.github.io
-baseurl: 
-
-# Site settings
 title: CHENG ZHAN
-email: cz23@mail.ustc.edu.cn
-description: "Personal website and blog of CHENG ZHAN ( cheng zhan )."
+description: > # this means to ignore newlines until "baseurl:"
+  CHENG ZHAN | 程湛
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://enchanted23.github.io" # the base hostname & protocol for your site
+# Build settings
+markdown: kramdown
 
+facebook: 
+  app_id: 
 
-# basic information of myself and my education experiences
-people:
-- name: Cheng Zhan
-  pic: 1
-  position: Senior Student Majoring In Computer Science
-  social:
-    - title: wechat
-      url: 
-    - title: facebook
-      url: https://www.facebook.com/zhan.cheng.9889
-    - title: github
-      url: https://github.com/Enchanted23
+logo: "../css/2016_style/img/icon-large.png"
 
-- name: University Of Science And Technology Of China
-  pic: 2
-  position: College
-  social:
-    - title: university
-      url: http://www.ustc.edu.cn
-    - title: google
-      url: https://en.wikipedia.org/wiki/University_of_Science_and_Technology_of_China
+social: 
+  name: Your Facebook Page
+  link: "https://www.facebook.com/zhan.cheng.9889"
 
-- name: Chongqing Nankai Middle School
-  pic: 3
-  position: High School
-  social:
-    - title: google
-      url: https://en.wikipedia.org/wiki/Chongqing_Nankai_Secondary_School
+google_site_verification: googleXXXXXXXXXXXXXXXX.html
+
+include: ['_2016_pages', '_2017_pages']
+
+gems:
+  - jekyll-sitemap
+  - jekyll-seo-tag
 
 # Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
 social:
-  - title: twitter
-    url: http://twitter.com/
   - title: facebook
-    url: https://www.facebook.com/
-  - title: stack-overflow
-    url: http://stackoverflow.com/questions/tagged/
-  - title: bitbucket 
-    url: http://bitbucket.org/
-  - title: github
-    url: http://github.com/
+    url: https://www.facebook.com
+  - title: twitter
+    url: https://twitter.com
 
 # Build settings
 markdown: kramdown
