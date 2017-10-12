@@ -15,6 +15,35 @@ social:
   name: Your Facebook Page
   link: "https://www.facebook.com/zhan.cheng.9889"
 
+# basic information of myself and my education experiences
+people:
+- name: Cheng Zhan
+  pic: 1
+  position: Senior Student Majoring In Computer Science
+  social:
+    - title: wechat
+      url: 
+    - title: facebook
+      url: https://www.facebook.com/zhan.cheng.9889
+    - title: github
+      url: https://github.com/Enchanted23
+
+- name: University Of Science And Technology Of China
+  pic: 2
+  position: College
+  social:
+    - title: university
+      url: http://www.ustc.edu.cn
+    - title: google
+      url: https://en.wikipedia.org/wiki/University_of_Science_and_Technology_of_China
+
+- name: Chongqing Nankai Middle School
+  pic: 3
+  position: High School
+  social:
+    - title: google
+      url: https://en.wikipedia.org/wiki/Chongqing_Nankai_Secondary_School
+
 google_site_verification: googleXXXXXXXXXXXXXXXX.html
 
 include: ['_2016_pages', '_2017_pages']
