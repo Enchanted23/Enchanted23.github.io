@@ -20,8 +20,6 @@ html {
 body {
     position: absolute;
     margin: 0;
-    padding-bottom: 90px;
-    min-height: 100%;
     width: 100%;
     overflow-x: hidden;
     font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -49,8 +47,8 @@ body {
 }
 
 p {
+    font-size: 14px;
     line-height: 1.75;
-	font-size: 110%;
 }
 
 p.large {
@@ -335,7 +333,6 @@ fieldset[disabled] .btn-xl.active {
 }
 
 header {
-    height: 100vh;
     text-align: center;
     color: #fff;
     background-attachment: scroll;
