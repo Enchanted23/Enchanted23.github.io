@@ -1,0 +1,3 @@
+{% include 2017_css/bootstrap.min.css %}
+{% include 2017_css/agency.css %}
+{{ content }}
