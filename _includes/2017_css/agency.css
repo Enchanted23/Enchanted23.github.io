@@ -858,8 +858,8 @@ ul.click-buttons li a {
     font-size: 100px;
     line-height: 160px;
     outline: 0;
-    color: #3cb371;
-    background-color: #fff;
+    color: #fff;
+    background-color: #3cb371;
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
     transition: all .3s;
