@@ -6,7 +6,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://enchanted23.github.io" # the base hostname & protocol for your site
 
 email: cz23@mail.ustc.edu.cn
-logo: "../css/_style/img/icon-large.png"
+logo: "../css/_style/img/icon-large.jpg"
 
 # basic information of myself and my education experiences
 people:
