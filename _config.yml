@@ -37,7 +37,7 @@ people:
     - title: google
       url: https://en.wikipedia.org/wiki/Chongqing_Nankai_Secondary_School
 
-include: ['_site_pages']
+include: ['_about_pages']
 
 gems:
   - jekyll-sitemap
