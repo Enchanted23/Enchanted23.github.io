@@ -707,7 +707,7 @@ section h3.section-subheading {
 }
 
 .team-member img {
-    position: absolute;
+    margin: 50px auto;
     width: 500px;
     height: 500px;
     border: 7px solid #fff;
