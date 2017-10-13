@@ -1,19 +1,12 @@
-title: CHENG ZHAN
-description: > # this means to ignore newlines until "baseurl:"
-  CHENG ZHAN | 程湛
-baseurl: "" # the subpath of your site, e.g. /blog
+## Base settings ##
 url: "https://enchanted23.github.io" # the base hostname & protocol for your site
-# Build settings
-markdown: kramdown
+description: > # this means to ignore newlines until "baseurl:"
+    CHENG ZHAN | 程湛
 
-facebook: 
-  app_id: 
+title: CHENG ZHAN
+email: cz23@mail.ustc.edu.cn
 
-logo: "../css/2016_style/img/icon-large.png"
-
-social: 
-  name: Your Facebook Page
-  link: "https://www.facebook.com/zhan.cheng.9889"
+logo: "../css/_style/img/icon-large.png"
 
 # basic information of myself and my education experiences
 people:
@@ -44,9 +37,7 @@ people:
     - title: google
       url: https://en.wikipedia.org/wiki/Chongqing_Nankai_Secondary_School
 
-google_site_verification: googleXXXXXXXXXXXXXXXX.html
-
-include: ['_2016_pages', '_2017_pages']
+include: ['_site_pages']
 
 gems:
   - jekyll-sitemap
@@ -54,10 +45,16 @@ gems:
 
 # Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
 social:
-  - title: facebook
-    url: https://www.facebook.com
   - title: twitter
-    url: https://twitter.com
+    url: http://twitter.com/
+  - title: facebook
+    url: https://www.facebook.com/
+  - title: stack-overflow
+    url: http://stackoverflow.com/questions/tagged/
+  - title: bitbucket 
+    url: http://bitbucket.org/
+  - title: github
+    url: http://github.com/
 
 # Build settings
 markdown: kramdown
