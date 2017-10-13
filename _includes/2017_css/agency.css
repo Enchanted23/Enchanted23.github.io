@@ -846,6 +846,31 @@ ul.social-buttons li a:active {
     outline: 0;
 }
 
+ul.click-buttons {
+    margin-bottom: 0;
+}
+
+ul.click-buttons li a {
+    display: block;
+    width: 160px;
+    height: 160px;
+    border-radius: 100%;
+    font-size: 20px;
+    line-height: 40px;
+    outline: 0;
+    color: #fff;
+    background-color: #222;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    transition: all .3s;
+}
+
+ul.click-buttons li a:hover,
+ul.click-buttons li a:focus,
+ul.click-buttons li a:active {
+    background-color: #{{ site.data.template.color.primary }};
+}
+
 .portfolio-modal .modal-content {
     padding: 100px 0;
     min-height: 100%;
