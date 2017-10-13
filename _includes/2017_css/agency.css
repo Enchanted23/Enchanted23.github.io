@@ -339,7 +339,7 @@ header {
     text-align: center;
     color: #fff;
     background-attachment: scroll;
-    background-image: url('{{ site.baseurl }}/css/2017_style/img/header_img/header-0.jpg');
+    background-image: url('{{ site.baseurl }}/css/2017_style/img/header-img/header-0.jpg');
     background-position: center center;
     background-repeat: none;
     -webkit-background-size: cover;
@@ -487,14 +487,12 @@ section h3.section-subheading {
     text-transform: none;
 }
 
-/*
 #interests .interests-item .interests-caption p {
     margin: 0;
     font-family: {{ site.data.template.font.secondary }};
     font-size: 100%;
     font-style: italic;
 }
-*/
 
 #interests * {
     z-index: 2;
@@ -516,6 +514,7 @@ section h3.section-subheading {
     content: "";
     position: absolute;
     top: 0;
+    bottom: 0;
     left: 40px;
     width: 2px;
     margin-left: -1.5px;
@@ -576,7 +575,7 @@ section h3.section-subheading {
 
 .timeline>li .timeline-image h4 {
     margin-top: 12px;
-    font-size: 100%;
+    font-size: 10px;
     line-height: 14px;
 }
 
@@ -644,7 +643,7 @@ section h3.section-subheading {
 
     .timeline>li .timeline-image h4 {
         margin-top: 16px;
-        font-size: 100%;
+        font-size: 13px;
         line-height: 18px;
     }
 
@@ -672,7 +671,7 @@ section h3.section-subheading {
 
     .timeline>li .timeline-image h4 {
         margin-top: 30px;
-        font-size: 100%;
+        font-size: 18px;
         line-height: 26px;
     }
 
@@ -687,7 +686,7 @@ section h3.section-subheading {
     }
 
     .timeline>li .timeline-panel {
-        padding: 0 20px 20px 10px;
+        padding: 0 20px 20px 100px;
     }
 
     .timeline>li .timeline-image {
@@ -701,8 +700,28 @@ section h3.section-subheading {
     }
 
     .timeline>li.timeline-inverted>.timeline-panel {
-        padding: 0 10px 20px 20px;
+        padding: 0 100px 20px 20px;
     }
+}
+
+.team-member {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.team-member img {
+    margin: 0 auto;
+    border: 7px solid #fff;
+}
+
+.team-member h4 {
+    margin-top: 25px;
+    margin-bottom: 0;
+    text-transform: none;
+}
+
+.team-member p {
+    margin-top: 0;
 }
 
 aside.clients img {
@@ -811,7 +830,7 @@ ul.social-buttons li a {
     line-height: 40px;
     outline: 0;
     color: #fff;
-    background-color: #00283c;
+    background-color: #222;
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
     transition: all .3s;
