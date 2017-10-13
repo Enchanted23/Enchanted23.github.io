@@ -708,6 +708,8 @@ section h3.section-subheading {
 
 .team-member img {
     margin: 50px auto;
+    width: 160px;
+    height: 160px;
     border: 7px solid #fff;
 }
 
