@@ -49,12 +49,12 @@ body {
 }
 
 p {
-    font-size: 14px;
     line-height: 1.75;
+	font-size: 110%;
 }
 
 p.large {
-    font-size: 16px;
+    font-size: 120%;
 }
 
 a,
@@ -85,6 +85,10 @@ h6 {
     text-transform: uppercase;
     font-family: {{ site.data.template.font.primary }};
     font-weight: 700;
+}
+
+h4 {
+	font-size: 120%;
 }
 
 .img-centered {
@@ -335,7 +339,7 @@ header {
     text-align: center;
     color: #fff;
     background-attachment: scroll;
-    background-image: url('{{ site.baseurl }}/css/_style/img/header_img/header-0.jpg');
+    background-image: url('{{ site.baseurl }}/css/2016_style/img/header-bg.jpg');
     background-position: center center;
     background-repeat: none;
     -webkit-background-size: cover;
@@ -345,7 +349,7 @@ header {
 }
 
 header .intro-text {
-    padding-top: 100vh;
+    padding-top: 25vh;
     padding-bottom: 50px;
 }
 
@@ -361,7 +365,7 @@ header .intro-text .intro-heading {
     margin-bottom: 25px;
     text-transform: uppercase;
     font-family: {{ site.data.template.font.primary }};
-    font-size: 50px;
+    font-size: 40px;
     font-weight: 700;
     line-height: 40px;
 }
@@ -405,7 +409,7 @@ section h3.section-subheading {
     margin-bottom: 75px;
     text-transform: none;
     font-family: {{ site.data.template.font.secondary }};
-    font-size: 16px;
+    font-size: 120%;
     font-style: italic;
     font-weight: 400;
 }
@@ -441,8 +445,7 @@ section h3.section-subheading {
     -webkit-transition: all ease .5s;
     -moz-transition: all ease .5s;
     transition: all ease .5s;
-    background: rgba(254,209,54,.9); /* Fallback when no plugin support */
-    background: rgba({{ site.data.template.color.primary | hex_to_rgb | join: ',' }}, .9);
+    background: #3cb371;
 }
 
 #interests .interests-item .interests-link .interests-hover:hover {
@@ -484,13 +487,14 @@ section h3.section-subheading {
     text-transform: none;
 }
 
-/**/
+/*
 #interests .interests-item .interests-caption p {
     margin: 0;
     font-family: {{ site.data.template.font.secondary }};
     font-size: 100%;
     font-style: italic;
 }
+*/
 
 #interests * {
     z-index: 2;
@@ -701,33 +705,13 @@ section h3.section-subheading {
     }
 }
 
-.team-member {
-    margin-bottom: 50px;
-    text-align: center;
-}
-
-.team-member img {
-    margin: 0 auto;
-    border: 7px solid #fff;
-}
-
-.team-member h4 {
-    margin-top: 25px;
-    margin-bottom: 0;
-    text-transform: none;
-}
-
-.team-member p {
-    margin-top: 0;
-}
-
 aside.clients img {
     margin: 50px auto;
 }
 
 section#contact {
     background-color: #222;
-    background-image: url('{{ site.baseurl }}/css/_style/img/map-image.png');
+    background-image: url('{{ site.baseurl }}/css/2016_style/img/map-image.png');
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -793,6 +777,10 @@ section#contact .text-danger {
 footer {
     padding: 25px 0;
     text-align: center;
+    background-color: white;
+    position: absolute;
+    right: 0;
+    left: 0;
 }
 
 footer span.copyright {
@@ -823,7 +811,7 @@ ul.social-buttons li a {
     line-height: 40px;
     outline: 0;
     color: #fff;
-    background-color: #222;
+    background-color: #00283c;
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
     transition: all .3s;
@@ -847,7 +835,6 @@ ul.social-buttons li a:active {
     min-height: 100%;
     border: 0;
     border-radius: 0;
-    text-align: center;
     background-clip: border-box;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -855,7 +842,7 @@ ul.social-buttons li a:active {
 
 .portfolio-modal .modal-content h2 {
     margin-bottom: 15px;
-    font-size: 3em;
+    font-size: 140%;
 }
 
 .portfolio-modal .modal-content p {
@@ -865,7 +852,7 @@ ul.social-buttons li a:active {
 .portfolio-modal .modal-content p.item-intro {
     margin: 20px 0 30px;
     font-family: {{ site.data.template.font.secondary }};
-    font-size: 16px;
+    font-size: 100%;
     font-style: italic;
 }
 
@@ -920,7 +907,7 @@ ul.social-buttons li a:active {
 
 ::selection {
     text-shadow: none;
-    background: #{{ site.data.template.color.primary }};
+    background: #f2f2f2;
 }
 
 img::selection {
