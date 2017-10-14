@@ -65,9 +65,9 @@ permalink: pretty
 ################################################################
 
 # Author Settings
-author: David Freeman # add your name
-author-img: david-freeman.jpg # add your photo
-about-author: I am a web developer focusing on front-end development. Always hungry to keep learning. # add description
+author: Cheng Zhan # add your name
+author-img: cz.jpg # add your photo
+about-author: I am a student majoring in computer science from University_of_Science_and_Technology_of_China. Always hungry to learn more about AI. # add description
 
 plugins:
   - jekyll-sitemap
@@ -77,7 +77,7 @@ paginate: 8
 paginate_path: "blog/page/:num/"
 
 # Disqus
-discus-identifier: mr-brown # add your discus identifier
+discus-identifier: mr-cheng # add your discus identifier
 
 # Tracker
 analytics: # Google Analytics
