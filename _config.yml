@@ -74,7 +74,7 @@ plugins:
   - jekyll-paginate
 
 paginate: 8
-paginate_path: "/blog/page:num/"
+paginate_path: "blog/page/:num/"
 
 # Disqus
 discus-identifier: mr-brown # add your discus identifier
