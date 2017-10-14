@@ -23,6 +23,26 @@ Aesthetic four dollar toast semiotics af bicycle rights. Actually synth mixtape 
 
 > ###Headers work
 
+This is a normal
+paragraph.
+
+And A Header
+------------
+And a paragraph
+
+header
+---
+para
+
+Header inblock
+
+-----
+
+> This is a blockquote.
+
+And A Header
+------------
+
 ~~~
 def what?
   42
@@ -43,12 +63,33 @@ end
 | Footer row
 
 The following is a math block:
-
-$$ 5 + 5 $$
+$$
+\begin{align*}
+  & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
+  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
+  & (x_1, \ldots, x_n) \left( \begin{array}{ccc}
+      \phi(e_1, e_1) & \cdots & \phi(e_1, e_n) \\
+      \vdots & \ddots & \vdots \\
+      \phi(e_n, e_1) & \cdots & \phi(e_n, e_n)
+    \end{array} \right)
+  \left( \begin{array}{c}
+      y_1 \\
+      \vdots \\
+      y_n
+    \end{array} \right)
+\end{align*}
+$$
+wird $$ 5 + 5 $$
 
 But next comes a paragraph with an inline math statement:
 
 \$$ 5 + 5 $$
+
+| 4    | 666666666 | 7    |
+| ---- | --------- | ---- |
+|      |           | 7    |
+|      | 0         | 7    |
+|      | 3         | 7    |
 
 **test emphasize**
 
