@@ -57,7 +57,7 @@ social:
     url: http://github.com/
 
 # Build settings
-markdown: Markdown
+markdown: kramdown
 permalink: pretty
 
 ################################################################
