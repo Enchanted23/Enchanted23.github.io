@@ -66,8 +66,8 @@ permalink: pretty
 
 # Author Settings
 author: Cheng Zhan # add your name
-author-img: cz.jpg # add your photo
-about-author: I am a student majoring in computer science from University_of_Science_and_Technology_of_China. Always hungry to learn more about AI. # add description
+author-img: cz.JPG # add your photo
+about-author: I am a student majoring in computer science from University of Science and Technology of China. Always hungry to learn more about AI. # add description
 
 plugins:
   - jekyll-sitemap
