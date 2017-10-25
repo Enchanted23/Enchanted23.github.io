@@ -1,0 +1,158 @@
+\documentclass[letterpaper,11pt]{article}
+\newlength{\outerbordwidth}
+\pagestyle{empty}
+\raggedbottom
+\raggedright
+\usepackage[svgnames]{xcolor}
+\usepackage{framed}
+\usepackage{times}
+\usepackage{tocloft}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage[utf8]{inputenc}
+\usepackage{tabularx}
+\usepackage{textcomp}
+\usepackage{ulem}
+\newcommand{\li}{\uline{\hspace{0.5em}}}
+\title{Cheng-CV}
+%-----------------------------------------------------------
+%Edit these values as you see fit
+
+\setlength{\outerbordwidth}{3pt}  % Width of border outside of title bars
+\definecolor{shadecolor}{gray}{0.75}  % Outer background color of title bars (0 = black, 1 = white)
+\definecolor{shadecolorB}{gray}{0.93}  % Inner background color of title bars
+
+
+%-----------------------------------------------------------
+%Margin setup
+
+\setlength{\evensidemargin}{-0.25in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\paperheight}{11in}
+\setlength{\paperwidth}{8.5in}
+\setlength{\tabcolsep}{0in}
+\setlength{\textheight}{9.5in}
+\setlength{\textwidth}{7in}
+\setlength{\topmargin}{-0.3in}
+\setlength{\topskip}{0in}
+\setlength{\voffset}{0.1in}
+
+
+%-----------------------------------------------------------
+%Custom commands
+\newcommand{\resitem}[1]{\item #1 \vspace{-2pt}}
+\newcommand{\resheading}[1]{\vspace{8pt}
+  \parbox{\textwidth}{\setlength{\FrameSep}{\outerbordwidth}
+    \begin{shaded}
+\setlength{\fboxsep}{0pt}\framebox[\textwidth][l]{\setlength{\fboxsep}{4pt}\fcolorbox{shadecolorB}{shadecolorB}{\textbf{\sffamily{\mbox{~}\makebox[6.762in][l]{\large #1} \vphantom{p\^{E}}}}}}
+    \end{shaded}
+  }\vspace{-5pt}
+}
+\newcommand{\ressubheading}[4]{
+\begin{tabular*}{6.5in}{l@{\cftdotfill{\cftsecdotsep}\extracolsep{\fill}}r}
+		\textbf{#1} & #2 \\
+		\textit{#3} & \textit{#4} \\
+\end{tabular*}\vspace{-6pt}}
+%-----------------------------------------------------------
+
+
+\begin{document}
+
+%-----------------------------------------------------------
+%Insert IIT Madras Logo 
+\begin{tabular*}{7.1in}{l@{\extracolsep{\fill}}r}
+  & \multirow{8}{*}{\includegraphics[scale=0.21]{collegelogo.jpg}}\\
+  & \\
+%-----------------------------------------------------------  
+  \textbf{\Huge Zhan Cheng} & \\
+  \\
+  \large https://enchanted23.github.io & \\
+  \large cz23@mail.ustc.edu.cn \\
+\end{tabular*}
+\\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\resheading{Education}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+\item
+	\ressubheading{\Large UNIVERSITY OF SCIENCE AND TECHNOLOGY OF CHINA}{Hefei, China}{Undergraduate}{2014 - now}
+	\begin{itemize}
+    		\resitem{\textbf{Major: } \ Computer Science and Technology}
+	\end{itemize}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\resheading{Research Experiences}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+\item
+	\ressubheading{\Large English Chatbot Completion Using HRED Model}{University of Waterloo}{Summer Researcher}{Jun. 2017 - Aug. 2017}
+	\begin{itemize}
+		\resitem{\textbf{Mentor: } \ {Prof. Ming Li} \ $|$ \ https://cs.uwaterloo.ca/\texttildelow mli/}
+		\resitem{\textbf{Description: } 
+		\\ 1. Built and improved the Hierarchical Recurrent Encoder-Decoder (HRED) \\model for English chatbot referring to some papers and code. 
+		\\ 2. Collected tens of millions of data from different sources like twitter, \\reddit, movie dialog, etc to train the RNN model.
+		\\ 3. Modified the code and the trainning sets repeatedly according to the \\performance of the chatbot until it achieved a desired result.}
+	\end{itemize}
+
+\item
+	\ressubheading{\Large Improving Humanoid Robot Jia Jia}{University of Science and Technology of China}{Undergraduate Researcher}{July 2016 - now}
+	\begin{itemize}
+		\resitem{\textbf{Mentor: } \ Prof. Xiaoping Chen \ $|$ \ http://ai.ustc.edu.cn/en/people/xpchen.php}
+		\resitem{\textbf{Description: } 
+		\\ 1. Enhancing the robot's Chinese Conversation System to improve its \\performance of
+communicating with human beings.
+		\\ 2. Applied machine learning algorithms to the Question Classification \\Model of Jia Jia.
+		\\ 3. Doing some tasks like building a WeChat version of Jia Jia, labeling data, etc.}
+	\end{itemize}
+
+\item
+	\ressubheading{\Large Knowledge Base Completion Task}{University of Science and Technology of China}{Undergraduate Researcher}{Sept. 2016 - now}
+	\begin{itemize}
+		\resitem{\textbf{Advisor: } \ Doctor Yi Zhou \ $|$ \ Y.Zhou@westernsydney.edu.au}
+		\resitem{\textbf{Description: } 
+		\\ 1. Analyzed traditional Knowledge Bases' deficiencies in solving \\Winograd Schema Challenge.
+		\\ 2. Building and improving a Automated Knowledge Base \\Construction System referring to ProBase and DeepDive.
+		\\ 3. Writing a paper about the things listed above.}
+	\end{itemize}
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\resheading{Research Interests}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\vspace{-2pt}
+	\begin{center}\begin{tabular*}{6.6in}{l@{\extracolsep{\fill}}r}
+		\multicolumn{2}{l}{{\bf Artificial Intelligence: } \ Deep Learning, \ Natural Language Processing, \ Human-Robot Interaction}\\
+		\multicolumn{2}{l}{ \qquad \qquad \qquad \qquad \qquad \ Machine Learning and Data Science, \ Knowledge Graph Construction}\\
+		\multicolumn{2}{l}{{\bf The others: } \ Virtual Reality, \ Autonomous Vehicles, \ Social Network}\\
+		\vphantom{E}
+\end{tabular*}
+\end{center}\vspace*{-16pt}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\resheading{Skills}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+\item
+	Programming and Markup Languages
+	\begin{itemize}
+		\resitem{{\bf Adept:} Python, Java, C}
+		\resitem{{\bf Intermediate:} MATLAB, HTML, JavaScript, \LaTeX}
+	\end{itemize}
+
+\item
+	Tasks
+	\begin{itemize}
+		\resitem{{\bf Adept:} TensorFlow Programming, Web Crawling, Dialogue System Design}
+		\resitem{{\bf Intermediate:} Visual Software Design, Web Design, Mobile Application Development}
+	\end{itemize}
+
+\end{itemize}
+
+\end{document}
