@@ -2,8 +2,8 @@
 title: CHENG ZHAN
 description: > # this means to ignore newlines until "baseurl:"
     CHENG ZHAN | 程湛
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://chengzhan.me" # the base hostname & protocol for your site
+baseurl: "/" # the subpath of your site, e.g. /blog
+url: "http://chengzhan.me" # the base hostname & protocol for your site
 
 email: cz23@mail.ustc.edu.cn
 logo: "../css/_style/img/icon-large.jpg"
