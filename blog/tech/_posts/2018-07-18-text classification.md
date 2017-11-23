@@ -27,7 +27,7 @@ a predicted class ci from C
 
 
 
-##Traditional methods
+## Traditional methods
 
 ### 1. Naive Bayes
 
@@ -96,7 +96,7 @@ when C is very large：
 
 ## Neural network methods
 
-###1. CNN
+### 1. CNN
 
 **(1) the paper Convolutional Neural Networks for Sentence Classification which appeared in EMNLP 2014**
 
@@ -120,7 +120,7 @@ We use the publicly available word2vec vectors that were trained on 100 billion 
 
 **There is simplified implementation using Tensorflow on Github：https://github.com/dennybritz/cnn-text-classification-tf**
 
-###2. RNN
+### 2. RNN
 
 **the paper Hierarchical Attention Networks for Document Classification which appeared in NAACL 2016**
 
@@ -176,7 +176,7 @@ In the model they used the GRU-based sequence encoder.
 
 
 
-##References
+## References
 
 https://www.cs.cmu.edu/%7Ediyiy/docs/naacl16.pdf
 
@@ -185,3 +185,4 @@ https://www.cs.cmu.edu/%7Ediyiy/docs/naacl16.pdf
 https://www.coursera.org/learn/machine-learning/home/
 
 https://www.youtube.com/playlist?list=PL6397E4B26D00A269
+
