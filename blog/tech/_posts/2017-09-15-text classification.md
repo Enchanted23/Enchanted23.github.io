@@ -1,6 +1,6 @@
 ---
 layout: blog_post
-title: 
+title: Text Classification
 date: 2017-09-15 16:47:00 +0300
 description: text classification survey
 img: text-classification-cover.png
@@ -13,6 +13,7 @@ tags: [text classification, Naive Bayes, SVM, CNN, RNN]
 
 **Input:**
 a document d + a fixed set of classes C = {c1, c2, ... , cn}
+
 **Output：**
 a predicted class ci from C
 
@@ -141,6 +142,7 @@ We use the publicly available word2vec vectors that were trained on 100 billion 
 **If you want to learn more about Attention Mechanisms：http://www.wildml.com/2016/01/attention-and-memory-in-deep-learning-and-nlp/**
 
 In the model they used the GRU-based sequence encoder.
+
 **1. Word Encoder：**
 
 ![](http://upload-images.jianshu.io/upload_images/7248047-b77f7c07f92db489.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
