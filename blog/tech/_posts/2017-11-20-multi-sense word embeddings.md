@@ -11,6 +11,8 @@ tags: [multi-sense word embeddings, crosslingual training, Bayesian non- paramet
 
 ![]({{site.baseurl}}/assets/img/Multi-sense-pics/abstract.pdf)
 
+
+
 ## Introduction of Multi-sense Word Embeddings
 
 > Work on inducing multi-sense embeddings can be divided in two broad categories – two-staged approaches and joint learning approaches.
@@ -23,21 +25,37 @@ The model in this paper adopts the joint learning approach without clustering th
 
 **Multilingual distributional information and  nonparametric sense modeling are keys to the success of the multi-sense embedding approach in this paper.**
 
-We can see from later that this model taking advantage of both multilingual distributional information and  nonparametric sense modeling learns high-quality embeddings using substantially less data and pa- rameters than prior state-of-the-art.
+We can see from later that this model taking advantage of both multilingual distributional information and  nonparametric sense modeling learns high-quality embeddings using substantially less data and parameters than prior state-of-the-art.
+
+
 
 ## Multilingual VS. Bilingual
 
 Sometimes bilingual information is not enough to discover a new sense in a english words. Let us look at the picture below.
 
-> Two different senses of the word “interest” and their translations to French and Chinese (word translation shown in [bold]). While the surface form of both senses are same in French, they are different in Chinese.
-
 ![]({{site.baseurl}}/assets/img/Multi-sense-pics/advantage.pdf)
 
 In this case, we cannot find two different senses of the word “interest” only with English text and French text. Thus we need the multilingual information to help us.
 
+
+
 ## Model Analysis
 
+The basic model in this paper can be depicted in the picture below.
+
+* This picture only shows the represntation and structure of the bilingual training process. But do not worry, the structure can be easily extended to multilingual.
+
+![]({{site.baseurl}}/assets/img/Multi-sense-pics/bilingual-structure.pdf)
+
+The arrows shows the process below:
+
+1.  **Extending the skip-gram representation to fully describe the relations among an Engish word , its translation to French and their neighboring words** 
+2. **Writing the learning algorithm base on this modeling approach to acquire embeddings of all French words and embeddings of different senses of the English words**
+3. **Finally, using the embeddings of different senses of the English words to disarmbiguate the sense for a word given a monolingual context (English context in this case)**
 
 
 
-​	
+
+
+
+
