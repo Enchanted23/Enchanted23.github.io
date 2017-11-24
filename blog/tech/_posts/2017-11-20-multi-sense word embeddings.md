@@ -41,6 +41,8 @@ In this case, we cannot find two different senses of the word “interest” onl
 
 ## Model Analysis
 
+### model description
+
 The basic model in this paper can be depicted in the picture below.
 
 * This picture only shows the represntation and structure of the bilingual training process. But do not worry, the structure can be easily extended to multilingual.
@@ -49,13 +51,41 @@ The basic model in this paper can be depicted in the picture below.
 
 The arrows shows the process below:
 
-1.  **Extending the skip-gram representation to fully describe the relations among an Engish word , its translation to French and their neighboring words** 
-2. **Writing the learning algorithm base on this modeling approach to acquire embeddings of all French words and embeddings of different senses of the English words**
-3. **Finally, using the embeddings of different senses of the English words to disarmbiguate the sense for a word given a monolingual context (English context in this case)**
+1. **Extending the skip-gram representation to fully describe the relations among an Engish word , its translation to French and their neighboring words** 
+2. **Writing the learning algorithm base on this modeling approach to acquire embeddings of all French words, embeddings of different senses of the English words and corresponding distribution probabilities**
+3. **Finally, using the embeddings of different senses of the English words and corresponding distribution probabilities to disarmbiguate the sense for a word given a monolingual context (English context in this case)**
+
+### the analysis of the value of the factor modeling the dependence of the English context word on foreign word 
+
+![]({{site.baseurl}}/assets/img/Multi-sense-pics/two-side.pdf)
+
+###  experimental setup
+
+Let us see how this paper use the multilingual information properly, the picture below show the sources and preprocessing of the parallel corpora.
+
+![]({{site.baseurl}}/assets/img/Multi-sense-pics/Parallel Corpora.pdf)
+
+The parameter tuning method in this paper is also amazing, which considers both fairness and proficiency.
+
+![]({{site.baseurl}}/assets/img/Multi-sense-pics/Parameter Tuning.pdf)
+
+### experimental results
+
+We all know that a great method or theory should be proven by some well-desined verified experiments, so the intelligent writers of this paper did research thoroughly and found several suitable tasks or standards to prove their ideas.
+
+![]({{site.baseurl}}/assets/img/Multi-sense-pics/results.pdf)
+
+Some supplementary explanations of WSI:
+
+![]({{site.baseurl}}/assets/img/Multi-sense-pics/Word Sense Induction (WSI).pdf)
+
+To make the story more explicit,  the paper uses qualitative illustration by offering PCA plots for the vectors for {apple, bank, interest, itu nes, potato, west, monetary, desire} with multiple sense vectors for appl e,interest and bank.
+
+![]({{site.baseurl}}/assets/img/Multi-sense-pics/Qualitative Illustration.pdf)
 
 
 
+## References
 
-
-
+**Upadhyay Shyam, Chang Kai-Wei, Zou James, Taddy Matt, and Kala Adam. 2017. Beyond bilingual: Multi-sense word embeddings using multilingual context. In ICLR.**
 
