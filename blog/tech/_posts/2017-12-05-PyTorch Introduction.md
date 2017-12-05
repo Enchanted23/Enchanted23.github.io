@@ -16,9 +16,11 @@ tags: [PyTorch, Tensor computation, deep learning research platform, GPUs]
 > - A replacement for numpy to use the power of GPUs.
 > - a deep learning research platform that provides maximum flexibility and speed
 
+## Before Learning
+
 While learning something new, it is always good to use Jupyter Notebook to write something simple to understand the simple ideas. As it was done in deeplearning.ai.
 
-In consideration of the fact that starting an ipython / jupyter notebook inside of a specific virtualenv is not convenient enough, I suggest you to install your PyTorch directly to python3. However, you can still start your jupyter notebook inside of a specific virtualenv after doing some the following work.
+In consideration of the fact that starting an ipython / jupyter notebook inside of a specific virtualenv is not convenient enough, I suggest you to install your PyTorch directly to python3. However, you can still start your jupyter notebook inside of a specific virtualenv after doing the following work.
 
 1. Install the ipython kernel module into your virtualenv.
 
@@ -50,4 +52,6 @@ you can save your environment setting by running:
 ```
 
 However, it may run into some problem. So I suggest you to just reinstall all your enviroment, especially your PyTorch.
+
+## Let's begin our learning
 
