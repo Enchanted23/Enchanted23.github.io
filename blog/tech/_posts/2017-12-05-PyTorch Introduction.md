@@ -24,14 +24,14 @@ In consideration of the fact that starting an ipython / jupyter notebook inside 
 
 1. Install the ipython kernel module into your virtualenv.
 
-   ```
+   ```shell
    source my-virtualenv-name/bin/activate  # activate your virtualenv
    pip3 install ipykernel
    ```
 
 2. Now run the kernel "self-install" script:
 
-   ```
+   ```shell
    python3 -m ipykernel install --user --name=my-virtualenv-name
    ```
 
@@ -43,7 +43,7 @@ If you encounter some`import torch`problems , you can try to update your python3
 
 you can save your environment setting by running:
 
-```
+```shell
  pip3 freeze > requirements.txt
  rm -rf my-virtualenv-name
  virtualenv my-new-virtualenv-name -p 'which python3'
@@ -80,6 +80,53 @@ When computing the forwards pass, autograd simultaneously performs the requested
 > Every variable keeps a version counter, that is incremented every time it’s marked dirty in any operation. When a Function saves any tensors for backward, a version counter of their containing Variable is saved as well. Once you access `self.saved_tensors` it is checked, and if it’s greater than the saved value an error is raised.
 
 ### Broadcasting semantics
+
+Two tensors are “broadcastable” if the following rules hold:
+
+- Each tensor has at least one dimension.
+- When iterating over the dimension sizes, starting at the trailing dimension, the dimension sizes must either be equal, one of them is 1, or one of them does not exist.
+
+```Python
+>>> x=torch.FloatTensor(5,7,3)
+>>> y=torch.FloatTensor(5,7,3)
+# same shapes are always broadcastable (i.e. the above rules always hold)
+
+>>> x=torch.FloatTensor()
+>>> y=torch.FloatTensor(2,2)
+# x and y are not broadcastable, because x does not have at least 1 dimension
+
+# can line up trailing dimensions
+>>> x=torch.FloatTensor(5,3,4,1)
+>>> y=torch.FloatTensor(  3,1,1)
+# x and y are broadcastable.
+# 1st trailing dimension: both have size 1
+# 2nd trailing dimension: y has size 1
+# 3rd trailing dimension: x size == y size
+# 4th trailing dimension: y dimension doesn't exist
+
+# but:
+>>> x=torch.FloatTensor(5,2,4,1)
+>>> y=torch.FloatTensor(  3,1,1)
+# x and y are not broadcastable, because in the 3rd trailing dimension 2 != 3
+```
+
+If two tensors `x`, `y` are “broadcastable”, the resulting tensor size is calculated as follows:
+
+- If the number of dimensions of `x` and `y` are not equal, prepend 1 to the dimensions of the tensor with fewer dimensions to make them equal length.
+- Then, for each dimension size, the resulting dimension size is the max of the sizes of `x` and `y`along that dimension.
+
+```python
+x = Variable(torch.ones(5,1))
+y = Variable(torch.ones(  3))
+print(x+y)
+Variable containing:
+ 2  2  2
+ 2  2  2
+ 2  2  2
+ 2  2  2
+ 2  2  2
+[torch.FloatTensor of size 5x3]
+```
 
 
 
