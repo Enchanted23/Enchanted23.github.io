@@ -59,17 +59,17 @@ However, it may run into some problem. So I suggest you to just reinstall all yo
 
 ### Autograd mechanics
 
-Every Variable has two flags:`requires_grad` and  `volatile` , which help to exclude subgraphs where backward computation is never performed.
+Every Variable has two flags: `requires_grad` and `volatile` , which help to exclude subgraphs where backward computation is never performed.
 
 If there’s a single input to an operation that requires gradient, its output will also require gradient. 
 
-```
+```python
 z = Variable(torch.randn(5, 5), requires_grad=True)
 ```
 
 If there’s even a single volatile input to an operation, its output is also going to be volatile.
 
-```
+```python
 volatile_input = Variable(torch.randn(1, 3, 227, 227), volatile=True)
 ```
 
@@ -81,23 +81,25 @@ When computing the forwards pass, autograd simultaneously performs the requested
 
 ### Broadcasting semantics
 
+#### General semantics
+
 Two tensors are “broadcastable” if the following rules hold:
 
 - Each tensor has at least one dimension.
 - When iterating over the dimension sizes, starting at the trailing dimension, the dimension sizes must either be equal, one of them is 1, or one of them does not exist.
 
-```Python
->>> x=torch.FloatTensor(5,7,3)
->>> y=torch.FloatTensor(5,7,3)
+```python
+x=torch.FloatTensor(5,7,3)
+y=torch.FloatTensor(5,7,3)
 # same shapes are always broadcastable (i.e. the above rules always hold)
 
->>> x=torch.FloatTensor()
->>> y=torch.FloatTensor(2,2)
+x=torch.FloatTensor()
+y=torch.FloatTensor(2,2)
 # x and y are not broadcastable, because x does not have at least 1 dimension
 
 # can line up trailing dimensions
->>> x=torch.FloatTensor(5,3,4,1)
->>> y=torch.FloatTensor(  3,1,1)
+x=torch.FloatTensor(5,3,4,1)
+y=torch.FloatTensor(  3,1,1)
 # x and y are broadcastable.
 # 1st trailing dimension: both have size 1
 # 2nd trailing dimension: y has size 1
@@ -105,8 +107,8 @@ Two tensors are “broadcastable” if the following rules hold:
 # 4th trailing dimension: y dimension doesn't exist
 
 # but:
->>> x=torch.FloatTensor(5,2,4,1)
->>> y=torch.FloatTensor(  3,1,1)
+x=torch.FloatTensor(5,2,4,1)
+y=torch.FloatTensor(  3,1,1)
 # x and y are not broadcastable, because in the 3rd trailing dimension 2 != 3
 ```
 
@@ -127,6 +129,74 @@ Variable containing:
  2  2  2
 [torch.FloatTensor of size 5x3]
 ```
+
+#### In-place semantics
+
+One complication is that in-place operations do not allow the in-place tensor to change shape as a result of the broadcast.
+
+```python
+x=torch.FloatTensor(5,3,4,1)
+y=torch.FloatTensor(3,1,1)
+>>> (x.add_(y)).size()
+torch.Size([5, 3, 4, 1])
+
+# but:
+x=torch.FloatTensor(1,3,1)
+y=torch.FloatTensor(3,1,7)
+(x.add_(y)).size()
+RuntimeError: The expanded size of the tensor (1) must match the existing size (7) at non-singleton dimension 2.
+```
+
+#### Backwards compatibility
+
+Note that the introduction of broadcasting can cause backwards incompatible changes in the case where two tensors do not have the same shape, but are broadcastable and have the same number of elements. For Example:
+
+```python
+torch.add(torch.ones(4,1), torch.randn(4))
+# would previously produce a Tensor with size: torch.Size([4,1]), but now produces a Tensor with size: torch.Size([4,4]).
+```
+
+In order to help identify cases in your code where backwards incompatibilities introduced by broadcasting may exist, you may set torch.utils.backcompat.broadcast_warning.enabled to True, which will generate a python warning in such cases.
+
+```python
+torch.utils.backcompat.broadcast_warning.enabled=True
+torch.add(torch.ones(4,1), torch.ones(4))
+__main__:1: UserWarning: self and other do not have the same shape, but are broadcastable, and have the same number of elements.
+Changing behavior in a backwards incompatible manner to broadcasting rather than viewing as 1-dimensional.
+```
+
+**My training machine is still in application periods, so there will be just some simple introductions about GPU stuff. I will come back to write more words about tranning on GPU after my GPU is ready.**
+
+### CUDA semantics
+
+[`torch.cuda`](http://pytorch.org/docs/0.3.0/cuda.html#module-torch.cuda) is used to set up and run CUDA operations. It keeps track of the currently selected GPU, and all CUDA tensors you allocate will by default be created on that device. The selected device can be changed with a [`torch.cuda.device`](http://pytorch.org/docs/0.3.0/cuda.html#torch.cuda.device) context manager.
+
+```python
+x = torch.cuda.FloatTensor(1)
+# x.get_device() == 0
+y = torch.FloatTensor(1).cuda()
+# y.get_device() == 0
+
+with torch.cuda.device(1):
+    # allocates a tensor on GPU 1
+    a = torch.cuda.FloatTensor(1)
+
+    # transfers a tensor from CPU to GPU 1
+    b = torch.FloatTensor(1).cuda()
+    # a.get_device() == b.get_device() == 1
+
+    c = a + b
+    # c.get_device() == 1
+
+    z = x + y
+    # z.get_device() == 0
+
+    # even within a context, you can give a GPU id to the .cuda call
+    d = torch.randn(2).cuda(2)
+    # d.get_device() == 2
+```
+
+Calling [`empty_cache()`](http://pytorch.org/docs/0.3.0/cuda.html#torch.cuda.empty_cache) can release all unused cached memory from PyTorch so that those can be used by other GPU applications.
 
 
 
