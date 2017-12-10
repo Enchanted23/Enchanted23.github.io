@@ -144,7 +144,8 @@ torch.Size([5, 3, 4, 1])
 x=torch.FloatTensor(1,3,1)
 y=torch.FloatTensor(3,1,7)
 (x.add_(y)).size()
-RuntimeError: The expanded size of the tensor (1) must match the existing size (7) at non-singleton dimension 2.
+RuntimeError: The expanded size of the tensor (1) must match the 
+existing size (7) at non-singleton dimension 2.
 ```
 
 #### Backwards compatibility
@@ -153,7 +154,8 @@ Note that the introduction of broadcasting can cause backwards incompatible chan
 
 ```python
 torch.add(torch.ones(4,1), torch.randn(4))
-# would previously produce a Tensor with size: torch.Size([4,1]), but now produces a Tensor with size: torch.Size([4,4]).
+# would previously produce a Tensor with size: torch.Size([4,1]), 
+# but now produces a Tensor with size: torch.Size([4,4]).
 ```
 
 In order to help identify cases in your code where backwards incompatibilities introduced by broadcasting may exist, you may set torch.utils.backcompat.broadcast_warning.enabled to True, which will generate a python warning in such cases.
@@ -161,8 +163,10 @@ In order to help identify cases in your code where backwards incompatibilities i
 ```python
 torch.utils.backcompat.broadcast_warning.enabled=True
 torch.add(torch.ones(4,1), torch.ones(4))
-__main__:1: UserWarning: self and other do not have the same shape, but are broadcastable, and have the same number of elements.
-Changing behavior in a backwards incompatible manner to broadcasting rather than viewing as 1-dimensional.
+__main__:1: UserWarning: self and other do not have the same shape, 
+but are broadcastable, and have the same number of elements.
+Changing behavior in a backwards incompatible manner to broadcasting 
+rather than viewing as 1-dimensional.
 ```
 
 **My training machine is still in application periods, so there will be just some simple introductions about GPU stuff. I will come back to write more words about tranning on GPU after my GPU is ready.**
