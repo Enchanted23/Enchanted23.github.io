@@ -23,5 +23,4 @@ tags: []
 
 ## References
 
-**Upadhyay Shyam, Chang Kai-Wei, Zou James, Taddy Matt, and Kala Adam. 2017. Beyond bilingual: Multi-sense word embeddings using multilingual context. In ICLR.**
-
+**Rowan Zellers and Yejin Choi. 2017. Zero-Shot Activity Recognition with Verb Attribute Induction. In EMNLP.**
