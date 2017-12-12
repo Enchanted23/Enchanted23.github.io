@@ -13,9 +13,19 @@ tags: []
 
 ```
 
-## Introduction of 
+## Introduction of the paper
 
-> 
+> Experimental results confirm that action attributes inferred from language can provide a predictive signal for zero-shot prediction of previously unseen activities.
+
+*Our goal is twofold.*
+
+**A: we seek to use use distributed word embeddings in tandem with dictionary definitions to obtain a high level understanding of verbs.**
+
+![]({{site.baseurl}}/assets/img/Zero-shot-pics/A.png)
+
+**B: we seek to use these predicted attributes to allow a classifier to recognize a broader set of activities than what was seen in training time.**
+
+![]({{site.baseurl}}/assets/img/Zero-shot-pics/B.png)
 
 ## Model Analysis
 
