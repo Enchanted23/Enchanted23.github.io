@@ -7,6 +7,8 @@ img: pytorch-logo.jpg
 tags: [PyTorch, Tensor computation, deep learning research platform, GPUs]
 ---
 
+[TOC]
+
 **This blog is a basic introduction of PyTorch, also my learning process of it.**
 
 > **PyTorch is an optimized tensor library for deep learning using GPUs and CPUs.**
@@ -201,6 +203,151 @@ with torch.cuda.device(1):
 ```
 
 Calling [`empty_cache()`](http://pytorch.org/docs/0.3.0/cuda.html#torch.cuda.empty_cache) can release all unused cached memory from PyTorch so that those can be used by other GPU applications.
+
+#### Device-agnostic code
+
+> Due to the structure of PyTorch, you may need to explicitly write device-agnostic (CPU or GPU) code; an example may be creating a new tensor as the initial hidden state of a recurrent neural network.
+
+The first step is to determine whether the GPU should be used or not. A common pattern is to use Python’s `argparse` module to read in user arguments, and have a flag that can be used to disable CUDA, in combination with [`is_available()`](http://pytorch.org/docs/0.3.0/cuda.html#torch.cuda.is_available). In the following, `args.cuda` results in a flag that can be used to cast tensors and modules to CUDA if desired:
+
+```python
+import argparse
+import torch
+
+parser = argparse.ArgumentParser(description='PyTorch Example')
+parser.add_argument('--disable-cuda', action='store_true',
+                    help='Disable CUDA')
+args = parser.parse_args()
+args.cuda = not args.disable_cuda and torch.cuda.is_available()
+```
+
+If modules or tensors need to be sent to the GPU, `args.cuda` can be used as follows:
+
+```Python
+x = torch.Tensor(8, 42)
+net = Network()
+if args.cuda:
+  x = x.cuda()
+  net.cuda()
+```
+
+When creating tensors, an alternative to the if statement is to have a default datatype defined, and cast all tensors using that. An example when using a dataloader would be as follows:
+
+```
+dtype = torch.cuda.FloatTensor
+for i, x in enumerate(train_loader):
+    x = Variable(x.type(dtype))
+```
+
+#### Use nn.DataParallel instead of multiprocessing
+
+Most use cases involving batched inputs and multiple GPUs should default to using [`DataParallel`](http://pytorch.org/docs/0.3.0/nn.html#torch.nn.DataParallel) to utilize more than one GPU. Even with the GIL, a single Python process can saturate multiple GPUs.
+
+As of version 0.1.9, large numbers of GPUs (8+) might not be fully utilized. However, this is a known issue that is under active development. As always, test your use case.
+
+### Extending PyTorch
+
+#### Extending [`torch.autograd`](http://pytorch.org/docs/0.3.0/autograd.html#module-torch.autograd)
+
+Adding operations to [`autograd`](http://pytorch.org/docs/0.3.0/autograd.html#module-torch.autograd) requires implementing a new [`Function`](http://pytorch.org/docs/0.3.0/autograd.html#torch.autograd.Function) subclass for each operation. Recall that [`Function`](http://pytorch.org/docs/0.3.0/autograd.html#torch.autograd.Function) s are what [`autograd`](http://pytorch.org/docs/0.3.0/autograd.html#module-torch.autograd) uses to compute the results and gradients, and encode the operation history. Every new function requires you to implement 2 methods:
+
+- [`forward()`](http://pytorch.org/docs/0.3.0/autograd.html#torch.autograd.Function.forward) - the code that performs the operation. It can take as many arguments as you want, with some of them being optional, if you specify the default values. All kinds of Python objects are accepted here. [`Variable`](http://pytorch.org/docs/0.3.0/autograd.html#torch.autograd.Variable) arguments will be converted to `Tensor` s before the call, and their use will be registered in the graph. Note that this logic won’t traverse lists/dicts/any other data structures and will only consider Variables that are direct arguments to the call. You can return either a single `Tensor` output, or a `tuple` of `Tensor` s if there are multiple outputs. Also, please refer to the docs of [`Function`](http://pytorch.org/docs/0.3.0/autograd.html#torch.autograd.Function) to find descriptions of useful methods that can be called only from [`forward()`](http://pytorch.org/docs/0.3.0/autograd.html#torch.autograd.Function.forward).
+- [`backward()`](http://pytorch.org/docs/0.3.0/autograd.html#torch.autograd.Function.backward) - gradient formula. It will be given as many [`Variable`](http://pytorch.org/docs/0.3.0/autograd.html#torch.autograd.Variable) arguments as there were outputs, with each of them representing gradient w.r.t. that output. It should return as many[`Variable`](http://pytorch.org/docs/0.3.0/autograd.html#torch.autograd.Variable) s as there were inputs, with each of them containing the gradient w.r.t. its corresponding input. If your inputs didn’t require gradient (see `needs_input_grad`), or were non-[`Variable`](http://pytorch.org/docs/0.3.0/autograd.html#torch.autograd.Variable) objects, you can return `None`. Also, if you have optional arguments to `forward()`you can return more gradients than there were inputs, as long as they’re all [`None`](https://docs.python.org/2/library/constants.html#None).
+
+Below you can find code for a `Linear` function from [`torch.nn`](http://pytorch.org/docs/0.3.0/nn.html#module-torch.nn), with additional comments:
+
+```python
+# Inherit from Function
+class LinearFunction(Function):
+
+    # Note that both forward and backward are @staticmethods
+    @staticmethod
+    # bias is an optional argument
+    def forward(ctx, input, weight, bias=None):
+        ctx.save_for_backward(input, weight, bias)
+        # .mm -> multiply ; .t -> trans
+        output = input.mm(weight.t())
+        if bias is not None:
+          	# expand the bias
+            output += bias.unsqueeze(0).expand_as(output)
+        return output
+
+    # This function has only a single output, so it gets only one gradient
+    @staticmethod
+    def backward(ctx, grad_output):
+        # This is a pattern that is very convenient - at the top of backward
+        # unpack saved_tensors and initialize all gradients w.r.t. inputs to
+        # None. Thanks to the fact that additional trailing Nones are
+        # ignored, the return statement is simple even when the function has
+        # optional inputs.
+        input, weight, bias = ctx.saved_variables
+        grad_input = grad_weight = grad_bias = None
+
+        # These needs_input_grad checks are optional and there only to
+        # improve efficiency. If you want to make your code simpler, you can
+        # skip them. Returning gradients for inputs that don't require it is
+        # not an error.
+        if ctx.needs_input_grad[0]:
+            grad_input = grad_output.mm(weight)
+        if ctx.needs_input_grad[1]:
+            grad_weight = grad_output.t().mm(input)
+        if bias is not None and ctx.needs_input_grad[2]:
+            grad_bias = grad_output.sum(0).squeeze(0)
+
+        return grad_input, grad_weight, grad_bias
+```
+
+#### Extending [`torch.nn`](http://pytorch.org/docs/0.3.0/nn.html#module-torch.nn)
+
+##### Adding a [`Module`](http://pytorch.org/docs/0.3.0/nn.html#torch.nn.Module)
+
+Since [`nn`](http://pytorch.org/docs/0.3.0/nn.html#module-torch.nn) heavily utilizes [`autograd`](http://pytorch.org/docs/0.3.0/autograd.html#module-torch.autograd), adding a new [`Module`](http://pytorch.org/docs/0.3.0/nn.html#torch.nn.Module) requires implementing a [`Function`](http://pytorch.org/docs/0.3.0/autograd.html#torch.autograd.Function) that performs the operation and can compute the gradient. From now on let’s assume that we want to implement a `Linear` module and we have the function implementated as in the listing above. There’s very little code required to add this. Now, there are two functions that need to be implemented:
+
+- `__init__` (*optional*) - takes in arguments such as kernel sizes, numbers of features, etc. and initializes parameters and buffers.
+  - [`forward()`](http://pytorch.org/docs/0.3.0/nn.html#torch.nn.Module.forward) - instantiates a [`Function`](http://pytorch.org/docs/0.3.0/autograd.html#torch.autograd.Function) and uses it to perform the operation. It’s very similar to a functional wrapper shown above.
+
+This is how a `Linear` module can be implemented:
+
+```python
+class Linear(nn.Module):
+    def __init__(self, input_features, output_features, bias=True):
+        super(Linear, self).__init__()
+        self.input_features = input_features
+        self.output_features = output_features
+
+        # nn.Parameter is a special kind of Variable, that will get
+        # automatically registered as Module's parameter once it's assigned
+        # as an attribute. Parameters and buffers need to be registered, or
+        # they won't appear in .parameters() (doesn't apply to buffers), and
+        # won't be converted when e.g. .cuda() is called. You can use
+        # .register_buffer() to register buffers.
+        # nn.Parameters can never be volatile and, different than Variables,
+        # they require gradients by default.
+        self.weight = nn.Parameter(torch.Tensor(output_features, input_features))
+        if bias:
+            self.bias = nn.Parameter(torch.Tensor(output_features))
+        else:
+            # You should always register all possible parameters, but the
+            # optional ones can be None if you want.
+            self.register_parameter('bias', None)
+
+        # Not a very smart way to initialize weights
+        self.weight.data.uniform_(-0.1, 0.1)
+        if bias is not None:
+            self.bias.data.uniform_(-0.1, 0.1)
+
+    def forward(self, input):
+        # See the autograd section for explanation of what happens here.
+        return LinearFunction.apply(input, self.weight, self.bias)
+```
+
+### Multiprocessing best practices
+
+[`torch.multiprocessing`](http://pytorch.org/docs/0.3.0/multiprocessing.html#module-torch.multiprocessing) is a drop in replacement for Python’s [`multiprocessing`](https://docs.python.org/2/library/multiprocessing.html#module-multiprocessing) module. It supports the exact same operations, but extends it, so that all tensors sent through a [`multiprocessing.Queue`](https://docs.python.org/2/library/multiprocessing.html#multiprocessing.Queue), will have their data moved into shared memory and will only send a handle to another process.
+
+> When a [`Variable`](http://pytorch.org/docs/0.3.0/autograd.html#torch.autograd.Variable) is sent to another process, both the `Variable.data` and `Variable.grad.data` are going to be shared.
+
+This allows to implement various training methods, like Hogwild, A3C, or any others that require asynchronous operation.
 
 
 
