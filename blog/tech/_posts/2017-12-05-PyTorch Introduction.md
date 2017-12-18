@@ -7,8 +7,6 @@ img: pytorch-logo.jpg
 tags: [PyTorch, Tensor computation, deep learning research platform, GPUs]
 ---
 
-[Before Learning](#before-learning)
-
 This blog is a basic introduction of PyTorch, also my learning process of it.**
 
 > **PyTorch is an optimized tensor library for deep learning using GPUs and CPUs.**
@@ -18,7 +16,7 @@ This blog is a basic introduction of PyTorch, also my learning process of it.**
 > - A replacement for numpy to use the power of GPUs.
 > - a deep learning research platform that provides maximum flexibility and speed
 
-## Before Learning{#before-learning}
+## Before Learning
 
 While learning something new, it is always good to use Jupyter Notebook to write something simple to understand the simple ideas. As it was done in deeplearning.ai.
 
