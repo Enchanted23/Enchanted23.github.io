@@ -1,86 +1,99 @@
-## Base settings ##
-title: CHENG ZHAN
-description: > # this means to ignore newlines until "baseurl:"
-    CHENG ZHAN | 程湛
-baseurl: "/" # the subpath of your site, e.g. /blog
-url: "http://chengzhan.me" # the base hostname & protocol for your site
-
+# Site settings
+title: Zhan Cheng
+SEOTitle: CHENG ZHAN | 程湛
+header-img: img/home-bg.jpg
 email: cz23@mail.ustc.edu.cn
-logo: "../css/_style/img/icon-large.jpg"
+description: ""
+keyword: ""
+url: "http://chengzhan.me"             # your host, for absolute URL
 
-# basic information of myself and my education experiences
-people:
-- name: Cheng Zhan
-  pic: 1
-  position: Senior Student Majoring In Computer Science
-  social:
-    - title: facebook
-      url: https://www.facebook.com/zhan.cheng.9889
 
-- name: University Of Science And Technology Of China
-  pic: 2
-  position: College
-  social:
-    - title: university
-      url: http://www.ustc.edu.cn
-    - title: google
-      url: https://en.wikipedia.org/wiki/University_of_Science_and_Technology_of_China
 
-- name: Chongqing Nankai Middle School
-  pic: 3
-  position: High School
-  social:
-    - title: google
-      url: https://en.wikipedia.org/wiki/Chongqing_Nankai_Secondary_School
+# SNS settings
+RSS: false
+weibo_username:     huxpro
+zhihu_username:     huxpro
+github_username:    huxpro
+#twitter_username:  huxpro
+facebook_username:  huxpro
 
-include: ['_about_pages']
 
-gems:
-  - jekyll-sitemap
-  - jekyll-seo-tag
-
-# Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
-social:
-  - title: twitter
-    url: http://twitter.com/
-  - title: facebook
-    url: https://www.facebook.com/
-  - title: stack-overflow
-    url: http://stackoverflow.com/questions/tagged/
-  - title: bitbucket 
-    url: http://bitbucket.org/
-  - title: github
-    url: http://github.com/
 
 # Build settings
+# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
+highlighter: rouge
+permalink: pretty
+paginate: 10
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
+
+
+
+# Gems
+# from PR#40, to support local preview for Jekyll 3.0
+gems: [jekyll-paginate]
+
+
+
+# Markdown settings
+# replace redcarpet to kramdown,
+# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
+# document: http://jekyllrb.com/docs/configuration/#kramdown
 markdown: kramdown
 kramdown:
-  input: GFM        # use Github Flavored Markdown !important
-  syntax_highlighter: rouge
-  default_lang: python
+  input: GFM                            # use Github Flavored Markdown !important
 
-permalink: pretty
 
-################################################################
-# for blog below
-################################################################
 
-# Author Settings
-author: Cheng Zhan # add your name
-author-img: cz.JPG # add your photo
-about-author: I am a student majoring in computer science from University of Science and Technology of China. Always hungry to learn more about AI. # add description
+# Disqus settings
+#disqus_username: _your_disqus_short_name_
 
-plugins:
-  - jekyll-sitemap
-  - jekyll-paginate
+# Duoshuo settings
+duoshuo_username: huxblog
+# Share component is depend on Comment so we can NOT use share only.
+duoshuo_share: true                     # set to false if you want to use Comment without Sharing
 
-paginate: 8
-paginate_path: "blog/page/:num/"
 
-# Disqus
-discus-identifier: mr-cheng # add your discus identifier
 
-# Tracker
-analytics: # Google Analytics
 
-# exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]
+# Analytics settings
+# Baidu Analytics
+ba_track_id: 4cc1f2d8f3067386cc5cdb626a202900
+# Google Analytics
+ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
+ga_domain: huangxuan.me
+
+
+
+# Sidebar settings
+sidebar: true                           # whether or not using Sidebar.
+sidebar-about-description: "写写代码，做做设计，看看产品。世界那么大，多玩玩看看。"
+sidebar-avatar: /img/avatar-hux.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+
+
+
+# Featured Tags
+featured-tags: true                     # whether or not using Feature-Tags
+featured-condition-size: 1              # A tag will be featured if the size of it is more than this condition value
+
+
+
+# Friends
+friends: [
+    {
+        title: "Zhan Cheng",
+        href: "http://chengzhan.me"
+    },{
+        title: "Foo",
+        href: "#"
+    },{
+        title: "Bar",
+        href: "#"
+    },{
+        title: "Example Friends",
+        href: "#"
+    },{
+        title: "It helps SEO",
+        href: "#"
+    }
+]

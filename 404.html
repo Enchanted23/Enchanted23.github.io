@@ -1,17 +1,25 @@
 ---
-layout: 2017_default
+layout: default
+description: "你来到了没有知识的荒原 :("
+header-img: "img/404-bg.jpg"
 permalink: /404.html
 ---
-    <!--background color-->
-    <script type="text/javascript">
-      document.write ('<body style="background: lightgray; background-attachment: fixed;">')
-    </script>
 
-    <div class="page-not-found venue-top">
-      <h1>404 Page Not Found</h1>
-      <p>The page that you are looking for is still under construction or not available at the momment.</p>
-      <p>Thank you for your patience! You will be redirected to <a href="http://www.chengzhan.me">home page</a>
-       in a few seconds.</p>
-    </div>
 
-    <meta http-equiv="refresh" content="6; URL='http://google.com'" />
+<!-- Page Header -->
+<header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<div class="site-heading" id="tag-heading">
+					<h1>404</h1>
+					<span class="subheading">{{ page.description }}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<script>
+	document.body.classList.add('page-fullscreen');
+</script>
