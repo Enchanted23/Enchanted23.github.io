@@ -5,10 +5,8 @@ header-img: img/hd-bg.jpg
 email: cz23@mail.ustc.edu.cn
 description: ""
 keyword: ""
-url: "http://chengzhan.me"              # your host, for absolute URL
+url: "http://www.chengzhan.me"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
-
-
 
 # SNS settings
 RSS: false
@@ -25,7 +23,7 @@ facebook_username: zhan.cheng.9889
 # from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
 highlighter: rouge
 permalink: pretty
-paginate: 10
+paginate: 8
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md","README.zh.md"]
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
 
@@ -48,7 +46,7 @@ kramdown:
 
 
 # Disqus settings
-disqus_username: hux
+disqus_username: zhancheng
 
 # Netease setttings
 netease_comment: false
@@ -61,13 +59,13 @@ netease_comment: false
 
 # Google Analytics
 ga_track_id: 'UA-260013-23'            # Format: UA-xxxxxx-xx
-ga_domain: chengzhan.me
+ga_domain: www.chengzhan.me
 
 
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "I am a student majoring in computer science from University of Science and Technology of China. <br>Always hungry to learn more about AI."
+sidebar-about-description: "Senior student majoring in computer science at USTC. <br>Always hungry to learn more about AI."
 sidebar-avatar: /img/zhancheng.JPG     # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
