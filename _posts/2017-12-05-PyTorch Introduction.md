@@ -17,7 +17,7 @@ tags:
 <div class="en post-container">
 
 ```
-{% capture about_en %}{% include posts/PyTorch Introduction/en.md %}{% endcapture %}
+{% capture about_en %}{% include posts/2017-12-05-PyTorch Introduction/en.md %}{% endcapture %}
 {{ about_en | markdownify }}
 ```
 
@@ -27,7 +27,7 @@ tags:
 <div class="zh post-container">
 
 ```
-{% capture about_zh %}{% include posts/PyTorch Introduction/zh.md %}{% endcapture %}
+{% capture about_zh %}{% include posts/2017-12-05-PyTorch Introduction/zh.md %}{% endcapture %}
 {{ about_zh | markdownify }}
 ```
 
