@@ -5,17 +5,31 @@ subtitle:   " \"Let's explore PyTorch!\""
 date:       2017-12-05 10:24:00
 author:     "Zhan"
 header-img: "img/pytorch-logo.jpg"
+header-mask:  0.3
 catalog: true
 tags:
 	- PyTorch
 	- Deep Learning
+
 ---
 
-[TOC]
+**1 [Before Learning](#Before Learning) **
 
-[Before Learning](#section1) 
+**2 [Let's begin](#Let's begin)**
 
-This blog is a basic introduction of PyTorch, also my learning process of it.**
+​	**2.1 [Autograd mechanics](#Autograd mechanics)**
+
+​	**2.2 [Broadcasting semantics](#Broadcasting semantics)**
+
+​	**2.3 [CUDA semantics](#CUDA semantics)**
+
+​	**2.4 [Extending PyTorch](#Extending PyTorch)**
+
+​	**2.5 [Multiprocessing](#Multiprocessing)**
+
+
+
+**This blog is a basic introduction of PyTorch, also my learning process of it.**
 
 > **PyTorch is an optimized tensor library for deep learning using GPUs and CPUs.**
 >
@@ -24,10 +38,10 @@ This blog is a basic introduction of PyTorch, also my learning process of it.**
 > - A replacement for numpy to use the power of GPUs.
 > - a deep learning research platform that provides maximum flexibility and speed
 
-## Before Learning
-
-<p id = "section1"></p>
+<p id = "Before Learning"></p>
 ---
+
+## Before Learning
 
 While learning something new, it is always good to use Jupyter Notebook to write something simple to understand the simple ideas. As it was done in deeplearning.ai.
 
@@ -64,9 +78,13 @@ you can save your environment setting by running:
 
 However, it may run into some problem. So I suggest you to just reinstall all your enviroment, especially your PyTorch.
 
+## <p id = "Let's begin"></p>
+
 ## Let's begin
 
 **My suggestion is that you can look at its whole documentation at first. Then you can look at its tutorial and find it much easier to understand.**
+
+## <p id = "Autograd mechanics"></p>
 
 ### Autograd mechanics
 
@@ -89,6 +107,8 @@ When computing the forwards pass, autograd simultaneously performs the requested
 **An important thing to note is that the graph is recreated from scratch at every iteration.**
 
 > Every variable keeps a version counter, that is incremented every time it’s marked dirty in any operation. When a Function saves any tensors for backward, a version counter of their containing Variable is saved as well. Once you access `self.saved_tensors` it is checked, and if it’s greater than the saved value an error is raised.
+
+## <p id = "Broadcasting semantics"></p>
 
 ### Broadcasting semantics
 
@@ -181,6 +201,8 @@ rather than viewing as 1-dimensional.
 ```
 
 **My training machine is still in application periods, so there will be just some simple introductions about GPU stuff. I will come back to write more words about tranning on GPU after my GPU is ready.**
+
+## <p id = "CUDA semantics"></p>
 
 ### CUDA semantics
 
@@ -357,6 +379,10 @@ class Linear(nn.Module):
 > When a [`Variable`](http://pytorch.org/docs/0.3.0/autograd.html#torch.autograd.Variable) is sent to another process, both the `Variable.data` and `Variable.grad.data` are going to be shared.
 
 This allows to implement various training methods, like Hogwild, A3C, or any others that require asynchronous operation.
+
+
+
+*Updating*
 
 
 
