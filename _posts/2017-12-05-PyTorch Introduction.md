@@ -13,19 +13,19 @@ tags:
 
 ---
 
-**1 [Before Learning](#Before Learning) **
+**1** [**Before Learning**](#section1) 
 
-**2 [Let's begin](#Let's begin)**
+**2** [**Let's begin**](#section2)
 
-​	**2.1 [Autograd mechanics](#Autograd mechanics)**
+​	**2.1** [**Autograd mechanics**](#section2.1)
 
-​	**2.2 [Broadcasting semantics](#Broadcasting semantics)**
+​	**2.2 [Broadcasting semantics](#section2.2)**
 
-​	**2.3 [CUDA semantics](#CUDA semantics)**
+​	**2.3 [CUDA semantics](#section2.3)**
 
-​	**2.4 [Extending PyTorch](#Extending PyTorch)**
+​	**2.4 [Extending PyTorch](#section2.4)**
 
-​	**2.5 [Multiprocessing](#Multiprocessing)**
+​	**2.5 [Multiprocessing](#section2.5)**
 
 
 
@@ -38,7 +38,7 @@ tags:
 > - A replacement for numpy to use the power of GPUs.
 > - a deep learning research platform that provides maximum flexibility and speed
 
-<p id = "Before Learning"></p>
+<p id = "section1"></p>
 ---
 
 ## Before Learning
@@ -78,13 +78,15 @@ you can save your environment setting by running:
 
 However, it may run into some problem. So I suggest you to just reinstall all your enviroment, especially your PyTorch.
 
-## <p id = "Let's begin"></p>
+<p id = "section2"></p>
+---
 
 ## Let's begin
 
 **My suggestion is that you can look at its whole documentation at first. Then you can look at its tutorial and find it much easier to understand.**
 
-## <p id = "Autograd mechanics"></p>
+<p id = "section2.1"></p>
+---
 
 ### Autograd mechanics
 
@@ -108,7 +110,8 @@ When computing the forwards pass, autograd simultaneously performs the requested
 
 > Every variable keeps a version counter, that is incremented every time it’s marked dirty in any operation. When a Function saves any tensors for backward, a version counter of their containing Variable is saved as well. Once you access `self.saved_tensors` it is checked, and if it’s greater than the saved value an error is raised.
 
-## <p id = "Broadcasting semantics"></p>
+<p id = "section2.2"></p>
+---
 
 ### Broadcasting semantics
 
@@ -202,7 +205,8 @@ rather than viewing as 1-dimensional.
 
 **My training machine is still in application periods, so there will be just some simple introductions about GPU stuff. I will come back to write more words about tranning on GPU after my GPU is ready.**
 
-## <p id = "CUDA semantics"></p>
+<p id = "section2.3"></p>
+---
 
 ### CUDA semantics
 
@@ -275,6 +279,9 @@ for i, x in enumerate(train_loader):
 Most use cases involving batched inputs and multiple GPUs should default to using [`DataParallel`](http://pytorch.org/docs/0.3.0/nn.html#torch.nn.DataParallel) to utilize more than one GPU. Even with the GIL, a single Python process can saturate multiple GPUs.
 
 As of version 0.1.9, large numbers of GPUs (8+) might not be fully utilized. However, this is a known issue that is under active development. As always, test your use case.
+
+<p id = "section2.5"></p>
+---
 
 ### Extending PyTorch
 
@@ -371,6 +378,9 @@ class Linear(nn.Module):
         # See the autograd section for explanation of what happens here.
         return LinearFunction.apply(input, self.weight, self.bias)
 ```
+
+<p id = "section2.5"></p>
+---
 
 ### Multiprocessing best practices
 
