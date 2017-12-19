@@ -7,7 +7,7 @@ img: pytorch-logo.jpg
 tags: [PyTorch, Tensor computation, deep learning research platform, GPUs]
 ---
 
-[test](http://www.chengzhan.me/blog/tech/2017/12/05/PyTorch-Introduction/#section-1)
+[test](#section-1)
 
 This blog is a basic introduction of PyTorch, also my learning process of it.**
 
