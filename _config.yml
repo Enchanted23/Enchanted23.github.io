@@ -57,7 +57,7 @@ markdown: kramdown
 kramdown:
   input: GFM        # use Github Flavored Markdown !important
   syntax_highlighter: rouge
-  default_lang: bash
+  default_lang: python
 
 permalink: pretty
 

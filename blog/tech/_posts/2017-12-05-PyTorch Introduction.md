@@ -7,8 +7,6 @@ img: pytorch-logo.jpg
 tags: [PyTorch, Tensor computation, deep learning research platform, GPUs]
 ---
 
-[TOC]
-
 **This blog is a basic introduction of PyTorch, also my learning process of it.**
 
 > **PyTorch is an optimized tensor library for deep learning using GPUs and CPUs.**
