@@ -16,19 +16,15 @@ tags:
 <!-- Chinese Version -->
 <div class="zh post-container">
 
-```
 {% capture about_zh %}{% include posts/2017-12-05-PyTorch-Introduction/en.md %}{% endcapture %}
 {{ about_zh | markdownify }}
-```
 
 </div>
 
 <!-- English Version -->
 <div class="en post-container">
 
-```
 {% capture about_en %}{% include posts/2017-12-05-PyTorch-Introduction/zh.md %}{% endcapture %}
 {{ about_en | markdownify }}
-```
 
 </div>
