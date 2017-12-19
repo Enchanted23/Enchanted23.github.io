@@ -54,6 +54,11 @@ social:
 
 # Build settings
 markdown: kramdown
+kramdown:
+  input: GFM        # use Github Flavored Markdown !important
+  syntax_highlighter: rouge
+  default_lang: bash
+
 permalink: pretty
 
 ################################################################
