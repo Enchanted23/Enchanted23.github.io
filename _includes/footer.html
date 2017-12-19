@@ -26,19 +26,19 @@
                     {% endif %}
 
                     <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
-                    {% if site.zhihu_username %}
+                    {% if site.wechat_username %}
                     <li>
                         <a target="_blank" href="https://www.zhihu.com/people/{{ site.zhihu_username }}">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
                     {% endif %}
                     {% if site.weibo_username %}
                     <li>
-                        <a target="_blank" href="http://weibo.com/{{ site.weibo_username }}">
+                        <a target="_blank" href="https://weibo.com/u/3198582254?refer_flag=1001030101_">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
@@ -58,12 +58,15 @@
                         </a>
                     </li>
                     {% endif %}
-                    {% if site.github_username %}
+                    {% if site.email %}
+                    <li class="email"><a href="mailto:{{site.email}}"><i class="fa fa-envelope-o"></i></a></li>
+                    {% endif %}
+                    {% if site.youtube_username %}
                     <li>
-                        <a target="_blank" href="https://github.com/{{ site.github_username }}">
+                        <a target="_blank" href="https://www.youtube.com/channel/UCurvT4KCdI_tx6m_uv821GQ?">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                <i class="fa fa-youtube fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
