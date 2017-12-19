@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "About"
-description: "Hey, this is Hux."
+description: "Hey, this is Zhan Cheng."
 header-img: "img/about-bg-walle.jpg"
 multilingual: true
 ---
@@ -12,16 +12,16 @@ multilingual: true
     <option value="1"> Chinese </option>
 </select>
 
-<!-- English Version -->
-<div class="en post-container">
-    {% capture about_en %}{% include about/en.md %}{% endcapture %}
-    {{ about_en | markdownify }}
-</div>
-
 <!-- Chinese Version -->
 <div class="zh post-container">
-    {% capture about_zh %}{% include about/zh.md %}{% endcapture %}
+    {% capture about_zh %}{% include about/en.md %}{% endcapture %}
     {{ about_zh | markdownify }}
+</div>
+
+<!-- English Version -->
+<div class="en post-container">
+    {% capture about_en %}{% include about/zh.md %}{% endcapture %}
+    {{ about_en | markdownify }}
 </div>
 
 

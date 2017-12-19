@@ -3,7 +3,7 @@ layout:     post
 title:      "PyTorch Introduction"
 subtitle:   " \"Let's explore PyTorch!\""
 date:       2017-12-05 10:24:00
-author:     "zhancheng"
+author:     "Zhan"
 header-img: "img/post-cover/pytorch-logo.jpg"
 header-mask:  0.3
 catalog: true
