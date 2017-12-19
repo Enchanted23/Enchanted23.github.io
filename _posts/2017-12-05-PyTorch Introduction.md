@@ -8,26 +8,9 @@ header-img: "img/pytorch-logo.jpg"
 header-mask:  0.3
 catalog: true
 tags:
-	- PyTorch
-	- Deep Learning
-
+    - PyTorch
+    - Deep Learning
 ---
-
-**1** [**Before Learning**](#section1) 
-
-**2** [**Let's begin**](#section2)
-
-​	**2.1** [**Autograd mechanics**](#section2.1)
-
-​	**2.2 [Broadcasting semantics](#section2.2)**
-
-​	**2.3 [CUDA semantics](#section2.3)**
-
-​	**2.4 [Extending PyTorch](#section2.4)**
-
-​	**2.5 [Multiprocessing](#section2.5)**
-
-
 
 **This blog is a basic introduction of PyTorch, also my learning process of it.**
 
@@ -37,6 +20,20 @@ tags:
 >
 > - A replacement for numpy to use the power of GPUs.
 > - a deep learning research platform that provides maximum flexibility and speed
+
+**1 [Before Learning](#section1)**
+
+**2 [Let's begin](#section2)**
+
+​    **2.1 [Autograd mechanics](#section2.1)**
+
+​    **2.2 [Broadcasting semantics](#section2.2)**
+
+​    **2.3 [CUDA semantics](#section2.3)**
+
+​    **2.4 [Extending PyTorch](#section2.4)**
+
+​    **2.5 [Multiprocessing](#section2.5)**
 
 <p id = "section1"></p>
 ---
@@ -280,7 +277,7 @@ Most use cases involving batched inputs and multiple GPUs should default to usin
 
 As of version 0.1.9, large numbers of GPUs (8+) might not be fully utilized. However, this is a known issue that is under active development. As always, test your use case.
 
-<p id = "section2.5"></p>
+<p id = "section2.4"></p>
 ---
 
 ### Extending PyTorch
