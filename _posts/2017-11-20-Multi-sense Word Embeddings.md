@@ -24,7 +24,7 @@ tags:
 <!-- English Version -->
 <div class="en post-container">
 
-{% capture about_en %}{% include posts/2017-11-20-Multi-sense-Word-Embeddings/en.md/zh.md %}{% endcapture %}
+{% capture about_en %}{% include posts/2017-11-20-Multi-sense-Word-Embeddings/zh.md %}{% endcapture %}
 {{ about_en | markdownify }}
 
 </div>
