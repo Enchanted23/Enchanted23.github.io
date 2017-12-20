@@ -25,7 +25,7 @@ tags:
 <!-- English Version -->
 <div class="en post-container">
 
-{% capture about_en %}{% include posts/2017-12-10-Zero-Shot-Activity-Recognition/en.md/zh.md %}{% endcapture %}
+{% capture about_en %}{% include posts/2017-12-10-Zero-Shot-Activity-Recognition/zh.md %}{% endcapture %}
 {{ about_en | markdownify }}
 
 </div>
