@@ -1,8 +1,4 @@
-**This blog is a brief analysis of the outstanding paper Zero-Shot Activity Recognition with Verb Attribute Induction**
-
-```
-
-```
+> **This blog is a brief analysis of the outstanding paper Zero-Shot Activity Recognition with Verb Attribute Induction**
 
 ## Introduction of the paper
 

@@ -1,8 +1,6 @@
-**This blog is a brief analysis of the outstanding paper Beyond Bilingual: Multi-sense Word Embeddings using Multilingual Context which is the first approach with the ability to leverage multilingual corpora efficiently for multi-sense representation learning.**
+> **This blog is a brief analysis of the outstanding paper Beyond Bilingual: Multi-sense Word Embeddings using Multilingual Context which is the first approach with the ability to leverage multilingual corpora efficiently for multi-sense representation learning.**
 
 ![]({{site.baseurl}}/img/in-post/Multi-sense-pics/abstract.pdf)
-
-
 
 ## Introduction of Multi-sense Word Embeddings
 
