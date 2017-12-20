@@ -73,7 +73,7 @@ sidebar-avatar: /img/zhancheng-home.JPG     # use absolute URL, seeing it's used
 
 # Featured Tags
 featured-tags: true                     # whether or not using Feature-Tags
-featured-condition-size: 1              # A tag will be featured if the size of it is more than this condition value
+featured-condition-size: 0             # A tag will be featured if the size of it is more than this condition value
 
 
 
@@ -83,6 +83,14 @@ service-worker: true
 
 
 
-# Friends
-friends: [
+# Education
+education: [
+  {
+      title: "USTC",
+      href: "http://en.ustc.edu.cn"
+  },
+  {
+      title: "NKS",
+      href: "http://www.nks.edu.cn/en/home.htm"      
+  }
 ]
