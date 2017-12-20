@@ -16,7 +16,7 @@ I worked as a research assistant in the NLP subgroup of the Jia Jia (a human-lik
 
 **WHAT DID I DO:**
 
-1. *Enhanced the robot’s Chinese Conversation System to improve its performance of communicating with human beings.*
+***Enhanced the robot’s Chinese Conversation System to improve its performance of communicating with human beings.***
 
 Pictures of Jia Jia ![]({{site.baseurl}}/img/projects/jiajia00.JPG)
 
@@ -24,7 +24,7 @@ In order to make Jia Jia speak Chinese fluently and have a good performance when
 
 While doing these things with other group members, I have really learned a lot of theories and methods behind making a robot act like a well-spoken person.I am really happy that I can contribute to the achievements of Jia Jia.
 
-2. *Applied machine learning algorithms to the Question Classification Model of Jia Jia.*
+***Applied machine learning algorithms to the Question Classification Model of Jia Jia.***
 
 ![](http://upload-images.jianshu.io/upload_images/7248047-6ee602c694a4d0d1.png?imageMogr2/auto-orient/strip)
 
@@ -32,7 +32,7 @@ Question Classification Model is quite an important part of Jia Jia. A chat robo
 
 I mainly work with the people in the NLP subgroup inside the Jia Jia group. With the help of them, I did a lot of research in the field of text classification and applied these algorithms to the Question Classification Model of Jia Jia. From Naive Bayes to SVM, then to deep learning model like CNN and RNN, I found the most suitable and practical method and used it to enhance the classification model. 
 
-3. *Doing some tasks like building a WeChat version of Jia Jia, labeling data, etc.*
+***Doing some tasks like building a WeChat version of Jia Jia, labeling data, etc.***
 
 ![]({{site.baseurl}}/img/projects/chatbot.png)
 
@@ -64,7 +64,7 @@ For instance, our wechat chatbot version of Jia Jia is mainly based on the origi
 
 **WHAT DID I DO:**
 
-1. *Built and improved the Hierarchical Recurrent Encoder-Decoder (HRED) model for English chatbot referring to some papers and code.*
+***Built and improved the Hierarchical Recurrent Encoder-Decoder (HRED) model for English chatbot referring to some papers and code.***
 
 Structure of Recurrent Encoder-Decoder (HRED) model
 
@@ -72,7 +72,7 @@ Structure of Recurrent Encoder-Decoder (HRED) model
 
 Chatbot is one important part of my mentor's company RSVP. Some of its current dialog systems is built on RNN model. However, simple RNN model is not strong enough to deal with many rounds of dialogue. In contrast, the Hierarchical Recurrent Encoder-Decoder model can improve its performance by introducing another interface beteewn encoder and decoder. And it has been proved that applying Attention Mechanism to the model will definitely help.
 
-2. *Collected tens of millions of data from different sources like twitter, reddit, movie dialog, etc to train the RNN model.*
+***Collected tens of millions of data from different sources like twitter, reddit, movie dialog, etc to train the RNN model.***
 
 ![]({{site.baseurl}}/img/projects/data01.png)
 
@@ -82,7 +82,7 @@ We all know that large amounts of data is essential to the trainning of the RNN 
 
 ![]({{site.baseurl}}/img/projects/data03.png)
 
-3. *Modified the code and the trainning sets repeatedly according to the performance of the chatbot until it achieved a desired result.*
+***Modified the code and the trainning sets repeatedly according to the performance of the chatbot until it achieved a desired result.***
 
 Chatbot Dou Dou on Times Square's screen
 
