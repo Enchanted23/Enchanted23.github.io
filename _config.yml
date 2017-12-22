@@ -67,7 +67,7 @@ ga_domain: www.chengzhan.me
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "Senior student majoring in computer science at USTC. <br>Always hungry to learn more about AI."
-sidebar-avatar: /img/zhancheng-cartoon.jpg     # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/zhancheng-home.JPG     # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
