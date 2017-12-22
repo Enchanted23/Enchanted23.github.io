@@ -10,7 +10,7 @@ I worked as a research assistant in the NLP subgroup of the Jia Jia (a human-lik
 
 ### 1. Improving Humanoid Robot Jia Jia
 
-**Mentor: Xiaoping Chen** ![]({{site.baseurl}}/img/projects/cxp.PNG)
+**Mentor: Xiaoping Chen** ![](http://ai.ustc.edu.cn/images/xpchen.jpg)
 
 *Professor in School of Computer Science and Technology at University of Science and Technology of China (USTC)*
 
@@ -50,17 +50,11 @@ For instance, our wechat chatbot version of Jia Jia is mainly based on the origi
 
 ![]({{site.baseurl}}/img/projects/jiajia04.JPG)
 
-*Jia Jia meeting Pony Ma, CEO of Tencent*
-
-![]({{site.baseurl}}/img/projects/jiajia03.JPG)
-
 ### 2. English Chatbot Completion Using HRED Model - Summer Research
 
 **Mentor: Ming Li**  ![]({{site.baseurl}}/img/projects/lm.jpeg)
 
-*Canada Research Chair in Bioinformatics*
-
-*University Professor, School of Computer Science, University of Waterloo*
+*Canada Research Chair in Bioinformatics                                                                    University Professor, School of Computer Science, University of Waterloo*
 
 **WHAT DID I DO:**
 
@@ -88,7 +82,7 @@ Chatbot Dou Dou on Times Square's screen
 
 ![]({{site.baseurl}}/img/projects/doudou00.JPG)
 
-I am still working on this task. The basic performance of my English chatbot is ok but not that satisfactory. So I need to modify the code or even the structure to get a better performance. Some papers like Generating Sentences by Editing Prototypes have given me some ideas. So I am still working hard to hope that I can help Dou Dou become a more smart robot.
+I am still working on this task. The basic performance of my English chatbot is ok but not that satisfactory. So I need to modify the code or even the structure to get a better performance. It was also observed that simple HERD model still suffer from the problem of favoring generic utterances such as “I don't understand what you mean”, suggesting that HERD model may lack the inductive bias to faithfully represent the full diversity of complex utterances. We know that both the quantity and the quality of the data are important. But we also need to focus on structure and algorithms. So I did some extra surveys on Generative adversarial network (GAN) and Deep Reinforcement Learning. Some papers such as Generating Sentences by Editing Prototypes have also given me some ideas on this problem. So I am still working hard to hope that I can help Dou Dou become a more smart robot.
 
 **SOME INTERESTING THINGS DURING MY SUMMER RESEARCH:**
 
@@ -102,17 +96,11 @@ I am still working on this task. The basic performance of my English chatbot is 
 
 *Waiting for Canada Day's fireworks*
 
-![]({{site.baseurl}}/img/projects/CA04.JPG)
-
 ![]({{site.baseurl}}/img/projects/CA05.JPG)
 
-*Cute animals*
-
-![]({{site.baseurl}}/img/projects/CA02.JPG)
+*Cute Huskie*
 
 ![]({{site.baseurl}}/img/projects/CA03.JPG)
-
-![]({{site.baseurl}}/img/projects/CA07.JPG)
 
 *Working out at gym*
 
@@ -122,13 +110,7 @@ I am still working on this task. The basic performance of my English chatbot is 
 
 ![]({{site.baseurl}}/img/projects/CA06.JPG)
 
-![]({{site.baseurl}}/img/projects/CA16.JPG)
-
 ![]({{site.baseurl}}/img/projects/CA09.JPG)
-
-![]({{site.baseurl}}/img/projects/CA10.JPG)
-
-![]({{site.baseurl}}/img/projects/CA14.JPG)
 
 ![]({{site.baseurl}}/img/projects/CA15.JPG)
 
