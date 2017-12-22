@@ -10,7 +10,7 @@ I worked as a research assistant in the NLP subgroup of the Jia Jia (a human-lik
 
 ### 1. Improving Humanoid Robot Jia Jia
 
-**Mentor: Xiaoping Chen** ![]({{site.baseurl}}/img/projects/cxp.PNG)
+**[Mentor: Xiaoping Chen](http://ai.ustc.edu.cn/en/people/xpchen.php)** ![]({{site.baseurl}}/img/projects/cxp.PNG)
 
 *Professor in School of Computer Science and Technology at University of Science and Technology of China (USTC)*
 
@@ -56,7 +56,7 @@ For instance, our wechat chatbot version of Jia Jia is mainly based on the origi
 
 ### 2. English Chatbot Completion Using HRED Model - Summer Research
 
-**Mentor: Ming Li**  ![]({{site.baseurl}}/img/projects/lm.jpeg)
+**[Mentor: Ming Li](https://cs.uwaterloo.ca/~mli/)**  ![]({{site.baseurl}}/img/projects/lm.jpeg)
 
 *Canada Research Chair in Bioinformatics*
 
