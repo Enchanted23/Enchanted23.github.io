@@ -10,7 +10,7 @@ I worked as a research assistant in the NLP subgroup of the Jia Jia (a human-lik
 
 ### 1. Improving Humanoid Robot Jia Jia
 
-**Mentor: Xiaoping Chen** ![](http://ai.ustc.edu.cn/images/xpchen.jpg)
+**[Mentor: Xiaoping Chen](http://ai.ustc.edu.cn/en/people/xpchen.php)** ![](http://ai.ustc.edu.cn/images/xpchen.jpg)
 
 *Professor in School of Computer Science and Technology at University of Science and Technology of China (USTC)*
 
@@ -83,34 +83,3 @@ Chatbot Dou Dou on Times Square's screen
 ![]({{site.baseurl}}/img/projects/doudou00.JPG)
 
 I am still working on this task. The basic performance of my English chatbot is ok but not that satisfactory. So I need to modify the code or even the structure to get a better performance. It was also observed that simple HERD model still suffer from the problem of favoring generic utterances such as “I don't understand what you mean”, suggesting that HERD model may lack the inductive bias to faithfully represent the full diversity of complex utterances. We know that both the quantity and the quality of the data are important. But we also need to focus on structure and algorithms. So I did some extra surveys on Generative adversarial network (GAN) and Deep Reinforcement Learning. Some papers such as Generating Sentences by Editing Prototypes have also given me some ideas on this problem. So I am still working hard to hope that I can help Dou Dou become a more smart robot.
-
-**SOME INTERESTING THINGS DURING MY SUMMER RESEARCH:**
-
-*Listening to presentation at mentor's company*
-
-![]({{site.baseurl}}/img/projects/CA17.JPG)
-
-*Go dirfting with co-workers*
-
-![]({{site.baseurl}}/img/projects/CA13.JPG)
-
-*Waiting for Canada Day's fireworks*
-
-![]({{site.baseurl}}/img/projects/CA05.JPG)
-
-*Cute Huskie*
-
-![]({{site.baseurl}}/img/projects/CA03.JPG)
-
-*Working out at gym*
-
-![]({{site.baseurl}}/img/projects/CA08.JPG)
-
-*Beauty of Waterloo and Toronto*
-
-![]({{site.baseurl}}/img/projects/CA06.JPG)
-
-![]({{site.baseurl}}/img/projects/CA09.JPG)
-
-![]({{site.baseurl}}/img/projects/CA15.JPG)
-
