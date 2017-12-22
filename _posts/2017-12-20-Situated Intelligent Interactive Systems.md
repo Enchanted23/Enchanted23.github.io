@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Situated Intelligent Interactive Systems"
-subtitle:   " \"!\""
+subtitle:   " \"The adimrable work of Professor Yu!\""
 date:       2017-12-20 17:40:00
 author:     "Zhan"
 header-img: "img/post-cover/ticktok.png"
@@ -10,7 +10,8 @@ catalog: true
 multilingual: true
 tags:
     - NLP
-    - Deep Learning
+    - Dialogue Generation
+    - Reinforcement Learning
 ---
 
 <!-- Chinese Version -->
