@@ -52,7 +52,7 @@ For instance, our wechat chatbot version of Jia Jia is mainly based on the origi
 
 ### 2. English Chatbot Completion Using HRED Model - Summer Research
 
-**Mentor: Ming Li**  ![]({{site.baseurl}}/img/projects/lm.jpeg)
+**[Mentor: Ming Li](https://cs.uwaterloo.ca/~mli/)**  ![]({{site.baseurl}}/img/projects/lm.jpeg)
 
 *Canada Research Chair in Bioinformatics                                                                    University Professor, School of Computer Science, University of Waterloo*
 
