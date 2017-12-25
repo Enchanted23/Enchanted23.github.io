@@ -340,8 +340,6 @@ This allows to implement various training methods, like Hogwild, A3C, or any oth
 
 
 
-*Updating*
-
 
 
 ### Autograd: automatic differentiation
