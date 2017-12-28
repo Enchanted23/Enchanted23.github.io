@@ -18,11 +18,11 @@ Underfitted model is a model where some parameters or terms that would appear in
 
 1. **hold-out**
 
-   $$D=S\cup T, S\cap T=\varnothing$$
+   $$ D=S\cup T, S\cap T=\varnothing $$
 
 2. **cross validation**
 
-   ​
+    
 
 3. **bootstrapping**
 
