@@ -24,6 +24,95 @@ ssh -p 10022 user@hostname
 
 参考：[https://linux.cn/article-3858-1.html#3_487](https://link.jianshu.com/?t=https%3A%2F%2Flinux.cn%2Farticle-3858-1.html%233_487)
 
+## 补充：倒腾环境
+
+那连接了之后，你可能是root用户，也可能不是。
+
+这个时候，假如服务器已经预先装了一些东西，然后你需要倒腾出一个你自己的项目需要的环境，该怎么做？
+
+最好的方式是用**virtualenv**装一个虚拟环境，然后在里面下自己想要的依赖包。
+
+###1. 了解服务器配置
+
+首先，你需要了解一下你的服务器以及配置的环境：
+
+1. **查看硬件/软件信息：**
+
+   *查看内存大小*
+
+   ```
+   cat /proc/meminfo |grep MemTotal 
+   ```
+
+   *查看内核/操作系统/CPU信息*
+
+   ```
+   uname -a
+   ```
+
+   *查看计算机名*
+
+   ```
+   hostname 
+   ```
+
+   *查看CPU信息*
+
+   ```
+   cat /proc/cpuinfo
+   ```
+
+   *查看GPU使用情况*
+
+   ```
+   nvidia-smi
+   ```
+
+   ***比较全面的查看***
+
+   ```
+   top #后面还可以加命令，ctrl+C退出
+   ```
+
+   ***查看python的版本和路径***
+
+   ```
+   which python	#查看default的python2
+   which python3	#查看default的python3
+   whereis python	#查看ubuntu中所有安装的python路径
+   ```
+
+### 2. virtualenv
+
+要非常全面的了解virtualenv的话，可以看[官方指南](https://virtualenv.pypa.io/en/stable/reference/#virtualenv-command)，这里我仅说说常见的命令。
+
+**建立一个名叫ENV的虚拟环境：**
+
+```
+virtualenv --python=/usr/local/bin/python3 ENV
+# 选择的解释器的路径为/usr/local/bin/python3,如何查看python路径见上面。
+```
+
+**一些可以选择的参数：**
+
+```
+virtualenv -h #可以通过这个命令来查看常见的参数
+```
+
+**如果你因为某些原因选择了`--no-setuptools` `--no-pip` `--no-wheel`，那么你可能需要再建好之后多做一些工作。**
+
+*我实验室的服务器有时候需要连接网络通：*
+
+```
+wlt #连接网络通的命令
+```
+
+*如果你是root用户想更换镜像源可以参考：* [网址](http://wlt.ustc.edu.cn/cgi-bin/ip?url=http://www.cnblogs.com/dtiove/p/5917263.html&dip=101.37.225.65)
+
+我连的那个服务器就慢的让人绝望。。。100kB/s
+
+装好了想要的环境之后呢，就可以开始干活了。
+
 ## 2. 如何转移数据
 
 ### scp
@@ -365,10 +454,11 @@ DESCRIPTION
 
 使用 screen 很方便，有以下几个常用选项：
 
-1. 用screen -dmS session name来建立一个处于断开模式下的会话（并指定其会话名）。
+1. 用screen -dmS session_name来建立一个处于断开模式下的会话（并指定其会话名）。
 2. 用screen -list 来列出所有会话。
-3. 用screen -r session name来重新连接指定会话。
-4. 用快捷键CTRL-a d 来暂时断开当前会话。
+3. 用screen -r session_name来重新连接指定会话。
+4. 用快捷键(CTRL+a) + d 来暂时断开当前会话。
+5. 如果要杀死一个session，用 screen -S session_name -X quit来杀死会话。
 
 screen 示例
 
