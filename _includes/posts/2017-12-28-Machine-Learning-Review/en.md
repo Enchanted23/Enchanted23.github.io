@@ -6,11 +6,23 @@
 
 ### 1. Model Evaluation and Selection
 
-**overfitting:**  
+**Overfitting:**  An overfitted model is a statistical model that **contains more parameters than can be justified by the data**.
 
-An overfitted model is a statistical model that ==contains more parameters than can be justified by the data==.
+In statistics, overfitting is "the production of an analysis that corresponds too closely or exactly to a particular set of data, and may therefore fail to fit additional data or predict future observations reliably".
 
- In statistics, overfitting is "the production of an analysis that corresponds too closely or exactly to a particular set of data, and may therefore fail to fit additional data or predict future observations reliably".
+**Underfitting:** It occurs when a statistical model cannot adequately capture the underlying structure of the data.
 
+Underfitted model is a model where some parameters or terms that would appear in a correctly specified model are missing.
 
+**Testing:**
+
+1. **hold-out**
+
+   $$D=S\cup T, S\cap T=\varnothing$$
+
+2. **cross validation**
+
+   ​
+
+3. **bootstrapping**
 
