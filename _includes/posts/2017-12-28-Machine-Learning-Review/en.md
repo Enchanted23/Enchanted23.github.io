@@ -1,5 +1,3 @@
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
-
 > Yesterday, I decided to review what I had learnt about Machine learning at college, enhancing my knowledge of the fied and preparing for some interviews.
 
 *I will begin with reviewing some of the books I have read. Then I will go deeper into some problems in specific projects or tasks.*
@@ -16,7 +14,7 @@
 
 1. **hold-out**
 
-   $$ D=S\cup T, S\cap T=\varnothing $$
+   $$ D=S\cup T $$
 
 2. **cross validation**
 
