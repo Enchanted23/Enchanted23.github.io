@@ -84,7 +84,62 @@ Rescaling is also the base of cost-sensitive learning.
 
 ### 3. Decision Tree
 
+We can use **information entropy** to divide (to make the purity of nodes as high as enough).
 
+$$Ent(D) = - \Sigma_{k=1}^{|y|}p_klog_2p_k$$ 
+
+$$p_k = \frac{m^k}{M}$$ 
+
+Attribute $$a$$ has $$V$$ possible values $${a^1, a^2, …, a^V}$$
+
+**information gain**
+
+$$Gain(D, a) = Ent(D) - \Sigma_{v=1}^{V}\frac{|D^v|}{|D|}Ent(D^v)$$ 
+
+The basic idea is to make **information gain** as large as possible. In other words, we aim at making the node as pure as possible. 
+
+$$a_* =  \underset{a \in A}{arg\,max} Gain(D,a)$$ - *ID3[Quinlan, 1986]*
+
+**gain ratio**
+
+$$Gain\_ratio(D, a) = \frac{Gain(D,a)}{IV(a)}$$ - *C4.5[Quinlan, 1993]*
+
+$$IV(a)=- \Sigma_{v=1}^{V}\frac{|D^v|}{|D|}log_2\frac{|D^v|}{|D|}$$ *the intrinsic value of a*
+
+**Gini index**
+
+The basic idea is to randomly pick two samples from D.
+
+$$Gini(D) = \Sigma_{k=1}^{|Y|}\Sigma_{k'\neq k}p_kp_{k'} = 1-\Sigma_{k=1}^{|Y|}p_k^2$$
+
+$$Gini\_index(D,a) = \Sigma_{v=1}^{V}\frac{|D^v|}{|D|}Gini(D^v)$$
+
+$$a_* = \underset{a \in A}{arg\,min}Gini\_index(D,a)$$ - *CART[Breiman et al., 1984]*
+
+**pruning**
+
+*Pruning can be used to deal with overfitting.*
+
+1. prepruning
+2. postpruning
+
+**continuous value**
+
+bi-partition
+
+**missing value**
+
+* $$\hat D$$ is the subset of $$D$$, whose values are not missing. We can use $$\hat D$$ to decide $$a_*$$.
+
+  $$\rho = \frac{\Sigma_{x \in \hat D}w_x}{\Sigma_{x \in D}w_x}$$
+
+  $$Gain(D, a) = \rho \times Gain(\hat D, a)$$
+
+* if sample $$x$$'s value of $$a_*$$ is missing, we let $$x$$ come into all nodes. 
+
+  $$\hat r_v = \frac{\Sigma_{x \in \hat D^v}w_x}{\Sigma_{x \in D}w_x}\;\; (1\leq v \leq V)$$
+
+  ​
 
 ## Some Specific Problems
 
