@@ -172,6 +172,10 @@ scp是secure copy的简写，用于在Linux下进行远程拷贝文件的命令�
 
 参考: [http://blog.sina.com.cn/s/blog_53b95aec0100hcjn.html](https://link.jianshu.com/?t=http%3A%2F%2Fblog.sina.com.cn%2Fs%2Fblog_53b95aec0100hcjn.html)
 
+### FileZilla
+
+*不介意多装一点软件的朋友也可以直接用**FileZilla**，添加主机的时候记得把FTP改成SFTP，其他东西都很直观，和用**FileZilla**的FTP传文件是一样的操作。*
+
 ## 3. 如何编辑远程文件
 
 ### 1. vim

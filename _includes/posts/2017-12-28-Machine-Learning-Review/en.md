@@ -1,4 +1,4 @@
-> Yesterday, I decided to review what I had learnt about Machine learning at college, enhancing my knowledge of the fied and preparing for some interviews.
+> Yesterday, I decided to review what I had learned about Machine learning at college, enhancing my knowledge of the fied and preparing for some interviews.
 
 *I will begin with reviewing some of the books I have read. Then I will go deeper into some problems in specific projects or tasks.*
 
@@ -10,15 +10,31 @@
 
 **Underfitting:** It occurs when a statistical model cannot adequately capture the underlying structure of the data. Underfitted model is a model where **some parameters or terms that would appear in a correctly specified model are missing**.
 
-**Testing:**
+**Evaluation:**
 
 1. **hold-out**
 
-   $$ D=S\cup T $$
+   $$ D=S\cup T ,\;\; S\cap T= \varnothing$$
 
 2. **cross validation**
 
-    
+   $$D = D_1 \cup D_2 \cup …D_k , \;\; D_i \cap D_j = \varnothing \; (i \neq j)$$
+
+   use k-1 subsets to as tranning set every time, leave one subset as validation set. (*k-fold cross validation*)
+
+   Special occasion (m samples , m=k): Leave-One-Out (LOO)
+
 
 3. **bootstrapping**
+
+   bootstrap sampling: randomly pick one sample from D to D', then put it back to D. After m times, we use the D' as the training set. Then we can use D\D' as validation set.
+
+   $$\lim_{m\to \infty}(1-\frac{1}{m})^{m} \to \frac{1}{e} \approx 0.268$$
+
+   we have nearly 1/3 of D to validate the model. (*out-of-bag estimate*)
+
+4. **parameter tuning**
+
+   Parameter tuning is also very important.
+
 
