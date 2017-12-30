@@ -38,3 +38,53 @@
    Parameter tuning is also very important.
 
 
+### 2. Linear Model
+
+**Basic Form**
+
+$$f(x) = w^{T}x + b, \; w=(w_1 ; w_2 ; … ; w_d)$$
+
+We need to learn $w$ and $d$ to get the model.
+
+#### Linear Regression
+
+####Logistic Regression
+
+#### LDA
+
+*Linear Discriminant Analysis*
+
+#### Multi-class Classification
+
+- Split
+
+  *One vs. One (OvO)*
+
+  *One vs. Rest (OvR)(OvA)*
+
+  *Many vs. Many (MvM)* : Error Corercting Outputs Codes (*ECOC*)
+
+#### **Class-imbalance**
+
+*take linear model as example:*
+
+When we use $y = w^{T}x + b$ to classify new sample $x$, if we use $\frac{y}{1-y} > 1$ to judge, $\frac{y}{1-y} > \frac{m^+}{m^-}$.
+
+$m^{+}$ is the number of positive samples.
+
+**rescaling:** 
+
+$$\frac{y'}{1-y'} = \frac{y}{1-y} \times \frac{m^{-}}{m^{+}}$$
+
+* undersampling
+* oversampling
+* threshold moving
+
+Rescaling is also the base of cost-sensitive learning.
+
+### 3. Decision Tree
+
+
+
+## Some Specific Problems
+
