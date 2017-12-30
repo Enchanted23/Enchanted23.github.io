@@ -18,7 +18,9 @@
 
 2. **cross validation**
 
-   $$D = D_1 \cup D_2 \cup …D_k , \;\; D_i \cap D_j = \varnothing \; (i \neq j)$$
+   $$D = D_1 \cup D_2 \cup …D_k$$
+
+   $$D_i \cap D_j = \varnothing \; (i \neq j)$$
 
    We use k-1 subsets as tranning set every time and leave one subset as validation set. (*k-fold cross validation*)
 
@@ -44,11 +46,11 @@
 
 $$f(x) = w^{T}x + b, \; w=(w_1 ; w_2 ; … ; w_d)$$
 
-We need to learn $w$ and $d$ to get the model.
+We need to learn $$w$$ and $$d$$ to get the model.
 
 #### Linear Regression
 
-####Logistic Regression
+#### Logistic Regression
 
 #### LDA
 
@@ -66,11 +68,9 @@ We need to learn $w$ and $d$ to get the model.
 
 #### **Class-imbalance**
 
-*take linear model as example:*
+*(take linear model as example:)* When we use $$y = w^{T}x + b$$ to classify new sample $$x$$, if we use $$\frac{y}{1-y} > 1$$ to judge, $$\frac{y}{1-y} > \frac{m^+}{m^-}$$.
 
-When we use $y = w^{T}x + b$ to classify new sample $x$, if we use $\frac{y}{1-y} > 1$ to judge, $\frac{y}{1-y} > \frac{m^+}{m^-}$.
-
-$m^{+}$ is the number of positive samples.
+$$m^{+}$$ is the number of positive samples.
 
 **rescaling:** 
 
