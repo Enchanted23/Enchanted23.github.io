@@ -1,4 +1,4 @@
-> Yesterday, I decided to review what I had learned about Machine learning at college, enhancing my knowledge of the fied and preparing for some interviews.
+> Yesterday, I decided to review what I had learned about Machine learning, enhancing my knowledge of the fied and preparing for some interviews.
 
 *I will begin with reviewing some of the books I have read. Then I will go deeper into some problems in specific projects or tasks.*
 
@@ -20,9 +20,9 @@
 
    $$D = D_1 \cup D_2 \cup …D_k , \;\; D_i \cap D_j = \varnothing \; (i \neq j)$$
 
-   use k-1 subsets to as tranning set every time, leave one subset as validation set. (*k-fold cross validation*)
+   We use k-1 subsets as tranning set every time and leave one subset as validation set. (*k-fold cross validation*)
 
-   Special occasion (m samples , m=k): Leave-One-Out (LOO)
+   special occasion (m samples , m=k): Leave-One-Out (LOO)
 
 
 3. **bootstrapping**
@@ -31,7 +31,7 @@
 
    $$\lim_{m\to \infty}(1-\frac{1}{m})^{m} \to \frac{1}{e} \approx 0.268$$
 
-   we have nearly 1/3 of D to validate the model. (*out-of-bag estimate*)
+   We have nearly 1/3 of D to validate the model. (*out-of-bag estimate*)
 
 4. **parameter tuning**
 
