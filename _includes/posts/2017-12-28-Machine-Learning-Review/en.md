@@ -104,7 +104,9 @@ $$a_* =  \underset{a \in A}{arg\,max} Gain(D,a)$$ - *ID3[Quinlan, 1986]*
 
 $$Gain\_ratio(D, a) = \frac{Gain(D,a)}{IV(a)}$$ - *C4.5[Quinlan, 1993]*
 
-$$IV(a)=- \Sigma_{v=1}^{V}\frac{|D^v|}{|D|}log_2\frac{|D^v|}{|D|}$$ *the intrinsic value of a*
+$$IV(a)=- \Sigma_{v=1}^{V}\frac{|D^v|}{|D|}log_2\frac{|D^v|}{|D|}$$
+
+*the intrinsic value of a*
 
 **Gini index**
 
@@ -137,7 +139,7 @@ bi-partition
 
 * if sample $$x$$'s value of $$a_*$$ is missing, we let $$x$$ come into all nodes. 
 
-  $$\hat r_v = \frac{\Sigma_{x \in \hat D^v}w_x}{\Sigma_{x \in D}w_x}\;\; (1\leq v \leq V)$$
+  $$\hat r_v = \frac{\Sigma_{x \in \hat{D}^v}w_x}{\Sigma_{x \in D}w_x}\;\; (1\leq v \leq V)$$
 
   ​
 
