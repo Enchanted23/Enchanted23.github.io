@@ -162,7 +162,7 @@ To deal with things outside the linearly separable problems, we introduced multi
   1. only full connection between adjacent layers
   2. no connection inside a layer
 
-#### Back Propagation
+#### Backpropagation
 
 It is based on **gradient descent** strategy.
 
@@ -264,9 +264,37 @@ to jump out the local minimum:
 
 * **Elman**
 
-  ​
+  *Elman network is a common **recurrent  neural network**.*
 
-* **Boltzman Machine**
+  ![](http://mnemstudio.org/ai/nn/images/Elman1.gif)
+
+* **Boltzman machine**
+
+  *Boltzman Machine [Ackley et al., 1985] is an **energy-based** model.*
+
+  ![](https://upload.wikimedia.org/wikipedia/commons/f/fd/Boltzmannexamplev2.png)
+
+  *A Boltzmann machine is also a type of **stochastic recurrent neural network** (and **Markov Random Field**).*
+
+  $$s \in \{0,1\}^n$$ represent the states of $$n$$ neurons. *(1 means activated, 0 means inhibited)*
+
+  $$E(s)=-\left(\sum\limits_{{i<j}}w_{{ij}}\,s_{i}\,s_{j}+\sum\limits_{i}\theta _{i}\,s_{i}\right)$$
+
+  > The units in the Boltzmann Machine are divided into **'visible' units V**, and **'hidden' units H**. The visible units are those that receive information from the 'environment', i.e. the training set is a set of binary vectors over the set $$V$$. The distribution over the training set is denoted $$P^{+}(V)$$.
+  >
+  > As is discussed above, the distribution over global states **converges** as the Boltzmann machine reaches **thermal equilibrium**. We denote this distribution, after we marginalize it over the hidden units, as $$P^{-}(V)$$.
+  >
+  > Our goal is to approximate the **"real" distribution** $$P^{+}(V)$$ using the $$P^{-}(V)$$ produced (eventually) by the machine. To measure how similar the two distributions are, $$G = \sum\limits_{v}{P^{+}(v)\ln\left({\frac{P^{+}(v)}{P^{-}(v)}}\right)}$$, where the sum is over all the possible states of $$V$$.  
+  >
+  > $$G$$ is a function of the weights, since they determine the energy of a state, and the energy determines $$P^{-}(v)$$, as promised by the Boltzmann distribution. Hence, we can use a gradient descent algorithm over $$G$$, so a given weight, $$w_{ij}$$ is changed by subtracting the partial derivative of $$G$$ with respect to the weight.
+
+  **Restricted Boltzmann machine**
+
+  ![](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Restricted_Boltzmann_machine.svg/310px-Restricted_Boltzmann_machine.svg.png)
+
+  > Although learning is impractical in general Boltzmann machines, it can be made quite efficient in an architecture called the **"restricted Boltzmann machine" or "RBM"** which does not allow intralayer connections between hidden units. After training one RBM, the activities of its hidden units can be treated as data for training a higher-level RBM. This method of stacking RBMs makes it possible to train many layers of hidden units efficiently and is one of the most common deep learning strategies. As each new layer is added the overall generative model gets better.
+
+  It often uses the **Contrastive Divergence Algorithm** to train its parameters. 
 
 #### Deep Learning
 
