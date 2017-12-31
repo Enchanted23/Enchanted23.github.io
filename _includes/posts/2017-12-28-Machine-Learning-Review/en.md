@@ -86,7 +86,7 @@ Rescaling is also the base of cost-sensitive learning.
 
 We can use **information entropy** to divide (to make the purity of nodes as high as enough).
 
-$$Ent(D) = - \Sigma_{k=1}^{|y|}p_klog_2p_k$$ 
+$$Ent(D) = - \sum\limits_{k=1}^{|y|}p_klog_2p_k$$ 
 
 $$p_k = \frac{m^k}{M}$$ 
 
@@ -94,7 +94,7 @@ Attribute $$a$$ has $$V$$ possible values $${a^1, a^2, …, a^V}$$
 
 **information gain**
 
-$$Gain(D, a) = Ent(D) - \Sigma_{v=1}^{V}\frac{|D^v|}{|D|}Ent(D^v)$$ 
+$$Gain(D, a) = Ent(D) - \sum\limits_{v=1}^{V}\frac{|D^v|}{|D|}Ent(D^v)$$ 
 
 The basic idea is to make **information gain** as large as possible. In other words, we aim at making the node as pure as possible. 
 
@@ -104,7 +104,7 @@ $$a_* =  \underset{a \in A}{arg\,max} Gain(D,a)$$ - *ID3[Quinlan, 1986]*
 
 $$Gain\_ratio(D, a) = \frac{Gain(D,a)}{IV(a)}$$ - *C4.5[Quinlan, 1993]*
 
-$$IV(a)=- \Sigma_{v=1}^{V}\frac{|D^v|}{|D|}log_2\frac{|D^v|}{|D|}$$
+$$IV(a)=- \sum\limits_{v=1}^{V}\frac{|D^v|}{|D|}log_2\frac{|D^v|}{|D|}$$
 
 *the intrinsic value of a*
 
@@ -112,9 +112,9 @@ $$IV(a)=- \Sigma_{v=1}^{V}\frac{|D^v|}{|D|}log_2\frac{|D^v|}{|D|}$$
 
 The basic idea is to randomly pick two samples from D.
 
-$$Gini(D) = \Sigma_{k=1}^{|Y|}\Sigma_{k'\neq k}p_kp_{k'} = 1-\Sigma_{k=1}^{|Y|}p_k^2$$
+$$Gini(D) = \sum\limits_{k=1}^{|Y|}\sum\limits_{k'\neq k}p_kp_{k'} = 1-\sum\limits_{k=1}^{|Y|}p_k^2$$
 
-$$Gini\_index(D,a) = \Sigma_{v=1}^{V}\frac{|D^v|}{|D|}Gini(D^v)$$
+$$Gini\_index(D,a) = \sum\limits_{v=1}^{V}\frac{|D^v|}{|D|}Gini(D^v)$$
 
 $$a_* = \underset{a \in A}{arg\,min}Gini\_index(D,a)$$ - *CART[Breiman et al., 1984]*
 
@@ -141,7 +141,76 @@ bi-partition
 
   $$\hat r_v = \frac{\Sigma_{x \in \hat{D}^v}w_x}{\Sigma_{x \in D}w_x}\;\; (1\leq v \leq V)$$
 
-  ​
+  adjust weight of sample $$x$$ from $$w_x$$ to $$\hat{r}_v \cdot w_x$$ in $$a^v$$.
+
+**multivariate decision tree**
+
+We use $$\sum\limits_{i=1}^{d}w_ia_i=t$$ to divide the samples, in which the $$w_i$$ is the wight of $$a_i$$.
+
+In other words, we use the combination of several attributes to divide the nodes, not a single attribute. 
+
+* OC1
+* Preception tree (embed neural network in decision tree)
+
+**incremental learning**
+
+### 4. Neural Networks
+
+To deal with things outside the linearly separable problems, we introduced multi-layer nueral networks.
+
+* **multi-layer feedforward neural networks**
+  1. only full connection between adjacent layers
+  2. no connection inside a layer
+
+#### Back Propagation
+
+It is based on **gradient descent** strategy.
+
+* **standard error backpropagation**
+
+  updating connection weight $$w$$ and threshold $$ \theta $$ after reading each sample.
+
+* **accumulated error backpropagation**
+
+  updating $$w$$ and $$\theta$$ after reading the whole traning set $$D$$. ***(one round / one epoch)***
+
+To overcome overfitting, there are several ways:
+
+* **early stopping**
+
+  If it occurs that the **validation set's error** is becoming larger, we stop the training.
+
+* **regularization**
+
+  The basic idea is to add a part to describe the complexity of the network:
+
+  $$E_k$$ is the error on $$k^{th}$$ sample.
+
+  $$E = \lambda \frac{1}{m} \sum\limits_{k=1}^{m}E_k + (1-\lambda)\sum\limits_iw_i^2$$
+
+  $$\lambda \in (0, 1)$$ can be estimated using cross validation.
+
+#### Local Minimum
+
+to jump out the local minimum:
+
+* set several **different initial values** to train the network in parallel.
+* use **simulated annealing**.
+* use **stochatistic gradient descent**.
+* use **genetic algorithms**
+
+#### Commen Neural Networks
+
+* **RBF**
+* **ART**
+* **SOM**
+* **Cascade-Correlation**
+* **Elman**
+* **Boltzman Machine**
+
+#### Deep Learning
+
+
 
 ## Some Specific Problems
 
