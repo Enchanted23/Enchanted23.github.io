@@ -280,7 +280,7 @@ to jump out the local minimum:
 
   $$E(s)= (\sum\limits_{i<j}w_{ij}s_{i}s_{j}+\sum\limits_{i}\theta _{i}s_{i})$$
 
-  > The units in the Boltzmann Machine are divided into **'visible' units V**, and **'hidden' units H**. The visible units are those that receive information from the 'environment', i.e. the training set is a set of binary vectors over the set $$V​$$. The distribution over the training set is denoted $$P^{+}(V)​$$.
+  > The units in the Boltzmann Machine are divided into **'visible' units V**, and **'hidden' units H**. The visible units are those that receive information from the 'environment', i.e. the training set is a set of binary vectors over the set $$V$$. The distribution over the training set is denoted $$P^{+}(V)$$.
   >
   > As is discussed above, the distribution over global states **converges** as the Boltzmann machine reaches **thermal equilibrium**. We denote this distribution, after we marginalize it over the hidden units, as $$P^{-}(V)$$.
   >
@@ -297,6 +297,30 @@ to jump out the local minimum:
   It often uses the **Contrastive Divergence Algorithm** to train its parameters. 
 
 #### Deep Learning
+
+* **unsupervised layer-wise training:**
+
+  train one hidden layer at a time
+
+  this layer's output as next layer's input
+
+  **pre-training** + **fine-tuning**
+
+* **weight sharing:**
+
+  common in **CNN**
+
+  every plane's neurons share same weight.
+
+I will go deeper into deep learning area in my following blogs, espacially CNN, RNN, GAN and other popular structures.
+
+> Some basic idea of the following two section are aleardy included in [another blog of mine](http://www.chengzhan.me/2017/09/15/Text-Classification/). You can search online if you need something more.
+
+### 5. SVM
+
+### 6. Bayes Classifier
+
+###7.Ensemble Learning 
 
 
 
