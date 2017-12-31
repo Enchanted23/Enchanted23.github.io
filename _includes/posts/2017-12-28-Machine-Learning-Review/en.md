@@ -137,7 +137,7 @@ bi-partition
 
   $$Gain(D, a) = \rho \times Gain(\hat D, a)$$
 
-* if sample $$x$$'s value of $$a_*$$ is missing, we let $$x$$ come into all nodes. 
+* if sample $$x​$$'s value of $$a_*​$$ is missing, we let $$x​$$ come into all nodes. 
 
   $$\hat r_v = \frac{\Sigma_{x \in \hat{D}^v}w_x}{\Sigma_{x \in D}w_x}\;\; (1\leq v \leq V)$$
 
@@ -195,17 +195,77 @@ To overcome overfitting, there are several ways:
 to jump out the local minimum:
 
 * set several **different initial values** to train the network in parallel.
+
 * use **simulated annealing**.
+
+  ![](https://www.researchgate.net/profile/Reza_Teimouri2/publication/257337529/figure/fig7/AS:297539975827461@1447950466303/Fig-8-Flowchart-of-the-simulated-annealing-algorithm.png)
+
 * use **stochatistic gradient descent**.
+
 * use **genetic algorithms**
+
+  ![](https://cdn-images-1.medium.com/max/1600/1*BYDJpa6M2rzWNSurvspf8Q.png)
 
 #### Commen Neural Networks
 
 * **RBF**
+
+  *Radial Basis Function - [Broomhead and Lowe, 1988]*
+
+  ![](https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Radial_funktion_network.svg/500px-Radial_funktion_network.svg.png)
+
+  $$\varphi(x) = \sum\limits_{i=1}^{q}w_i\rho(x,c_i)$$
+
+  activation funtion: $$\rho(x,c_i)=e^{-\beta_i\|x-c_i\|^2}$$
+
+  1. to decide the center of the $$i^{th}$$ neuron $$c_i$$:
+
+     **random sampling**, **clustering**, etc.
+
+  2. using **BP** to decide $$w_i$$ and $$\beta_i$$.
+
 * **ART**
+
+  *Adaptive Resonance Theory [Carpenter and Grossberg, 1987] is the representative of* ***competive learning***.
+
+  ***competive learning*** is a common **unsupervised learning** strategy.
+
+  ![](https://upload.wikimedia.org/wikipedia/commons/f/f1/ART.png)
+
+  It typically consists of a **comparison field** and a **recognition field** composed of neurons, a **vigilance parameter** (threshold of recognition), and a **reset module**.
+
+  **winner-take-all:** 
+
+  >  The comparison field takes an input vector (a one-dimensional array of values) and transfers it to its best match in the recognition field. Its best match is the single neuron whose set of weights (weight vector) most closely matches the input vector. Each recognition field neuron outputs a negative signal (proportional to that neuron’s quality of match to the input vector) to each of the other recognition field neurons and thus inhibits their output. In this way the recognition field exhibits lateral inhibition, allowing each neuron in it to represent a category to which input vectors are classified.
+  >
+  > If no committed recognition neuron’s match overcomes the vigilance parameter, then an uncommitted neuron is committed and its weights are adjusted towards matching the input vector. The vigilance parameter has considerable influence on the system: higher vigilance produces highly detailed memories (many, fine-grained categories), while lower vigilance results in more general memories (fewer, more-general categories).
+
+  The Adaptive Resonance Theory can be used to deal with **stability plasticity dilemma**. It has **incremental learning** ability.
+
 * **SOM**
+
+  *Self-Organizing Map*
+
+  ![](https://image.slidesharecdn.com/kohonenselforganizingmaps-150702121514-lva1-app6892/95/kohonen-self-organizing-maps-7-638.jpg?cb=1435839352)
+
+  > A **self-organizing map** (**SOM**) or **self-organizing feature map** (**SOFM**) is a type of artificial neural network (ANN) that is trained using **unsupervised learning** to produce a low-dimensional (typically two-dimensional), discretized representation of the input space of the training samples, called a **map**, and is therefore a method to do dimensionality reduction. Self-organizing maps differ from other artificial neural networks as they apply **competitive learning** as opposed to error-correction learning (such as backpropagation with gradient descent), and in the sense that they use a neighborhood function to preserve the **topological** properties of the input space.
+  >
+  > This makes SOMs useful for visualizing low-dimensional views of high-dimensional data, akin to multidimensional scaling. 
+
 * **Cascade-Correlation**
+
+  *Cascade-Correlation network is a representation of **constructive** neural network.*
+
+  ![](http://blog.scirp.org/wp-content/uploads/2015/06/IJCNS_2015062411185749.bmp)
+
+  It only has input layer and output layer at the beginning of training.
+
+  When a new hidden neuron is added, its input weight is fixed. We maximize the correlation between its output and network error.
+
 * **Elman**
+
+  ​
+
 * **Boltzman Machine**
 
 #### Deep Learning
