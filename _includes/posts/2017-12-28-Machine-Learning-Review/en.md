@@ -278,9 +278,9 @@ to jump out the local minimum:
 
   $$s \in \{0,1\}^n$$ represent the states of $$n$$ neurons. *(1 means activated, 0 means inhibited)*
 
-  $$E(s)=-\left(\sum\limits_{{i<j}}w_{{ij}}\,s_{i}\,s_{j}+\sum\limits_{i}\theta _{i}\,s_{i}\right)$$
+  $$E(s)= (\sum\limits_{i<j}w_{ij}s_{i}s_{j}+\sum\limits_{i}\theta _{i}s_{i})$$
 
-  > The units in the Boltzmann Machine are divided into **'visible' units V**, and **'hidden' units H**. The visible units are those that receive information from the 'environment', i.e. the training set is a set of binary vectors over the set $$V$$. The distribution over the training set is denoted $$P^{+}(V)$$.
+  > The units in the Boltzmann Machine are divided into **'visible' units V**, and **'hidden' units H**. The visible units are those that receive information from the 'environment', i.e. the training set is a set of binary vectors over the set $$V​$$. The distribution over the training set is denoted $$P^{+}(V)​$$.
   >
   > As is discussed above, the distribution over global states **converges** as the Boltzmann machine reaches **thermal equilibrium**. We denote this distribution, after we marginalize it over the hidden units, as $$P^{-}(V)$$.
   >
