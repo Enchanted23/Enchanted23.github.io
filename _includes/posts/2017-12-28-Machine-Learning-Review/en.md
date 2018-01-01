@@ -238,7 +238,7 @@ to jump out the local minimum:
 
   >  The comparison field takes an input vector (a one-dimensional array of values) and transfers it to its best match in the recognition field. Its best match is the single neuron whose set of weights (weight vector) most closely matches the input vector. Each recognition field neuron outputs a negative signal (proportional to that neuron’s quality of match to the input vector) to each of the other recognition field neurons and thus inhibits their output. In this way the recognition field exhibits lateral inhibition, allowing each neuron in it to represent a category to which input vectors are classified.
   >
-  > If no committed recognition neuron’s match overcomes the vigilance parameter, then an uncommitted neuron is committed and its weights are adjusted towards matching the input vector. The vigilance parameter has considerable influence on the system: higher vigilance produces highly detailed memories (many, fine-grained categories), while lower vigilance results in more general memories (fewer, more-general categories).
+  >  If no committed recognition neuron’s match overcomes the vigilance parameter, then an uncommitted neuron is committed and its weights are adjusted towards matching the input vector. The vigilance parameter has considerable influence on the system: higher vigilance produces highly detailed memories (many, fine-grained categories), while lower vigilance results in more general memories (fewer, more-general categories).
 
   The Adaptive Resonance Theory can be used to deal with **stability plasticity dilemma**. It has **incremental learning** ability.
 
@@ -330,7 +330,7 @@ It can be **homogeneous** or **heterogeneous**.
 
 >  Ensembles combine multiple hypotheses to form a (hopefully) better hypothesis. The term **ensemble** is usually reserved for methods that generate multiple hypotheses using the same base learner. The broader term of **multiple classifier systems** also covers hybridization of hypotheses that are not induced by the same base learner.
 >
-> Evaluating the prediction of an ensemble typically requires more computation than evaluating the prediction of a single model, so ensembles may be thought of as a way to compensate for poor learning algorithms by performing a lot of extra computation. Fast algorithms such as **decision trees** are commonly used in ensemble methods (for example **Random Forest**), although slower algorithms can benefit from ensemble techniques as well.
+>  Evaluating the prediction of an ensemble typically requires more computation than evaluating the prediction of a single model, so ensembles may be thought of as a way to compensate for poor learning algorithms by performing a lot of extra computation. Fast algorithms such as **decision trees** are commonly used in ensemble methods (for example **Random Forest**), although slower algorithms can benefit from ensemble techniques as well.
 
 *An ensemble is itself a **supervised learning** algorithm, because it can be trained and then used to make predictions. The trained ensemble, therefore, represents a single hypothesis. This hypothesis, however, is not necessarily contained within the hypothesis space of the models from which it is built. Thus, ensembles can be shown to have **more flexibility** in the functions they can represent. This flexibility can, in theory, enable them to over-fit the training data more than a single model would, but in practice, some ensemble techniques (especially **bagging**) tend to **reduce problems related to over-fitting** of the training data.*
 
@@ -342,54 +342,6 @@ Ensemble learning can be divided into two classes according to the way how compo
 2. Component learners have **no strong dependencies**, which can be generated **in parallel**. *(Eg. Bagging, Random Forest)*
 
 #### Boosting
-
-> While boosting is not algorithmically constrained, most boosting algorithms consist of iteratively learning weak classifiers with respect to a distribution and adding them to a final strong classifier. When they are added, they are typically weighted in some way that is usually related to **the weak learners' accuracy**. After a weak learner is added, the data are reweighted: examples that are misclassified gain weight and examples that are classified correctly lose weight (some boosting algorithms actually decrease the weight of repeatedly misclassified examples, e.g., boost by majority and BrownBoost). Thus, future weak learners **focus more on the examples that previous weak learners misclassified**.
-
-There are many boosting algorithms. A very popular one is **AdaBoost**. It can be deduced in several different ways, one of which is **additive model**.
-
-It use $$H(x) = \sum\limits_{t=1}^{T} \alpha_t h_t(x)$$ to minimize **exponential loss function** $$\ell_{exp}(H|D) = E_{x \sim D}[e^{-f(x)H(x)}]$$.
-
-Suppose we have a data set $$\{(x_1,y_1),…,(x_m,y_m)\}$$ where each item $$x_{i}$$ has an associated class $$y_{i}\in \{-1,1\}$$, and and a set of weak classifiers$$\{h_{1},\ldots ,h_{T}\}$$ each of which outputs a classification $$h_{j}(x_{i})\in \{-1,1\}$$ for each item. After the $$(t−1)^{th}$$ iteration our boosted classifier is a linear combination of the weak classifiers of the form:
-
-$$H_{t-1}(x_{i})=\alpha _{1}h_{1}(x_{i})+\cdots +\alpha _{{t-1}}h_{{t-1}}(x_{i})$$
-
-So it remains to determine which weak classifier is the best choice for $$h_{t}$$, and what its weight $$\alpha _{t}$$ should be.
-
-let $$\epsilon _{t}=\sum\limits_{{y_{i}\neq h_{t}(x_{i})}}w_{i}^{{(t)}}/\sum\limits_{{i=1}}^{m}w_{i}^{{(t)}} = P_{x \sim D}(h_t(x_i) \neq y_i)$$
-
-The new $$\alpha_th_t$$ must minimize $$\ell_{exp}(\alpha_th_t|D_t) :$$ 
-
-$$\alpha_m = \frac{1}{2}\ln\left( \frac{1 - \epsilon_m}{\epsilon_m}\right)$$
-
-At each iteration, choose the classifier $$h_{t}$$, which minimizes the total weighted error $$\sum\limits_{h_t(x_i)\neq y_i}w_i^{(m)}$$use this to calculate the error rate $$\epsilon _{m}$$, use this to calculate the weight $$\alpha_m$$, and finally use this to improve the boosted classifier $$H_{t-1}$$ to $$H_{{t}}=H_{t-1}+\alpha _{t}h_{t}$$
-
-#### Bagging & Random Forest
-
-* **Bagging**
-
-  It is kind of based on **bootstrap sampling**, which means each component learner only uses $$63.2\%$$ of the samples, leaving the remaining $$ 36.8\%$$ to do the **out-of-bag estimate** of the **diversity**.
-
-  Not like **standard Adaboost** which can only be used for binary classification, it can be used for **multi-class classification** and **regression**. And it's **efficient**.
-
-* **Random Forest**
-
-  Random Forest combined **Bagging** and **random selection of features**. 
-
-  Choose a subset consisting of $$k$$ features from a node which have $$d$$ features. $$(k<d)$$
-
-  We often use $$k = log_2d$$.
-
-#### Ensemble Strategy 
-
-* **averaging**
-
-  simple averaging: $$H(x) = \frac{1}{T}\sum\limits_{i=1}^{T}h_i(x)$$
-
-  weighted averaging: $$H(x) = \sum\limits_{i=1}^{T}w_ih_i(x)$$
-
-* **voting**
-
-  majority voting: 
 
 ## Some Specific Problems
 
