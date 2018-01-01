@@ -377,7 +377,7 @@ At each iteration, choose the classifier $$h_{t}$$, which minimizes the total we
 
   Choose a subset consisting of $$k$$ features from a node which have $$d$$ features. $$(k<d)$$
 
-  We often use $$k = log_2d​$$.
+  We often use $$k = log_2d$$.
 
 #### Ensemble Strategy 
 
@@ -392,3 +392,4 @@ At each iteration, choose the classifier $$h_{t}$$, which minimizes the total we
   majority voting: 
 
 ## Some Specific Problems
+
