@@ -328,6 +328,21 @@ I will go deeper into deep learning area in my following blogs, espacially CNN, 
 
 It can be **homogeneous** or **heterogeneous**.
 
+>  Ensembles combine multiple hypotheses to form a (hopefully) better hypothesis. The term **ensemble** is usually reserved for methods that generate multiple hypotheses using the same base learner. The broader term of **multiple classifier systems** also covers hybridization of hypotheses that are not induced by the same base learner.
+>
+> Evaluating the prediction of an ensemble typically requires more computation than evaluating the prediction of a single model, so ensembles may be thought of as a way to compensate for poor learning algorithms by performing a lot of extra computation. Fast algorithms such as **decision trees** are commonly used in ensemble methods (for example **Random Forest**), although slower algorithms can benefit from ensemble techniques as well.
+
+*An ensemble is itself a **supervised learning** algorithm, because it can be trained and then used to make predictions. The trained ensemble, therefore, represents a single hypothesis. This hypothesis, however, is not necessarily contained within the hypothesis space of the models from which it is built. Thus, ensembles can be shown to have **more flexibility** in the functions they can represent. This flexibility can, in theory, enable them to over-fit the training data more than a single model would, but in practice, some ensemble techniques (especially **bagging**) tend to **reduce problems related to over-fitting** of the training data.*
+
+*Empirically, ensembles tend to yield better results when there is **a significant diversity** among the models. Many ensemble methods, therefore, seek to promote diversity among the models they combine. Although perhaps non-intuitive, more random algorithms (like random decision trees) can be used to produce a stronger ensemble than very deliberate algorithms (like entropy-reducing decision trees). **Using a variety of strong learning algorithms, however, has been shown to be more effective than using techniques that attempt to dumb-down the models in order to promote diversity**.*
+
+Ensemble learning can be divided into two classes according to the way how component learners are generated:
+
+1. Component learners have **strong dependencies**, which can only be generated **in series**. *(Eg. Boosting)*
+2. Component learners have **no strong dependencies**, which can be generated **in parallel**. *(Eg. Bagging, Random Forest)*
+
+#### Boosting
+
 
 
 ## Some Specific Problems
