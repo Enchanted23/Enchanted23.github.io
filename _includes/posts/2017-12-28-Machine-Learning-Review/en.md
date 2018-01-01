@@ -1,6 +1,6 @@
 > Yesterday, I decided to review what I had learned about Machine learning, enhancing my knowledge of the fied and preparing for some interviews.
 
-*I will begin with reviewing some of the books I have read. Then I will go deeper into some problems in specific projects or tasks.*
+*I will begin with reviewing some of the books I have read or courses I have taken. Then I will go deeper into some problems in specific projects or tasks.*
 
 ## Machine Learning (Watermelon Book)
 
@@ -320,7 +320,13 @@ I will go deeper into deep learning area in my following blogs, espacially CNN, 
 
 ### 6. Bayes Classifier
 
-###7.Ensemble Learning 
+### 7. Ensemble Learning
+
+*In statistics and machine learning, ensemble methods use multiple learning algorithms to obtain better predictive performance than could be obtained from any of the constituent learning algorithms alone.*
+
+![](https://www.analyticsvidhya.com/wp-content/uploads/2015/07/bagging.png)
+
+It can be **homogeneous** or **heterogeneous**.
 
 
 
