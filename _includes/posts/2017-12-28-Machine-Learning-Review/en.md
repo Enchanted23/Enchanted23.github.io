@@ -343,7 +343,53 @@ Ensemble learning can be divided into two classes according to the way how compo
 
 #### Boosting
 
+> While boosting is not algorithmically constrained, most boosting algorithms consist of iteratively learning weak classifiers with respect to a distribution and adding them to a final strong classifier. When they are added, they are typically weighted in some way that is usually related to **the weak learners' accuracy**. After a weak learner is added, the data are reweighted: examples that are misclassified gain weight and examples that are classified correctly lose weight (some boosting algorithms actually decrease the weight of repeatedly misclassified examples, e.g., boost by majority and BrownBoost). Thus, future weak learners **focus more on the examples that previous weak learners misclassified**.
 
+There are many boosting algorithms. A very popular one is **AdaBoost**. It can be deduced in several different ways, one of which is **additive model**.
+
+It use $$H(x) = \sum\limits_{t=1}^{T} \alpha_t h_t(x)$$ to minimize **exponential loss function** $$\ell_{exp}(H|D) = E_{x \sim D}[e^{-f(x)H(x)}]$$.
+
+Suppose we have a data set $$\{(x_1,y_1),…,(x_m,y_m)\}$$ where each item $$x_{i}$$ has an associated class $$y_{i}\in \{-1,1\}$$, and and a set of weak classifiers$$\{h_{1},\ldots ,h_{T}\}$$ each of which outputs a classification $$h_{j}(x_{i})\in \{-1,1\}$$ for each item. After the $$(t−1)^{th}$$ iteration our boosted classifier is a linear combination of the weak classifiers of the form:
+
+$$H_{t-1}(x_{i})=\alpha _{1}h_{1}(x_{i})+\cdots +\alpha _{{t-1}}h_{{t-1}}(x_{i})$$
+
+So it remains to determine which weak classifier is the best choice for $$h_{t}$$, and what its weight $$\alpha _{t}$$ should be.
+
+let $$\epsilon _{t}=\sum\limits_{{y_{i}\neq h_{t}(x_{i})}}w_{i}^{{(t)}}/\sum\limits_{{i=1}}^{m}w_{i}^{{(t)}} = P_{x \sim D}(h_t(x_i) \neq y_i)$$
+
+The new $$\alpha_th_t$$ must minimize $$\ell_{exp}(\alpha_th_t|D_t) :$$ 
+
+$$\alpha_m = \frac{1}{2}\ln\left( \frac{1 - \epsilon_m}{\epsilon_m}\right)$$
+
+At each iteration, choose the classifier $$h_{t}$$, which minimizes the total weighted error $$\sum\limits_{h_t(x_i)\neq y_i}w_i^{(m)}$$use this to calculate the error rate $$\epsilon _{m}$$, use this to calculate the weight $$\alpha_m$$, and finally use this to improve the boosted classifier $$H_{t-1}$$ to $$H_{{t}}=H_{t-1}+\alpha _{t}h_{t}$$
+
+#### Bagging & Random Forest
+
+* **Bagging**
+
+  It is kind of based on **bootstrap sampling**, which means each component learner only uses $$63.2\%$$ of the samples, leaving the remaining $$ 36.8\%$$ to do the **out-of-bag estimate** of the **diversity**.
+
+  Not like **standard Adaboost** which can only be used for binary classification, it can be used for **multi-class classification** and **regression**. And it's **efficient**.
+
+* **Random Forest**
+
+  Random Forest combined **Bagging** and **random selection of features**. 
+
+  Choose a subset consisting of $$k$$ features from a node which have $$d$$ features. $$(k<d)$$
+
+  We often use $$k = log_2d$$.
+
+#### Ensemble Strategy 
+
+* **averaging**
+
+  simple averaging: $$H(x) = \frac{1}{T}\sum\limits_{i=1}^{T}h_i(x)$$
+
+  weighted averaging: $$H(x) = \sum\limits_{i=1}^{T}w_ih_i(x)$$
+
+* **voting**
+
+  majority voting: 
 
 ## Some Specific Problems
 
