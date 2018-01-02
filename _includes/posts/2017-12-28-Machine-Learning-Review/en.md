@@ -358,3 +358,14 @@ Suppose we have a data set $$\{(x_1,y_1),…,(x_m,y_m)\}$$ where each item $$x_{
 $$H_{t-1}(x_i)=\alpha_1h_1(x_i)+\cdots +\alpha _{t-1}h_{t-1}(x_i)$$
 
 So it remains to determine which weak classifier is the best choice for $$h_t$$, and what its weight $$\alpha_{t}$$ should be.
+
+$$\epsilon_{t}=\sum\limits_{{y_{i}\neq h_{t}(x_{i})}}w_{i}^{{(t)}}/\sum\limits_{{i=1}}^{m}w_{i}^{{(t)}}$$
+
+$$\epsilon_{t} = P_{x \sim D}(h_t(x_i) \neq y_i)$$
+
+The new $$\alpha_th_t$$ must minimize $$\ell_{exp}(\alpha_th_t|D_t) $$:
+
+$$\alpha_m = \frac{1}{2}\ln\left( \frac{1 - \epsilon_m}{\epsilon_m}\right)$$
+
+At each iteration, choose the classifier $$h_t$$, which minimizes the total weighted error $$\Sigma_{h_t(x_i)\neq y_i}w_i^{(m)}$$, use this to calculate the error rate $$\epsilon _{m}$$, use this to calculate the weight $$\alpha_m$$, and finally use this to improve the boosted classifier $$H_{t-1}$$ to $$H_{t}=H_{t-1}+\alpha _th_t$$.
+
