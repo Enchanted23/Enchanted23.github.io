@@ -439,7 +439,50 @@ We use this to calculate the error rate $$\epsilon_m$$, then we use $$\epsilon_m
 
 ### 9. Dimension Reduction & Metric Learning 
 
+* **curse of dimentionality**
 
+  1. sparse sample
+  2. hard to compute distence
+
+* **dimention reduction**
+
+  benefits: more **dense samples** + easier to **compute distence**
+
+  why we can do this: Most of the time, it is feature space's **low dimentional embedding** that is truly related to the training task.
+
+#### MDS
+
+*multiple dimensional scaling is a classical dimention reduction method*
+
+m samples, the distance matrix is $$D\in\mathbb{R}^{m\times m}$$, $$d_{ij} = dist_{ij}$$ is the distance between $$x_i$$ and $$x_j$$. 
+
+our goal is to gain $$Z\in\mathbb{R}^{d'\times m},\, d'\leq d$$, in which $$\|z_i - z_j \|=dist_{ij}$$.
+
+$$B=Z^TZ \in \mathbb{R}^{m\times m}, \; b_{ij}=z_i^Tz_j$$
+
+$$B=V\Lambda V^T, \Lambda = diag(\lambda_1, \ldots,\lambda_d)$$
+
+there are $d^*$ nonzero eigenvalues in $$\lambda_1\geq \ldots \geq \lambda_d$$
+
+$$Z = \Lambda_*^{1/2}V_*^T \in \mathbb{R}^{d^*\times m}$$
+
+we only need the distances being close not strictly the same.
+
+so we use $d^* \ll d$ largest eigenvalues:
+
+$$\tilde{\Lambda} = diag(\lambda_1, \ldots,\lambda_{d^*})$$
+
+$$Z = \tilde{\Lambda}_*^{1/2}\tilde{V}^T \in \mathbb{R}^{d'\times m}$$
+
+#### PCA
+
+*principle component analysis is a very common dimention reduction method*
+
+1. **centering**
+
+   $$x_i \leftarrow x_i - \frac{1}{m}\sum\limits_{i=1}^{m}x_i$$
+
+2. ​
 
 ### 10. Feature Selection & sparse coding
 
