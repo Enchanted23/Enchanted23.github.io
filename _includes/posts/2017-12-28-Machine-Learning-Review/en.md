@@ -359,11 +359,15 @@ $$H_{t-1}(x_i)=\alpha_1h_1(x_i)+\cdots +\alpha _{t-1}h_{t-1}(x_i)$$
 
 So it remains to determine which weak classifier is the best choice for $$h_t$$, and what its weight $$\alpha_{t}$$ should be.
 
+$$\epsilon_t = \frac{\sum\limits_{y_i \neq h_t(x_i)}w_i^{(t)}}{\sum\limits_{i=1}^mw_i^{(t)}}$$
+
+
+
 #### **Bagging and Random Forest**
 
 1. **Bagging**
 
-   It is kind of based on **bootstrap sampling**, which means each component learner only uses $$63.2%$$ of the samples, leaving the remaining $$36.8\%$$ to do the **out-of-bag estimate** of the **diversity**.
+   It is kind of based on **bootstrap sampling**, which means each component learner only uses $$63.2\%$$ of the samples, leaving the remaining $$36.8\%$$ to do the **out-of-bag estimate** of the **diversity**.
 
    Not like **standard Adaboost** which can only be used for binary classification, it can be used for **multi-class classification** and **regression**. And it's **efficient**.
 
