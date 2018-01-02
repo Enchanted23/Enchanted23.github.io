@@ -349,5 +349,12 @@ Ensemble learning can be divided into two classes according to the way how compo
 
 There are many boosting algorithms. A very popular one is **AdaBoost**. It can be deduced in several different ways, one of which is **additive model**.
 
-It uses $$H(x) = \sum\limits_{t=1}^{T} \alpha_t h_t(x)​$$ to minimize **exponential loss function**:
+It uses $$H(x) = \sum\limits_{t=1}^{T} \alpha_t h_t(x)$$ to minimize **exponential loss function**:
 
+$$\ell_{exp}(H|D) = E_{x \sim D}[e^{-f(x)H(x)}]$$
+
+Suppose we have a data set $$\{(x_1,y_1),…,(x_m,y_m)\}$$ where each item $$x_{i}$$ has an associated class $$y_{i}\in \{-1,1\}$$, and and a set of weak classifiers$$\{h_{1},\ldots,h_{T}\}$$ each of which outputs a classification $$h_{j}(x_{i})\in \{-1,1\}$$ for each item. After the $$(t−1)^{th}$$ iteration our boosted classifier is a linear combination of the weak classifiers of the form:
+
+$$H_{t-1}(x_i)=\alpha_1h_1(x_i)+\cdots +\alpha _{t-1}h_{t-1}(x_i)$$
+
+So it remains to determine which weak classifier is the best choice for $$h_t$$, and what its weight $$\alpha_{t}$$ should be.
