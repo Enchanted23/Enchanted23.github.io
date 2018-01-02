@@ -343,7 +343,7 @@ Ensemble learning can be divided into two classes according to the way how compo
 1. Component learners have **strong dependencies**, which can only be generated **in series**. *(Eg. Boosting)*
 2. Component learners have **no strong dependencies**, which can be generated **in parallel**. *(Eg. Bagging, Random Forest)*
 
-#### **Boosting**
+#### Boosting
 
 > While boosting is not algorithmically constrained, most boosting algorithms consist of iteratively learning weak classifiers with respect to a distribution and adding them to a final strong classifier. When they are added, they are typically weighted in some way that is usually related to **the weak learners' accuracy**. After a weak learner is added, the data are reweighted: examples that are misclassified gain weight and examples that are classified correctly lose weight (some boosting algorithms actually decrease the weight of repeatedly misclassified examples, e.g., boost by majority and BrownBoost). Thus, future weak learners **focus more on the examples that previous weak learners misclassified**
 
@@ -359,13 +359,27 @@ $$H_{t-1}(x_i)=\alpha_1h_1(x_i)+\cdots +\alpha _{t-1}h_{t-1}(x_i)$$
 
 So it remains to determine which weak classifier is the best choice for $$h_t$$, and what its weight $$\alpha_{t}$$ should be.
 
-$$\epsilon_{t}=\sum\limits_{{y_{i}\neq h_{t}(x_{i})}}w_{i}^{{(t)}}/\sum\limits_{{i=1}}^{m}w_{i}^{{(t)}}$$
+#### **Bagging and Random Forest**
 
-$$\epsilon_{t} = P_{x \sim D}(h_t(x_i) \neq y_i)$$
+1. **Bagging**
 
-The new $$\alpha_th_t$$ must minimize $$\ell_{exp}(\alpha_th_t|D_t) $$:
+   It is kind of based on **bootstrap sampling**, which means each component learner only uses $$63.2%$$ of the samples, leaving the remaining $$36.8\%$$ to do the **out-of-bag estimate** of the **diversity**.
 
-$$\alpha_m = \frac{1}{2}\ln\left( \frac{1 - \epsilon_m}{\epsilon_m}\right)$$
+   Not like **standard Adaboost** which can only be used for binary classification, it can be used for **multi-class classification** and **regression**. And it's **efficient**.
 
-At each iteration, choose the classifier $$h_t$$, which minimizes the total weighted error $$\Sigma_{h_t(x_i)\neq y_i}w_i^{(m)}$$, use this to calculate the error rate $$\epsilon _{m}$$, use this to calculate the weight $$\alpha_m$$, and finally use this to improve the boosted classifier $$H_{t-1}$$ to $$H_{t}=H_{t-1}+\alpha _th_t$$.
+2. **Random Forest**
+
+   Random Forest combined **Bagging** and **random selection of features**. 
+
+   Choose a subset consisting of $$k$$ features from a node which have $$d$$ features. *(k<d)*
+
+   We often use $$k = log_2d.$$
+
+#### Ensemble Strategy
+
+1. **averaging**
+2. **voting**
+3. **learning**
+
+
 
