@@ -361,7 +361,7 @@ So it remains to determine which weak classifier is the best choice for $$h_t$$,
 
 $$\epsilon_t = \frac{\sum\limits_{y_i \neq h_t(x_i)}w_i^{(t)}}{\sum\limits_{i=1}^mw_i^{(t)}} = P_{x \sim D}(h_t(x_i) \neq y_i)$$
 
-The new $$\alpha_th_t$$ must minimize $$\ell_{exp}(\alpha_th_t|D_t)$$
+The new $$\alpha_th_t$$ must minimize $$\ell_{exp}({\alpha_th_t}|D_t)$$
 
 According to partial derivative:
 
