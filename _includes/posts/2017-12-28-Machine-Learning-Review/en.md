@@ -319,3 +319,74 @@ I will go deeper into deep learning area in my following blogs, espacially CNN, 
 ### 5. SVM
 
 ### 6. Bayes Classifier
+
+### 7. Ensemble Learning
+
+#### Introduction
+
+*In statistics and machine learning, ensemble methods use multiple learning algorithms to obtain better predictive performance than could be obtained from any of the constituent learning algorithms alone.*
+
+![](https://www.analyticsvidhya.com/wp-content/uploads/2015/07/bagging.png)
+
+It can be **homogeneous** or **heterogeneous**.
+
+> Ensembles combine multiple hypotheses to form a (hopefully) better hypothesis. The term **ensemble** is usually reserved for methods that generate multiple hypotheses using the same base learner. The broader term of **multiple classifier systems** also covers hybridization of hypotheses that are not induced by the same base learner.
+>
+> Evaluating the prediction of an ensemble typically requires more computation than evaluating the prediction of a single model, so ensembles may be thought of as a way to compensate for poor learning algorithms by performing a lot of extra computation. Fast algorithms such as **decision trees** are commonly used in ensemble methods (for example **Random Forest**), although slower algorithms can benefit from ensemble techniques as well.
+
+*An ensemble is itself a **supervised learning** algorithm, because it can be trained and then used to make predictions. The trained ensemble, therefore, represents a single hypothesis. This hypothesis, however, is not necessarily contained within the hypothesis space of the models from which it is built. Thus, ensembles can be shown to have **more flexibility** in the functions they can represent. This flexibility can, in theory, enable them to over-fit the training data more than a single model would, but in practice, some ensemble techniques (especially **bagging**) tend to **reduce problems related to over-fitting** of the training data.*
+
+*Empirically, ensembles tend to yield better results when there is **a significant diversity** among the models. Many ensemble methods, therefore, seek to promote diversity among the models they combine. Although perhaps non-intuitive, more random algorithms (like random decision trees) can be used to produce a stronger ensemble than very deliberate algorithms (like entropy-reducing decision trees). **Using a variety of strong learning algorithms, however, has been shown to be more effective than using techniques that attempt to dumb-down the models in order to promote diversity**.*
+
+Ensemble learning can be divided into two classes according to the way how component learners are generated:
+
+1. Component learners have **strong dependencies**, which can only be generated **in series**. *(Eg. Boosting)*
+2. Component learners have **no strong dependencies**, which can be generated **in parallel**. *(Eg. Bagging, Random Forest)*
+
+#### **Boosting**
+
+> While boosting is not algorithmically constrained, most boosting algorithms consist of iteratively learning weak classifiers with respect to a distribution and adding them to a final strong classifier. When they are added, they are typically weighted in some way that is usually related to **the weak learners' accuracy**. After a weak learner is added, the data are reweighted: examples that are misclassified gain weight and examples that are classified correctly lose weight (some boosting algorithms actually decrease the weight of repeatedly misclassified examples, e.g., boost by majority and BrownBoost). Thus, future weak learners **focus more on the examples that previous weak learners misclassified**
+
+There are many boosting algorithms. A very popular one is **AdaBoost**. It can be deduced in several different ways, one of which is **additive model**.
+
+It use $$H(x) = \sum\limits_{t=1}^{T} \alpha_t h_t(x)$$ to minimize **exponential loss function**:
+
+$$\ell_{exp}(H|D) = E_{x \sim D}[e^{-f(x)H(x)}].$$
+
+Suppose we have a data set $$\{(x_1,y_1),…,(x_m,y_m)\}$$ where each item $$x_{i}$$ has an associated class $$y_{i}\in \{-1,1\}$$, and and a set of weak classifiers$$\{h_{1},\ldots,h_{T}\}$$ each of which outputs a classification $$h_{j}(x_{i})\in \{-1,1\}$$ for each item. After the $$(t−1)^{th}$$ iteration our boosted classifier is a linear combination of the weak classifiers of the form:
+
+$$H_{t-1}(x_i)=\alpha_1h_1(x_i)+\cdots +\alpha _{t-1}h_{t-1}(x_i)$$
+
+So it remains to determine which weak classifier is the best choice for $$h_t$$, and what its weight $$\alpha_{t}$$ should be.
+
+$$\epsilon_{t}=\sum\limits_{{y_{i}\neq h_{t}(x_{i})}}w_{i}^{{(t)}}/\sum\limits_{{i=1}}^{m}w_{i}^{{(t)}}$$
+
+$$= P_{x \sim D}(h_t(x_i) \neq y_i)$$
+
+The new $$\alpha_th_t$$ must minimize $$\ell_{exp}(\alpha_th_t|D_t) :$$ 
+
+$$\alpha_m = \frac{1}{2}\ln\left( \frac{1 - \epsilon_m}{\epsilon_m}\right)$$
+
+At each iteration, choose the classifier $$h_{t}$$, which minimizes the total weighted error $$\Sigma_{h_t(x_i)\neq y_i}w_i^{(m)}$$use this to calculate the error rate $$\epsilon _{m}$$, use this to calculate the weight $$\alpha_m$$, and finally use this to improve the boosted classifier $$H_{t-1}$$ to $$H_{{t}}=H_{t-1}+\alpha _{t}h_{t}.$$
+
+- **Bagging and Random Forest**
+
+1. **Bagging**
+
+   It is kind of based on **bootstrap sampling**, which means each component learner only uses $$63.2%$$ of the samples, leaving the remaining $$36.8\%$$ to do the **out-of-bag estimate** of the **diversity**.
+
+   Not like **standard Adaboost** which can only be used for binary classification, it can be used for **multi-class classification** and **regression**. And it's **efficient**.
+
+2. **Random Forest**
+
+   Random Forest combined **Bagging** and **random selection of features**. 
+
+   Choose a subset consisting of $$k$$ features from a node which have $$d$$ features. *(k<d)*
+
+   We often use $$k = log_2d.$$
+
+- **Ensemble Strategy**
+  1. **averaging**
+  2. **voting**
+  3. **learning**
+
