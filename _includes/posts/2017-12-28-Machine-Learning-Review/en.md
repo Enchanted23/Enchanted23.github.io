@@ -373,9 +373,7 @@ At each iteration, we choose the classifier $$h_t$$ which minimizes the total we
 
 $$\sum\limits_{h_t(x_i) \neq y_i}w_i^{(m)}$$
 
-We use this to calculate the error rate $$\epsilon_m$$, then we use $$\epsilon_m$$ to get the weight $$\alpha_m$$. Fiinally, we imrove the boosted classifier 
-
-$$H_{t-1}$$ to $$H_t=H_{t-1}+\alpha_th_t$$
+We use this to calculate the error rate $$\epsilon_m$$, then we use $$\epsilon_m$$ to get the weight $$\alpha_m$$. Fiinally, we improve the boosted classifier $$H_{t-1}$$ to $$H_t=H_{t-1}+\alpha_th_t$$
 
 #### **Bagging and Random Forest**
 
