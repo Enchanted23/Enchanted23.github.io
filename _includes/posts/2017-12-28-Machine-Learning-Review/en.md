@@ -394,8 +394,62 @@ We use this to calculate the error rate $$\epsilon_m$$, then we use $$\epsilon_m
 #### Ensemble Strategy
 
 1. **averaging**
+
+   simple averaging: 
+
+   $$H(x)=\frac{1}{T}\sum\limits_{i=1}^{T}h_i(x)$$
+
+   weighted averaging:
+
+   $$H(x)=\sum\limits_{i=1}^{T}w_ih_i(x)$$
+
 2. **voting**
+
+   majority voting:
+
+   $$H(x)=\begin{cases} c_j, & \mbox{if  }\sum\limits_{i=1}^{T}h_i^j(x)>0.5\sum\limits_{k=1}^{N}\sum\limits_{i=1}^{T}h_i^k(x)\mbox{;} \\reject, & \mbox{otherwise.} \end{cases}$$
+
+   plurality voting:
+
+   $$H(x) = c_{\underset{j}{arg\,max}\sum\limits_{i=1}^{T}h_i^j(x)}$$
+
+   weighted voting:
+
+   $$H(x) = c_{\underset{j}{arg\,max}\sum\limits_{i=1}^{T}w_ih_i^j(x)}$$
+
+   hard voting: $$h_i^j \in \{0,1\}$$
+
+   soft voting: $$h_i^j \in [0,1]$$
+
 3. **learning**
 
+   Learning strategy is usually more powerful. 
 
+   **Stacking** is a representative learning method of ensemble strategy.
+
+   > Stacking (sometimes called stacked generalization) involves **training a learning algorithm** to combine the predictions of several other learning algorithms. First, all of the other algorithms are trained using the available data, then a **combiner algorithm** is trained to make a final prediction using all the predictions of the other algorithms as additional inputs. If an arbitrary combiner algorithm is used, then stacking can theoretically represent any of the ensemble techniques described in this article, although in practice, **a single-layer logistic regression model** is often used as the combiner.
+   >
+   > Stacking typically yields performance better than any single one of the trained models. It has been successfully used on both supervised learning tasks (**regression, classification and distance learning**) and unsupervised learning (**density estimation**). It has also been used to **estimate bagging's error rate**. It has been reported to **out-perform Bayesian model-averaging**. The two top-performers in the Netflix competition utilized blending, which may be considered to be a form of stacking.
+
+
+
+> I will jump over some of the following sections and come back to complete them when I have more time.
+
+### 8. Clustering
+
+### 9. Dimension Reduction & Metric Learning 
+
+
+
+### 10. Feature Selection & sparse coding
+
+### 11. Computational learning theory
+
+### 12. Semi-supervised Learning
+
+### 13. Proabilistic Graphical Model
+
+### 14. Rule Learning
+
+### 15. Reinforecement Learning
 
