@@ -359,7 +359,7 @@ $$H_{t-1}(x_i)=\alpha_1h_1(x_i)+\cdots +\alpha _{t-1}h_{t-1}(x_i)$$
 
 So it remains to determine which weak classifier is the best choice for $$h_t$$, and what its weight $$\alpha_{t}$$ should be.
 
-$$\epsilon_t = \frac{\sum\limits_{y_i \neq h_t(x_i)}w_i^{(t)}}{\sum\limits_{i=1}^mw_i^{(t)}}$$
+$$\epsilon_t = \frac{\sum\limits_{y_i \neq h_t(x_i)}w_i^{(t)}}{\sum\limits_{i=1}^mw_i^{(t)}} = P_{x \sim D}(h_t(x_i) \neq y_i)$$
 
 
 
