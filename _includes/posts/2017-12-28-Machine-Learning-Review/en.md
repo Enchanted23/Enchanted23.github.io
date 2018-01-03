@@ -651,4 +651,4 @@ $$s_k(y_i,x,i) = \begin{cases} 1, & \mbox{if  } y_{i}=[V] \mbox{ and } x_i= \mbo
 
 ### 15. Reinforecement Learning
 
-> *Reinforecement Learning will be included in one of my following blog, so I will not write it here.*
+> *Reinforecement Learning will be included in one of my following blogs, so I will not write it here.*
