@@ -478,11 +478,56 @@ $$Z = \tilde{\Lambda}_*^{1/2}\tilde{V}^T \in \mathbb{R}^{d'\times m}$$
 
 *principle component analysis is a very common dimention reduction method*
 
+> PCA is mathematically defined as an orthogonal **linear transformation** that transforms the data to a new coordinate system such that the greatest variance by some projection of the data comes to lie on the first coordinate (called the first principal component), the second greatest variance on the second coordinate, and so on.
+
+if we has a **hyperplane** which can describe all samples.
+
+it should have following two properties:
+
+* all samples should be **close enough** to this hyperplane.
+* samples' **projection** on this hyperplane should be **clearly seperated**.
+
+we can deduce from any of the properties above and get the optimize goal of PCA:
+
+Eg. we know that sample $$x_i$$'s projection on hyperplane is $$W^Tx_i$$.
+
+If we want samples' projection on this hyperplane to be clearly seperated, we should maximize the **variance**, $$\sum_iW^Tx_ix_i^TW$$.
+
+$$\underset{W}{max}\;tr(W^TXX^TW)$$
+
+$$s.t. W^TW=I$$
+
+$$XX^TW = \lambda W$$
+
+thus we only need to do eigenvalues decomposition of the matrix $$X^TX$$, get
+
+$$\lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_d$$
+
+the we fetch $$W=(w_1,\ldots,w_{d'})$$ corresponding to largest $$d'$$ eigenvalues.
+
 1. **centering**
 
    $$x_i \leftarrow x_i - \frac{1}{m}\sum\limits_{i=1}^{m}x_i$$
 
-2. ​
+2. **covariance matrix**
+
+   compute the samples' covariance matrix $$XX^T$$
+
+3. **eigenvalues decomposition**
+
+4. **get projection matrix**
+
+we can use **cross-validation** to get a better $$d'$$.
+
+or we can set a **reconstruction threshold**: eg. $$t=95\%$$
+
+and pick the minimum of $$d'$$ which satisfy $$\frac{\sum_{i=1}^{d'}\lambda_i}{\sum_{i=1}^{d}\lambda_i} \geq t$$.
+
+#### KPCA
+
+#### manifold learning
+
+#### metric learning
 
 ### 10. Feature Selection & sparse coding
 
@@ -491,6 +536,75 @@ $$Z = \tilde{\Lambda}_*^{1/2}\tilde{V}^T \in \mathbb{R}^{d'\times m}$$
 ### 12. Semi-supervised Learning
 
 ### 13. Proabilistic Graphical Model
+
+#### HMM
+
+*Hidden Markov Model is a simple **dynamic Bayesian network**, which is a very famous **directed-graph** model.*
+
+![](http://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/HiddenMarkovModel.png/300px-HiddenMarkovModel.png)
+
+$$A = [a_{ij}]_{N\times N}$$
+
+$$B = [b_{ij}]_{N\times M}$$
+
+$$\pi = (\pi_1, \ldots,\pi_N),\; \pi_i=P(x_1=s_1)$$
+
+people always focus on three basic problems of HMM:
+
+* given $$\lambda = [A,B,\pi]$$, how to compute $$P(y \mid \lambda)$$. 
+
+  observed sequence: $$y=\{y_1,y_2,\ldots,y_n\}$$
+
+* given $$\lambda = [A,B,\pi]$$ and $$y=\{y_1,y_2,\ldots,y_n\}$$, how to infer $$x=\{x_1,x_2,\ldots,x_n\}$$.
+
+* given $$y=\{y_1,y_2,\ldots,y_n\}$$, how to adjust $$\lambda = [A,B,\pi]$$ to maximize $$P(x \mid \lambda)$$.
+
+#### MRF
+
+*Markov Random Field, a famous **undirected-graph** model, is a typical **Markov network**.* 
+
+![](http://slideplayer.com/3172441/11/images/5/Markov+Random+Field+%28Markov+Network%29.jpg)
+
+* **clique**: the subset of all nodes in which each two nodes have connection
+* **maximal clique**
+
+For $$x=\{x_1,\ldots,x_n\}$$, all **cliques** form $$\mathcal{C}$$
+
+$$P(x)=\frac{1}{Z}\prod\limits_{Q\in\mathcal{C}} \psi_Q(x_Q)$$
+
+$$\psi_Q$$ is the **potential function** of $$Q$$
+
+$$Z=\sum\limits_x \prod\limits_{Q \in \mathcal{C}} \psi_Q(x_Q)$$
+
+if $$Q$$ is not a maximal clique, it must be included in a maximal clique $$Q^*$$
+
+$$P(x)=\frac{1}{Z^*}\prod\limits_{Q\in\mathcal{C}^*} \psi_Q(x_Q)$$
+
+**Global Markov property**: Any two subsets of variables are **conditionally independent** given a separating subset:
+
+$$X_A \perp X_B \mid X_S$$
+
+where every path from a node in A to a node in B passes through S.
+
+**Local Markov property**: A variable is conditionally independent of all other variables given its neighbors: 
+
+$$x_v \perp x_{V\setminus n^*(v)} \mid x_{n(v)}$$ 
+
+where $$n(v)$$ is the set of neighbors of $$v$$, and $$n^*(v)=n(v)\cup {v}$$ is the closed neighbourhood of v.
+
+**Pairwise Markov property**: Any two **non-adjacent variables** are conditionally independent given all other variables:
+
+$$x_u \perp x_v \mid x_{V \setminus <u,v>}$$
+
+where $$<x,v> \notin E$$
+
+potential function $$\psi_Q$$ is used to describe the **two-variable correlation** inside $$x_Q$$.
+
+$$log(\psi_Q)$$ has a direct interpretation as the potential energy of a configuration $$Q$$.
+
+#### CRF
+
+
 
 ### 14. Rule Learning
 
