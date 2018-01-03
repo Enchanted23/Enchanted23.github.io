@@ -604,9 +604,51 @@ $$log(\psi_Q)$$ has a direct interpretation as the potential energy of a configu
 
 #### CRF
 
+*CRFs are a type of discriminative undirected graphical model.*
 
+![](https://www.codeproject.com/KB/recipes/559535/gerative-discriminative.png)
+
+The following picture is a **chain-structured CRF**, often used to deal with **sequences**.
+
+![](https://image.slidesharecdn.com/conditionalrandomfields-091116015256-phpapp02/95/conditional-random-fields-8-728.jpg?cb=1258336451)
+
+$$P(y \mid x) = \frac{1}{Z}exp\left(\sum\limits_j\sum\limits_{i=1}^{n-1}\lambda_jt_j(y_{i+1},y_i,x,i) + \sum\limits_k\sum\limits_{i=1}^{n} \mu_ks_k(y_i,x,i) \right)$$
+
+**transition feature function**: $$t_j(y_{i+1},y_i,x,i)$$
+
+**status feature function**: $$s_k(y_i,x,i)$$
+
+**parameters**: $$\lambda_j,\,\mu_k$$
+
+Eg.  tagging
+
+$$x = $$ The boy knocked at the watermelon.
+
+$$y = $$ \[D\] \[N\] \[V\] \[P\] \[D\] \[N\]
+
+$$t_j(y_{i+1},y_i,x,i) = \begin{cases} 1, & \mbox{if  } y_{i+1}=[P], y_i=[V] \mbox{ and } x_i= \mbox{"knock",} \\ 0, & \mbox{otherwise.} \end{cases}$$
+
+$$s_k(y_i,x,i) = \begin{cases} 1, & \mbox{if  } y_{i}=[V] \mbox{ and } x_i= \mbox{"knock",} \\ 0, & \mbox{otherwise.} \end{cases}$$
+
+#### Learning & Inference
+
+* to calculate the **marginal distribution** or **conditional distribution**. *(very hard)*
+
+  1. **variable elimination**
+
+  2. **belief propagation**
+
+     ![](http://img.blog.csdn.net/20141207200307843?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYXNwaXJpbnZhZ3JhbnQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+* to get **approximate solution** of the original question. *(practical)*
+
+  1. **sampling**
+  2. **variational inference**
+
+#### Topic Model
 
 ### 14. Rule Learning
 
 ### 15. Reinforecement Learning
 
+> *Reinforecement Learning will be included in one of my following blog, so I will not write it here.*
