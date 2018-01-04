@@ -172,7 +172,48 @@ $$\implies T(n)=\Theta(n\,lg\,n)$$
 
 ##### Substitution Method
 
+1. guess a solution $$G(n)$$
+2. replace $$T(n)$$ with $$G(n)$$ to prove the correctness
+
+we can usually select $$c>T(1)+1$$
+
+**some tricks:**
+
+1. we can prove a **stronger inequation**。
+
+   eg. we can prove $$c_1G(\frac{n+1}{2})<T(n)<c_2G(\frac{n-1}{2})$$ instead.
+
+2. pay attention to that sometimes we need to **prove explicitly**.
+
+3. we can **change the variable** to what we are familiar with. 
+
+   eg. $$log(n) = t,\;T(n)=T'(e^t)$$	*(keep the monotony)*
+
 ##### Recursion Tree Method
 
+$$\sum \mbox{row sum}$$
+
+![](https://www.cs.cornell.edu/courses/cs3110/2012sp/lectures/lec20-master/images/lec19-diagram2.png)
+
+*we often use **Recursion Tree Method** to get $$G(n)$$, then use **Substitution Method** to prove it.*
+
 ##### Master Method
+
+$$T(n)=aT(n/b)+f(n)\quad a\geq1,b>1$$ 
+
+*you can replace $$n/b$$ with $$\lfloor n/b \rfloor$$ or $$\lceil n/b \rceil$$.*
+
+1. if $$f(n)=O(n^{(log_ba)-\varepsilon}),\quad \varepsilon>0$$:
+
+   $$T(n)=\Theta(n^{log_ba})$$
+
+2. if $$f(n)=\Theta(n^{log_ba}\cdot log^kn)$$:
+
+   $$T(n)=\Theta(n^{log_ba}\cdot log^{k+1}n)$$
+
+3. if $$f(n)=\Omega(n^{(log_ba)+\varepsilon}),\quad \varepsilon>0$$
+
+   and $$af(n/b) \leq cf(n),\;c<1$$ when $$n$$ is large enough:
+
+   $$T(n)=\Theta(f(n))$$
 
