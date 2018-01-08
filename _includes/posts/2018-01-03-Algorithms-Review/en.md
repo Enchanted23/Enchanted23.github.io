@@ -175,11 +175,11 @@ $$\implies T(n)=\Theta(n\,lg\,n)$$
 1. guess a solution $$G(n)$$
 2. replace $$T(n)$$ with $$G(n)$$ to prove the correctness
 
-we can usually select $$c>T(1)+1$$
+we usually select $$c>T(1)+1$$
 
 **some tricks:**
 
-1. we can prove a **stronger inequation**。
+1. we can prove a **stronger inequation**.
 
    eg. we can prove $$c_1G(\frac{n+1}{2})<T(n)<c_2G(\frac{n-1}{2})$$ instead.
 
@@ -216,4 +216,10 @@ $$T(n)=aT(n/b)+f(n)\quad a\geq1,b>1$$
    and $$af(n/b) \leq cf(n),\;c<1$$ when $$n$$ is large enough:
 
    $$T(n)=\Theta(f(n))$$
+
+
+
+### Sorting and Order Statistics
+
+
 
