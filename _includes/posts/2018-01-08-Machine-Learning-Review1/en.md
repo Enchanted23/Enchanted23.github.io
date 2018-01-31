@@ -58,7 +58,9 @@ for i in range(nb_epochs):
 
 SGD has trouble navigating ravines, i.e. areas where the surface curves much more steeply in one dimension than in another, which are common around local optima. In these scenarios, SGD oscillates across the slopes of the ravine while only making hesitant progress along the bottom towards the local optimum as in Image 2.
 
-![](https://www.jiqizhixin.com/data/upload/ueditor/20161121/58329acf49465.png)
+![](http://ruder.io/content/images/2015/12/without_momentum.gif)
+
+![](http://ruder.io/content/images/2015/12/with_momentum.gif)
 
 Momentum is a method that helps accelerate SGD in the relevant direction and dampens oscillations as can be seen in Image 3. It does this by adding **a fraction $$γ$$ **of the update vector of the past time step to the current update vector:
 
@@ -80,7 +82,7 @@ $$θ=θ−v_t$$
 
 Again, we set the momentum term $$γ$$ to a value of around $$0.9$$. While Momentum first computes the current gradient (small blue vector in Image 4) and then takes a big jump in the direction of the updated accumulated gradient (big blue vector), NAG first makes a big jump in the direction of the previous accumulated gradient (brown vector), measures the gradient and then makes a correction (red vector), which results in the complete NAG update (green vector). This anticipatory update prevents us from going too fast and results in increased responsiveness, which has significantly increased the performance of RNNs on a number of tasks.
 
-![](https://www.jiqizhixin.com/data/upload/ueditor/20161121/58329b0dc9624.png)
+![](http://ruder.io/content/images/2016/09/nesterov_update_vector.png)
 
 Image 4: Nesterov update (Source: [G. Hinton's lecture 6c](http://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf))
 

@@ -326,7 +326,7 @@ I will go deeper into deep learning area in my following blogs, espacially CNN, 
 
 *In statistics and machine learning, ensemble methods use multiple learning algorithms to obtain better predictive performance than could be obtained from any of the constituent learning algorithms alone.*
 
-![](https://www.analyticsvidhya.com/wp-content/uploads/2015/07/bagging.png)
+![](https://media.licdn.com/mpr/mpr/AAEAAQAAAAAAAAmPAAAAJDRiNTBhNjE3LWM0NWYtNGMzNC04YmRkLTUzZTA3NDA0OTgzNw.png)
 
 It can be **homogeneous** or **heterogeneous**.
 
