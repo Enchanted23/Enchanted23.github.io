@@ -693,7 +693,7 @@ R:查询与文档之间的相关性度量函数
 
 特点
 
-* 检索的结果只输出结果(TURE | FALSE)。 查询项被描述为布尔逻辑操作符(AND,OR,NOT)
+* 检索的结果只输出结果(TURE \| FALSE)。 查询项被描述为布尔逻辑操作符(AND,OR,NOT)
 
 **向量空间模型**
 
@@ -935,7 +935,7 @@ correct_m/m
 
 简化的AP: 只对返回的相关文档进行计算的AP, AP=(1/1+2/2+3/5+4/10+5/20)/5，倾向那些快速返回 结果的系统，没有考虑召回率
 
-**MAP(Mean AP) **
+**MAP(Mean AP):**
 
 对所有查询的AP求算术平均 反映在全部查询上的检索效果
 
@@ -1183,13 +1183,11 @@ Cut: Set of edges with only one vertex in a group.
 
 $$cut(A,B)=\sum\limits_{i\in A, j\in B}w_{ij}$$
 
-The partitioning can be described by a labeling function y that indicates the two joint sets：
+The partitioning can be described by a labeling function y that indicates the two joint set: 见推导
 
-见推导
+**Min-cut:** minimize weight of connections between groups：
 
-**Min-cut：**minimize weight of connections between groups：
-
-Easy to solve: O(|V| |E|) algorithm
+Easy to solve: O(\|V\| \|E\|) algorithm
 
 * Not satisfactory partition – often isolates(孤立) vertices
 * Only consider sexternal cluster connections
@@ -1647,12 +1645,12 @@ Pros and Cons of Collaborative Filtering
 
 Collaborative Filtering: Complexity
 
-* Expensive step is finding k most similar customers: O(|X|)
+* Expensive step is finding k most similar customers: O(\|X\|)
 * Too expensive to do at runtime 
 * Need to pre-compute
 
 
-* Naïve pre-computation takes time O(|S|· |X|)
+* Naïve pre-computation takes time O(\|S\|· \|X\|)
 * Near-neighbor search in high dimensions 
 * Can use clustering, partitioning as alternatives, but quality degrades
 
