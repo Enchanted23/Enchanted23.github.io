@@ -104,7 +104,7 @@ $$θ_t+1=θ_t−\frac{η}{\sqrt{G_t+ϵ}}⊙g_t$$
 
 ##### (4) Adadelta
 
-Adadelta is an extension of Adagrad that seeks to **reduce** its aggressive, monotonically decreasing **learning rate**. Instead of accumulating all past squared gradients, Adadelta restricts the window of accumulated past gradients to **some fixed size** $$w$$.
+Adadelta is an extension of Adagrad that seeks to **reduce** its aggressive, monotonically decreasing **learning rate**. Instead of accumulating all past squared gradients, Adadelta restricts the window of  past gradients to **some fixed size** $$w$$.
 
 With Adadelta, we **do not even need to set a default learning rate**, as it has been eliminated from the update rule.
 
@@ -144,7 +144,7 @@ If your input data is **sparse**, then you likely achieve the best results using
 
 > So, which optimizer should you now use? If your input data is sparse, then you likely achieve the best results using one of the adaptive learning-rate methods. An additional benefit is that you won't need to tune the learning rate but likely achieve the best results with the default value.
 >
-> In summary, RMSprop is an extension of Adagrad that deals with its radically diminishing learning rates. It is identical to Adadelta, except that Adadelta uses the RMS of parameter updates in the numinator update rule. Adam, finally, adds bias-correction and momentum to RMSprop. Insofar, RMSprop, Adadelta, and Adam are very similar algorithms that do well in similar circumstances. Kingma et al. [[15](http://ruder.io/optimizing-gradient-descent/index.html#fn:15)] show that its bias-correction helps Adam slightly outperform RMSprop towards the end of optimization as gradients become sparser. Insofar, Adam might be the best overall choice.
+> In summary, RMSprop is an extension of Adagrad that deals with its radically diminishing learning rates. It is identical to Adadelta, except that Adadelta uses the RMS of parameter updates in the numinator update rule. Adam, finally, adds bias-correction and momentum to RMSprop. Insofar, RMSprop, Adadelta, and Adam are very similar algorithms that do well in similar circumstances. Kingma et al.  show that its bias-correction helps Adam slightly outperform RMSprop towards the end of optimization as gradients become sparser. Insofar, Adam might be the best overall choice.
 >
 > Interestingly, many recent papers use vanilla SGD without momentum and a simple learning rate annealing schedule. As has been shown, SGD usually achieves to find a minimum, but it might take significantly longer than with some of the optimizers, is much more reliant on a robust initialization and annealing schedule, and may get stuck in saddle points rather than local minima. Consequently, if you care about fast convergence and train a deep or complex neural network, you should choose one of the adaptive learning rate methods.
 
@@ -156,12 +156,11 @@ Note:
 
 ##### (1) Why Gradients Explode or Vanish 
 
+Recall the encoder-decoder architecture for machine translation. It has to read an English sentence, store as much informationas possible in its hidden activations, and output a French sentence. Theinformation about the first word in the sentence doesn’t get used in the predictions until it starts generating. Since a typical sentence might beabout 20 words long, this means there’s a long temporal gap from when itsees an input to when it uses that to make a prediction. It can be hardto learn long-distance dependencies, for reasons we’ll see shortly. In orderto adjust the input-to-hidden weights based on the first input, the errorsignal needs to travel backwards through this entire pathway.
 
-
-### RNN 
 
 ### References
 
 1. [*Sebastian Ruder (2016). An overview of gradient descent optimisation algorithms. arXiv preprint arXiv:1609.04747.*](https://arxiv.org/abs/1609.04747)
-2. ​
+2. [Lecture 15: Exploding and Vanishing Gradients - Roger Grosse](http://www.cs.toronto.edu/~rgrosse/courses/csc321_2017/readings/L15%20Exploding%20and%20Vanishing%20Gradients.pdf)
 

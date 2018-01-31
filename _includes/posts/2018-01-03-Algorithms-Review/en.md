@@ -221,5 +221,19 @@ $$T(n)=aT(n/b)+f(n)\quad a\geq1,b>1$$
 
 ### Sorting and Order Statistics
 
+#### Selection sort
+
+![](https://image.slidesharecdn.com/insertionsortbubblesortselectionsort-170516055539/95/insertion-sort-bubble-sort-selection-sort-31-638.jpg?cb=1494914307)
+
+- **loop invariant**: At the start of each iteration of the for loop of lines 1–8, the subarray $$A[1…j-1]$$ consists of the elements originally in $$A[1…j-1]$$, but in sorted order.
+- $$T(n) : \Theta (n^2)$$
+- $$S(n): O(1)$$
+- **stability**: stable
+- **illustration**:
+
+
+
+#### Bubble sort
+
 
 
