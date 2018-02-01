@@ -1656,4 +1656,4 @@ Collaborative Filtering: Complexity
 
 ## 矩阵求导
 
-见推导
+The derivation rule of matrix can be found at [here](http://files.cnblogs.com/files/leoleo/matrix_rules.pdf).
