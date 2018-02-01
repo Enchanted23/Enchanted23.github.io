@@ -318,6 +318,8 @@ I will go deeper into deep learning area in my following blogs, espacially CNN, 
 
 ### 5. SVM
 
+[Supported Vector Machines vs Logistic Regression](http://www.cs.toronto.edu/~kswersky/wp-content/uploads/svm_vs_lr.pdf)
+
 ### 6. Bayes Classifier
 
 ### 7. Ensemble Learning

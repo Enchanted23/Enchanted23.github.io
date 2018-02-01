@@ -82,13 +82,53 @@ $$\frac{\partial E}{\partial W} = \sum\limits_{t} \frac{\partial E_t}{\partial W
 
 To calculate these gradients we use the chain rule of differentiation. I'll use $$E_3$$ as an example, just to have concrete numbers to work with.
 
-$$s_t = \tanh(Ux_t + Ws_{t-1})$$
+$$s_3 = \tanh(Ux_3 + Ws_{2})$$
 
-$$\hat{y}_t = \mathrm{softmax}(Vs_t)$$
+$$\begin{aligned} \hat{y}_3 &= \mathrm{softmax}(Vs_3) \\&=\mathrm{softmax}(z_3) \end{aligned}$$
 
-$$E_t(y_t, \hat{y}_t) = - y_{t} \log \hat{y}_{t} $$
+$$\hat{y}_{3j} = \frac{e^{z_{3j}}}{\sum\limits_{k=1}^{m}e^{z_{3k}}}$$
 
-$$\begin{aligned}  \frac{\partial E_3}{\partial V} &=\frac{\partial E_3}{\partial \hat{y}_3}\frac{\partial\hat{y}_3}{\partial V}\\  &=\frac{\partial E_3}{\partial \hat{y}_3}\frac{\partial\hat{y}_3}{\partial z_3}\frac{\partial z_3}{\partial V}\\  &=(\hat{y}_3 - y_3) \otimes s_3 \\  \end{aligned}$$
+$$E_3(y_3, \hat{y}_3) = - y_{3} \log \hat{y}_{3} $$
+
+$$\begin{aligned}  \frac{\partial E_3}{\partial V} &=\frac{\partial E_3}{\partial \hat{y}_3}\frac{\partial\hat{y}_3}{\partial V}\\  &=\frac{\partial E_3}{\partial \hat{y}_3}\frac{\partial\hat{y}_3}{\partial z_3}\frac{\partial z_3}{\partial V}\\ &=(\hat{y}_3 - y_3) \otimes s_3 \\  \end{aligned}$$
+
+In the above, $$z_3 =Vs_3$$, and $$\otimes$$ is the outer product of two vectors. The derivation rule of matrix can be found at [here](http://files.cnblogs.com/files/leoleo/matrix_rules.pdf). The point I’m trying to get across is that $$\frac{\partial E_3}{\partial V} $$ only depends on the values at the current time step, $$\hat{y}_3, y_3, s_3 $$. If you have these, calculating the gradient for $$V$$ a simple matrix multiplication.
+
+But the story is different for $$\frac{\partial E_3}{\partial W}$$ (and for $$U$$. To see why, we write out the chain rule, just as above:
+
+$$\begin{aligned}  \frac{\partial E_3}{\partial W} &= \frac{\partial E_3}{\partial \hat{y}_3}\frac{\partial\hat{y}_3}{\partial s_3}\frac{\partial s_3}{\partial W}\\  \end{aligned}$$
+
+Now, note that $$s_3 = \tanh(Ux_t + Ws_2)$$ depends on $$s_2$$, which depends on $$W$$ and $$s_1$$, and so on. So if we take the derivative with respect to $$W$$ we can’t simply treat $$s_2$$ as a constant! We need to apply the chain rule again and what we really have is this:
+
+$$\begin{aligned}  \frac{\partial E_3}{\partial W} &= \sum\limits_{k=0}^{3} \frac{\partial E_3}{\partial \hat{y}_3}\frac{\partial\hat{y}_3}{\partial s_3}\frac{\partial s_3}{\partial s_k}\frac{\partial s_k}{\partial W}\\  \end{aligned}$$
+
+We sum up the contributions of each time step to the gradient. In other words, because $$W$$ is used in every step up to the output we care about, we need to backpropagate gradients from $$t=3$$ through the network all the way to $$t=0$$:
+
+![](http://d3kbpzbmcynnmx.cloudfront.net/wp-content/uploads/2015/10/rnn-bptt-with-gradients.png)
+
+Note that this is exactly the same as the standard backpropagation algorithm that we use in deep [Feedforward Neural Networks](http://www.wildml.com/2015/09/implementing-a-neural-network-from-scratch/). The key difference is that we sum up the gradients for $$W$$ at each time step. In a traditional NN we don’t share parameters across layers, so we don’t need to sum anything. But in my opinion BPTT is just a fancy name for standard backpropagation on an unrolled RNN. Just like with Backpropagation you could define a delta vector that you pass backwards, e.g.: $$\delta_2^{(3)} = \frac{\partial E_3}{\partial z_2} =\frac{\partial E_3}{\partial s_3}\frac{\partial s_3}{\partial s_2}\frac{\partial s_2}{\partial z_2}$$ with $$z_2 = Ux_2+ Ws_1$$. Then the same equations will apply.
+
+## The Vanishing Gradient Problem
+
+I mentioned that RNNs have difficulties learning long-range dependencies – interactions between words that are several steps apart. That’s problematic because the meaning of an English sentence is often determined by words that aren’t very close:“The man who wore a wig on his head went inside”. The sentence is really about a man going inside, not about the wig. But it’s unlikely that a plain RNN would be able capture such information. To understand why, let’s take a closer look at the gradient we calculated above:
+
+$$\begin{aligned}  \frac{\partial E_3}{\partial W} &= \sum\limits_{k=0}^{3} \frac{\partial E_3}{\partial \hat{y}_3}\frac{\partial\hat{y}_3}{\partial s_3}\frac{\partial s_3}{\partial s_k}\frac{\partial s_k}{\partial W}\\  \end{aligned}$$
+
+Note that $$\frac{\partial s_3}{\partial s_k}$$ is a chain rule in itself! For example, $$\frac{\partial s_3}{\partial s_1} =\frac{\partial s_3}{\partial s_2}\frac{\partial s_2}{\partial s_1}$$). Also note that because we are taking the derivative of a vector function with respect to a vector, the result is a matrix (called the [Jacobian matrix](https://en.wikipedia.org/wiki/Jacobian_matrix_and_determinant)) whose elements are all the pointwise derivatives. We can rewrite the above gradient:
+
+$$\begin{aligned}  \frac{\partial E_3}{\partial W} &= \sum\limits_{k=0}^{3} \frac{\partial E_3}{\partial \hat{y}_3}\frac{\partial\hat{y}_3}{\partial s_3}  \left(\prod\limits_{j=k+1}^{3}  \frac{\partial s_j}{\partial s_{j-1}}\right)  \frac{\partial s_k}{\partial W}\\  \end{aligned}$$
+
+It turns out (I won’t prove it here but [this paper](http://www.jmlr.org/proceedings/papers/v28/pascanu13.pdf) goes into detail) that the 2-norm, which you can think of it as an absolute value, of **the above Jacobian matrix has an upper bound of 1**. This makes intuitive sense because our $$tanh$$ (or sigmoid) activation function maps all values into a range between -1 and 1, and the derivative is bounded by 1: $$1-tanh^2(x)$$ (1/4 in the case of sigmoid: $$s(x)(1-s(x))$$) as well:
+
+You can see that the $$tanh$$ and sigmoid functions have derivatives of 0 at both ends. They approach a flat line. **When this happens we say the corresponding neurons are saturated.** They have a zero gradient and drive other gradients in previous layers towards 0. Thus, with small values in the matrix and multiple matrix multiplications ($$t-k$$ in particular) the gradient values are shrinking exponentially fast, eventually vanishing completely after a few time steps. **Gradient contributions from “far away” steps become zero, and the state at those steps doesn’t contribute to what you are learning: You end up not learning long-range dependencies.** Vanishing gradients aren’t exclusive to RNNs. They also happen in deep Feedforward Neural Networks. It’s just that RNNs tend to be very deep (as deep as the sentence length in our case), which makes the problem a lot more common.
+
+It is easy to imagine that, depending on our activation functions and network parameters, we could get exploding instead of vanishing gradients if the values of the Jacobian matrix are large. Indeed, that’s called the ***exploding gradient problem***. The reason that vanishing gradients have received more attention than exploding gradients is two-fold. For one, exploding gradients are obvious. **Your gradients will become NaN (not a number) and your program will crash**. Secondly, **clipping the gradients at a pre-defined threshold (as discussed in [this paper](http://www.jmlr.org/proceedings/papers/v28/pascanu13.pdf)) is a very simple and effective solution to exploding gradients.** Vanishing gradients are more problematic because it’s not obvious when they occur or how to deal with them.
+
+More things about the difficulty of training recurrent neural networks can be found [here](the difficulty of training recurrent neural networks).
+
+Fortunately, there are a few ways to combat the vanishing gradient problem. Proper initialization of the $$W$$ matrix can reduce the effect of vanishing gradients. So can regularization. **A more preferred solution is to use [ReLU](https://en.wikipedia.org/wiki/Rectifier_(neural_networks)) instead of $$tanh$$ or sigmoid activation functions.** The ReLU derivative is a constant of either 0 or 1, so it isn’t as likely to suffer from vanishing gradients. **An even more popular solution is to use Long Short-Term Memory (LSTM) or Gated Recurrent Unit (GRU) architectures**. LSTMs were [first proposed in 1997](http://deeplearning.cs.cmu.edu/pdfs/Hochreiter97_lstm.pdf) and are the perhaps most widely used models in NLP today. GRUs, [first proposed in 2014](http://arxiv.org/pdf/1406.1078v3.pdf), are simplified versions of LSTMs. Both of these RNN architectures were explicitly designed to deal with vanishing gradients and efficiently learn long-range dependencies. We’ll cover them in the next part of this tutorial.
+
+## GRU/LSTM
 
 
 
