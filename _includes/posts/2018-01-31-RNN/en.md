@@ -130,7 +130,38 @@ Fortunately, there are a few ways to combat the vanishing gradient problem. Prop
 
 ## GRU/LSTM
 
+### LSTM networks
 
+LSTMs were designed to combat vanishing gradients through a *gating* mechanism.  To understand what this means, let’s look at how a LSTM calculates a hidden state $$s_t$$ (I’m using $$\circ$$ to mean elementwise multiplication):
+
+$$\begin{aligned}  i &=\sigma(x_tU^i + s_{t-1} W^i) \\  f &=\sigma(x_t U^f +s_{t-1} W^f) \\  o &=\sigma(x_t U^o + s_{t-1} W^o) \\  g &=\ tanh(x_t U^g + s_{t-1}W^g) \\  c_t &= c_{t-1} \circ f + g \circ i \\  s_t &=\tanh(c_t) \circ o  \end{aligned}$$
+
+[Understanding LSTM Networks](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
+
+![](http://d3kbpzbmcynnmx.cloudfront.net/wp-content/uploads/2015/10/Screen-Shot-2015-10-23-at-10.00.55-AM.png)
+
+Intuitively, plain RNNs could be considered a special case of LSTMs. If you fix the input gate all 1’s, the forget gate to all 0’s (you always forget the previous memory) and the output gate to all one’s (you expose the whole memory) you almost get standard RNN. There’s just an additional $$\tanh$$ that squashes the output a bit. The *gating mechanism* is what allows LSTMs to explicitly model long-term dependencies. By learning the parameters for its gates, the network learns how its memory should behave.
+
+Notably, there exist several variations on the basic LSTM architecture. A common one is creating *peephole* connections that allow the gates to not only depend on the previous hidden state $$s_{t-1}$$, but also on the previous internal state $$c_{t-1}$$, adding an additional term in the gate equations. There are many more variations. [LSTM: A Search Space Odyssey](http://arxiv.org/pdf/1503.04069.pdf) empirically evaluates different LSTM architectures.
+
+### GRUs
+
+The idea behind a GRU layer is quite similar to that of a LSTM layer, as are the equations.
+
+$$\begin{aligned}  z &=\sigma(x_tU^z + s_{t-1} W^z) \\  r &=\sigma(x_t U^r +s_{t-1} W^r) \\  h &= tanh(x_t U^h + (s_{t-1} \circ r) W^h) \\  s_t &= (1 - z) \circ h + z \circ s_{t-1}  \end{aligned}$$
+
+A GRU has two gates, a reset gate $$r$$, and an update gate $$z$$.  Intuitively, the reset gate determines how to combine the new input with the previous memory, and the update gate defines how much of the previous memory to keep around. If we set the reset to all 1’s and  update gate to all 0’s we again arrive at our plain RNN model. The basic idea of using a gating mechanism to learn long-term dependencies is the same as in a LSTM, but **there are a few key differences**:
+
+- A GRU has two gates, an LSTM has three gates.
+- GRUs don’t possess and internal memory ($$c_t$$ that is different from the exposed hidden state. They don’t have the output gate that is present in LSTMs.
+- The input and forget gates are coupled by an update gate $$z$$ and the reset gate $$r$$ is applied directly to the previous hidden state. Thus, the responsibility of the reset gate in a LSTM is really split up into both $$r$$ and $$z$$.
+- We don’t apply a second nonlinearity when computing the output.
+
+![](http://d3kbpzbmcynnmx.cloudfront.net/wp-content/uploads/2015/10/Screen-Shot-2015-10-23-at-10.36.51-AM.png)
+
+### GRU vs LSTM
+
+Now that you’ve seen two models  to combat the vanishing gradient problem you may be wondering: Which one to use? GRUs are quite new (2014), and their tradeoffs haven’t been fully explored yet.  According to empirical evaluations in [Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling](http://arxiv.org/abs/1412.3555)  and [An Empirical Exploration of Recurrent Network Architectures](http://jmlr.org/proceedings/papers/v37/jozefowicz15.pdf), there isn’t a clear winner. **In many tasks both architectures yield comparable performance and tuning hyperparameters like layer size is probably more important than picking the ideal architecture.** **GRUs have fewer parameters (U and W are smaller) and thus may train a bit faster or need less data to generalize.** On the other hand, if you have enough data, the greater expressive power of LSTMs may lead to better results.
 
 ## RNN Extensions
 
