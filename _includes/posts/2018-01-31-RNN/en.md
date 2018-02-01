@@ -177,3 +177,18 @@ Over the years researchers have developed more sophisticated types of RNNs to de
 
 **LSTM networks** are quite popular these days and we briefly talked about them above. LSTMs don’t have a fundamentally different architecture from RNNs, but they use a different function to compute the hidden state. The memory in LSTMs are called *cells* and you can think of them as black boxes that take as input the previous state $$h_{t-1}$$ and current input $$x_t$$. Internally these cells decide what to keep in (and what to erase from) memory. They then combine the previous state, the current memory, and the input. It turns out that these types of units are very efficient at capturing long-term dependencies. LSTMs can be quite confusing in the beginning but if you’re interested in learning more [this post has an excellent explanation](http://colah.github.io/posts/2015-08-Understanding-LSTMs/).
 
+## Seq2Seq
+
+A Sequence-to-Sequence model reads a sequence (such as a sentence) as an input and produces another sequence as an output. It differs from a standard [RNN](http://www.wildml.com/deep-learning-glossary/#rnn) in that the input sequence is completely read before the network starts producing any output. Typically, seq2seq models are implemented using two RNNs, functioning as encoders and decoders. [Neural Machine Translation](http://www.wildml.com/deep-learning-glossary/#nmt) is a typical example of a seq2seq model.
+
+[Sequence to Sequence Learning with Neural Networks](https://arxiv.org/pdf/1409.3215.pdf)
+
+![](https://adriancolyer.files.wordpress.com/2016/05/seq2seq-fig-1.png)
+
+Most importantly, we demonstrated that a simple, straightforward and a relatively unoptimized ap- proach can outperform an SMT system, so further work will likely lead to even greater translation accuracies. These results suggest that our approach will likely do well on other challenging sequence to sequence problems.
+
+## Recursive Neural Network
+
+**Recursive Neural Networks** are a **generalization of Recurrent Neural Networks** to a **tree-like structure**. The same weights are applied at each recursion. Just like RNNs, Recursive Neural Networks can be trained end-to-end using backpropagation. While it is possible to learn the tree structure as part of the optimization problem, Recursive Neural Networks are often applied to problem that already have a predefined structure, like a parse tree in Natural Language Processing.
+
+More things can be found [here](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.375.5562&rep=rep1&type=pdf).
