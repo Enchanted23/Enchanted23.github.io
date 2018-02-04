@@ -4,7 +4,7 @@ title:      "About ConceptNet"
 subtitle:   " \"Learn to make use of ConceptNet!\""
 date:       2018-02-04 11:26:00
 author:     "Zhan"
-header-img: "img/post-cover/conceptnet.jpg"
+header-img: "img/post-cover/conceptnet.png"
 header-mask:  0.3
 catalog: true
 multilingual: true

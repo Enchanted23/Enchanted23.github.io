@@ -12,7 +12,7 @@
 
 *Before we can make full use of ConceptNet, we need to know how to efficiently use the tools required.*
 
-### PostgreSQL
+### 1. PostgreSQL
 
 PostgreSQL is a **general purpose and object-relational database management system**, the most advanced open source database system. PostgreSQL was developed based on [POSTGRES 4.2](http://db.cs.berkeley.edu/postgres.html) at [Berkeley Computer Science Department](http://www.cs.berkeley.edu/), University of California.
 
@@ -37,7 +37,7 @@ The PostgreSQL server can handle multiple concurrent connections from clients. T
 
 
 
-### Snakemake
+### 2. Snakemake
 
 The Snakemake workflow management system is a tool to create **reproducible and scalable data analyses**. Workflows are described via a human readable, Python based language. They can be seamlessly scaled to server, cluster, grid and cloud environments, without the need to modify the workflow definition. Finally, Snakemake workflows can entail a description of required software, which will be automatically deployed to any execution environment.
 
