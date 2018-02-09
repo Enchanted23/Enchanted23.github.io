@@ -43,6 +43,8 @@ The Snakemake workflow management system is a tool to create **reproducible and 
 
 [English Documentaion](http://snakemake.readthedocs.io/en/latest/)
 
+[Slides](http://slides.com/johanneskoester/snakemake-tutorial-2016#/)
+
 [Sandwiches With Snakemake](https://github.com/leipzig/SandwichesWithSnakemake)
 
 #### Quick Example
@@ -73,5 +75,57 @@ rule plot:
 - Snakemake can automatically deploy required software dependencies of a workflow using [Conda](https://conda.io/) or [Singularity](http://singularity.lbl.gov/).
 - Snakemake can use Amazon S3, Google Storage, Dropbox, FTP, WebDAV, SFTP and iRODS to access input or output files and further access input files via HTTP and HTTPS.
 
+#### Basic Ideas
 
+1. Define workflows in terms of rules
+
+   [Slides](http://slides.com/johanneskoester/snakemake-tutorial-2016#/)
+
+2. Dependencies are determined top-down
+
+   **Problem:** 
+
+   for a given set of targets, find a composition of rules to create them
+
+   **Solution:**
+
+   * For **a given target**, **a rule that can be applied to create it** is determined **(a job)**.
+   * For the input files of the rule, go on recursively.
+   * If no target is specified, Snakemake tries to apply the first rule in the workflow.
+
+3. Job execution
+
+   A job is executed if and only if: (determined via breadth-first-search on DAG of jobs)
+
+   * output file is target and does not exist
+   * output file needed by another executed job and does not exist
+   * input file newer than output file
+   * input file will be updated by other job
+   * execution is enforced
+
+4. Command line interface
+
+   *Assumption: workflow defined in a **Snakefile** in the same directory.*
+
+   ```python
+   # execute the workflow with target D1.sorted.txt
+   snakemake D1.sorted.txt
+
+   # execute the workflow without target: first rule defines target
+   snakemake
+
+   # dry-run
+   snakemake -n
+
+   # dry-run, print shell commands
+   snakemake -n -p
+
+   # dry-run, print execution reason for each job
+   snakemake -n -r
+
+   # visualize the DAG of jobs using the Graphviz dot command
+   snakemake --dag | dot -Tsvg > dag.svg
+   ```
+
+## ConceptNet Code Analysis
 
