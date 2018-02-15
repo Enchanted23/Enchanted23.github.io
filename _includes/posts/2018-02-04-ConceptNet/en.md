@@ -12,7 +12,7 @@
 
 *Before we can make full use of ConceptNet, we need to know how to efficiently use the tools required.*
 
- ### 1. Docker
+### 1. Docker
 
 ***This is usually our first choice. But we can ignore Docker and set up all the dependencies of ConceptNet separately.***
 
@@ -188,9 +188,9 @@ rule plot:
 
 ## ConceptNet Code Analysis
 
-### Data Processing
+### 1. Data Processing
 
-After we build the enviroment, we execute the command
+After we set up the enviroment, we execute the command:
 
 ```Shell
 ./build.sh
@@ -243,7 +243,7 @@ snakemake -j 8 --resources 'ram=16' all
 
 Let's see rule all in [conceptnet5](https://github.com/commonsense/conceptnet5)/**Snakefile**:
 
-```Python
+```python
 rule all:
     input:
         DATA + "/assertions/assertions.csv",
@@ -262,7 +262,7 @@ rule all:
         DATA + "/vectors/mini.h5"
 ```
 
-```Python
+```python
 # The directory containing the data files. By default, this is "data" under
 # the current directory, but it can be overridden using the
 # CONCEPTNET_BUILD_DATA environment variable. This will happen during testing.
