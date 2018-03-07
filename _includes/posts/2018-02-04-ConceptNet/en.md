@@ -513,6 +513,10 @@ rule read_cc_cedict:
 #### msgpack2csv
 
 ```python
+'cn5-convert = conceptnet5.formats.convert:cli'
+```
+
+```python
 # Converting msgpack to csv
 # =========================
 
@@ -548,4 +552,387 @@ rule combine_assertions:
     shell:
         "cn5-build combine {input} {output}"
 ```
+
+#### into PostgreSQL
+
+```python
+cn5-db = conceptnet5.db.cli:cli
+```
+
+```python
+# Putting data in PostgreSQL
+# ==========================
+rule prepare_db:
+    input:
+        DATA + "/assertions/assertions.msgpack"
+    output:
+        DATA + "/psql/edges.csv",
+        DATA + "/psql/edge_sources.csv",
+        DATA + "/psql/edge_features.csv",
+        DATA + "/psql/nodes.csv",
+        DATA + "/psql/node_prefixes.csv",
+        DATA + "/psql/sources.csv",
+        DATA + "/psql/relations.csv"
+    shell:
+        "cn5-db prepare_data {input} {DATA}/psql"
+
+rule gzip_db:
+    input:
+        DATA + "/psql/{name}.csv"
+    output:
+        DATA + "/psql/{name}.csv.gz"
+    shell:
+        "gzip -c {input} > {output}"
+
+rule load_db:
+    input:
+        DATA + "/psql/edges.csv",
+        DATA + "/psql/edge_sources.csv",
+        DATA + "/psql/edge_features.csv",
+        DATA + "/psql/nodes.csv",
+        DATA + "/psql/node_prefixes.csv",
+        DATA + "/psql/sources.csv",
+        DATA + "/psql/relations.csv"
+    output:
+        DATA + "/psql/done"
+    shell:
+        "cn5-db load_data {DATA}/psql && touch {output}"
+```
+
+#### csv2txt
+
+```python
+# Collecting statistics
+# =====================
+rule relation_stats:
+    input:
+        DATA + "/assertions/assertions.csv"
+    output:
+        DATA + "/stats/relations.txt"
+    shell:
+        "cut -f 2 {input} | LC_ALL=C sort | LC_ALL=C uniq -c "
+        "| LC_ALL=C sort -nbr > {output}"
+
+rule all_terms:
+    input:
+        DATA + "/psql/nodes.csv"
+    output:
+        DATA + "/stats/terms.txt"
+    shell:
+        "cut -f 2 {input} > {output}"
+
+rule core_concepts_left:
+    input:
+        expand(DATA + "/edges/{dataset}.csv", dataset=CORE_DATASET_NAMES)
+    output:
+        DATA + "/stats/core_concepts_left.txt"
+    shell:
+        "cut -f 3 {input} > {output}"
+
+rule core_concepts_right:
+    input:
+        expand(DATA + "/edges/{dataset}.csv", dataset=CORE_DATASET_NAMES)
+    output:
+        DATA + "/stats/core_concepts_right.txt"
+    shell:
+        "cut -f 3 {input} > {output}"
+
+rule core_concepts:
+    input:
+        DATA + "/stats/core_concepts_left.txt",
+        DATA + "/stats/core_concepts_right.txt"
+    output:
+        DATA + "/stats/core_concepts.txt"
+    shell:
+        "LC_ALL=C sort -u {input} > {output}"
+
+
+rule concepts_left:
+    input:
+        DATA + "/assertions/assertions.csv"
+    output:
+        DATA + "/stats/concepts_left.txt"
+    shell:
+        "cut -f 3 {input} > {output}"
+
+rule concepts_right:
+    input:
+        DATA + "/assertions/assertions.csv"
+    output:
+        DATA + "/stats/concepts_right.txt"
+    shell:
+        "cut -f 4 {input} > {output}"
+
+
+rule concept_counts:
+    input:
+        DATA + "/stats/concepts_left.txt",
+        DATA + "/stats/concepts_right.txt"
+    output:
+        DATA + "/stats/concept_counts.txt"
+    shell:
+        "cat {input} | grep '^/c/' | cut -d '/' -f 1,2,3,4 "
+        "| LC_ALL=C sort | LC_ALL=C uniq -c > {output}"
+
+
+rule core_concept_counts:
+    input:
+        DATA + "/stats/core_concepts_left.txt",
+        DATA + "/stats/core_concepts_right.txt"
+    output:
+        DATA + "/stats/core_concept_counts.txt"
+    shell:
+        "cat {input} | grep '^/c/' | cut -d '/' -f 1,2,3,4 "
+        "| LC_ALL=C sort | LC_ALL=C uniq -c > {output}"
+
+
+rule language_stats:
+    input:
+        DATA + "/stats/concepts_left.txt",
+        DATA + "/stats/concepts_right.txt"
+    output:
+        DATA + "/stats/languages.txt"
+    shell:
+        "cat {input} | grep '^/c/' | LC_ALL=C sort | LC_ALL=C uniq | cut -d '/' -f 3 "
+        "| LC_ALL=C sort | LC_ALL=C uniq -c | sort -nbr > {output}"
+
+rule language_edge_stats:
+    input:
+        DATA + "/stats/concepts_left.txt",
+        DATA + "/stats/concepts_right.txt"
+    output:
+        DATA + "/stats/language_edges.txt"
+    shell:
+        "cat {input} | grep '^/c/' | LC_ALL=C sort | cut -d '/' -f 3 "
+        "| LC_ALL=C sort | LC_ALL=C uniq -c | sort -nbr > {output}"
+```
+
+#### associations
+
+```python
+# Building associations
+# =====================
+rule assertions_to_assoc:
+    input:
+        DATA + "/assertions/assertions.msgpack"
+    output:
+        DATA + "/assoc/assoc-with-dups.csv"
+    shell:
+        "cn5-convert msgpack_to_assoc {input} {output}"
+
+rule assoc_uniq:
+    input:
+        DATA + "/assoc/assoc-with-dups.csv"
+    output:
+        DATA + "/assoc/assoc.csv"
+    shell:
+        "LC_ALL=C sort {input} | LC_ALL=C uniq > {output}"
+
+rule reduce_assoc:
+    input:
+        DATA + "/assoc/assoc.csv"
+    output:
+        DATA + "/assoc/reduced.csv"
+    shell:
+        "cn5-build reduce_assoc {input} {output}"
+```
+
+#### vector space
+
+```python
+cn5-vectors = conceptnet5.vectors.cli:cli
+```
+
+```Python
+# Building the vector space
+# =========================
+rule convert_word2vec:
+    input:
+        DATA + "/raw/vectors/GoogleNews-vectors-negative300.bin.gz"
+    output:
+        DATA + "/vectors/w2v-google-news.h5"
+    resources:
+        ram=24
+    shell:
+        "CONCEPTNET_DATA=data cn5-vectors convert_word2vec -n {SOURCE_EMBEDDING_ROWS} {input} {output}"
+
+rule convert_glove:
+    input:
+        DATA + "/raw/vectors/glove12.840B.300d.txt.gz"
+    output:
+        DATA + "/vectors/glove12-840B.h5"
+    resources:
+        ram=24
+    shell:
+        "CONCEPTNET_DATA=data cn5-vectors convert_glove -n {SOURCE_EMBEDDING_ROWS} {input} {output}"
+
+rule convert_fasttext_crawl:
+    input:
+        DATA + "/raw/vectors/crawl-300d-2M.vec.gz"
+    output:
+        DATA + "/vectors/crawl-300d-2M.h5"
+    resources:
+        ram=24
+    shell:
+        "CONCEPTNET_DATA=data cn5-vectors convert_fasttext -n {SOURCE_EMBEDDING_ROWS} {input} {output}"
+
+rule convert_fasttext:
+    input:
+        DATA + "/raw/vectors/fasttext-wiki-{lang}.vec.gz"
+    output:
+        DATA + "/vectors/fasttext-wiki-{lang}.h5"
+    resources:
+        ram=24
+    shell:
+        "CONCEPTNET_DATA=data cn5-vectors convert_fasttext -n {SOURCE_EMBEDDING_ROWS} -l {wildcards.lang} {input} {output}"
+
+rule convert_lexvec:
+    input:
+        DATA + "/raw/vectors/lexvec.commoncrawl.300d.W+C.pos.vectors.gz",
+    output:
+        DATA + "/vectors/lexvec-commoncrawl.h5"
+    resources:
+        ram=24
+    shell:
+        "CONCEPTNET_DATA=data cn5-vectors convert_fasttext -n {SOURCE_EMBEDDING_ROWS} {input} {output}"
+
+rule convert_opensubtitles_ft:
+    input:
+        DATA + "/raw/vectors/ft-opensubtitles.vec.gz",
+    output:
+        DATA + "/vectors/fasttext-opensubtitles.h5"
+    resources:
+        ram=24
+    shell:
+        "CONCEPTNET_DATA=data cn5-vectors convert_fasttext -n {MULTILINGUAL_SOURCE_EMBEDDING_ROWS} {input} {output}"
+
+rule convert_polyglot:
+    input:
+        DATA + "/raw/vectors/polyglot-{language}.pkl"
+    output:
+        DATA + "/vectors/polyglot-{language}.h5"
+    shell:
+        "CONCEPTNET_DATA=data cn5-vectors convert_polyglot -l {wildcards.language} {input} {output}"
+
+rule import_opensubtitles_ppmi:
+    input:
+        DATA + "/precomputed/vectors/opensubtitles-ppmi-5.h5"
+    output:
+        DATA + "/vectors/opensubtitles-ppmi-5.h5"
+    shell:
+        "cp {input} {output}"
+
+rule retrofit:
+    input:
+        DATA + "/vectors/{name}.h5",
+        DATA + "/assoc/reduced.csv"
+    output:
+        temp(expand(DATA + "/vectors/{{name}}-retrofit.h5.shard{n}", n=range(RETROFIT_SHARDS)))
+    resources:
+        ram=24
+    shell:
+        "cn5-vectors retrofit -s {RETROFIT_SHARDS} {input} {DATA}/vectors/{wildcards.name}-retrofit.h5"
+
+rule join_retrofit:
+    input:
+        expand(DATA + "/vectors/{{name}}-retrofit.h5.shard{n}", n=range(RETROFIT_SHARDS))
+    output:
+        DATA + "/vectors/{name}-retrofit.h5"
+    resources:
+        ram=24
+    shell:
+        "cn5-vectors join_retrofit -s {RETROFIT_SHARDS} {output}"
+
+rule merge_intersect:
+    input:
+        expand(DATA + "/vectors/{name}-retrofit.h5", name=INPUT_EMBEDDINGS)
+    output:
+        DATA + "/vectors/numberbatch-biased.h5",
+        DATA + "/vectors/intersection-projection.h5"
+    resources:
+        ram=24
+    shell:
+        "cn5-vectors intersect {input} {output}"
+
+rule debias:
+    input:
+        DATA + "/vectors/numberbatch-biased.h5"
+    output:
+        DATA + "/vectors/numberbatch.h5"
+    resources:
+        ram=30
+    shell:
+        "cn5-vectors debias {input} {output}"
+
+rule miniaturize:
+    input:
+        DATA + "/vectors/numberbatch-biased.h5",
+        DATA + "/vectors/w2v-google-news.h5"
+    output:
+        DATA + "/vectors/mini.h5"
+    resources:
+        ram=4
+    shell:
+        "cn5-vectors miniaturize {input} {output}"
+
+rule export_text:
+    input:
+        DATA + "/vectors/numberbatch.h5",
+    output:
+        DATA + "/vectors/plain/numberbatch.txt.gz"
+    shell:
+        "cn5-vectors export_text {input} {output}"
+
+
+rule export_english_text:
+    input:
+        DATA + "/vectors/numberbatch.h5",
+    output:
+        DATA + "/vectors/plain/numberbatch-en.txt.gz"
+    shell:
+        "cn5-vectors export_text -l en {input} {output}"
+```
+
+#### morphology
+
+```python
+# If USE_MORPHOLOGY is true, we will build and learn from sub-words derived
+# from Morfessor.
+USE_MORPHOLOGY = False
+```
+
+*USE_MORPHOLOGY = False, so I will jump over this part. You can see it on github if you want.*
+
+*In the meantime, I will jump over the evaluation and webdata process. I will focus on getting useful local concepnet5 files such database containing all edges.*
+
+### 2. 
+
+## Papers
+
+*Besides reading the code and figuring out how to use these tools, we can read some papers in which the authers have maken use of conceptnet. Using conceptnet in this way may be much faster than learning the whole strucuture by yourself.*
+
+### Word Embeddings
+
+[ConceptNet 5.5: An Open Multilingual Graph of General Knowledge](https://arxiv.org/pdf/1612.03975.pdf)
+
+> Two prominent matrices of embeddings are the word2vec embeddings trained on **100 billion words of Google News using skip-grams with negative sampling (Mikolov et al. 2013)**, and **the GloVe 1.2 embeddings trained on 840 billion words of the Common Crawl (Pennington, Socher, and Man- ning 2014)**. These matrices are downloadable, and we will be using them both as a point of comparison and as inputs to an ensemble. Levy, Goldberg, and Dagan (2015) evaluated multiple embedding techniques and the effects of various explicit and implicit hyperparameters, produced their own performant word embeddings using **a truncated SVD of words and their contexts**, and provided recommendations for the engineering of word embeddings.
+
+ConceptNet is a knowledge graph that connects words and phrases of natural language (**terms**) with labeled, weighted edges (**assertions**). The original release of ConceptNet (Liu and Singh 2004) was intended as a parsed representation of Open Mind Common Sense (Singh 2002), a crowd-sourced knowledge project. This paper describes the release of Con- ceptNet 5.5, which has expanded to include **lexical and world knowledge from many different sources in many languages**.
+
+- **Term Representation**
+
+  ConceptNet represents terms in a standardized form. The text is Unicode-normalized in [NFKC form](http://unicode.org/reports/tr15/) using Python’s unicodedata implementation, lowercased, and split into non-punctuation tokens using the tokenizer in the Python package wordfreq (Speer et al. 2016), which builds on the standard Unicode word segmentation algorithm. The tokens are joined with underscores, and this text is prepended with the URI /c/lang, where lang is the [BCP 47 language code](https://tools.ietf.org/html/bcp47) for the language the term is in. As an example, the English term “United States” becomes /c/en/united states.
+  Relations have a separate namespace of URIs prefixed with /r, such as /r/PartOf. These relations are given artificial names in English, but apply to all languages. The statement that was obtained in Portuguese as “O alimento e ́ usado para comer” is still represented with the relation /r/UsedFor.
+
+- **Vocabulary**
+
+  In ConceptNet, a node is a word or phrase of a natural lan- guage, often a common word in its undisambiguated form. The word “lead” in English is a term in ConceptNet, repre- sented by the URI /c/en/lead, even though it has multi- ple meanings. The advantage of ambiguous terms is that they can be extracted easily from natural language, which is also ambiguous. This ambiguous representation is equivalent to that used by systems that learn distributional semantics from text.
+
+#### Applying ConceptNet to Word Embeddings
+
+**Computing ConceptNet Embeddings Using PPMI (positive point-wise mutual information)**
+
+We can represent the ConceptNet graph as a sparse, symmetric term-term matrix. **Each cell contains the sum of the weights of all edges that connect the two corresponding terms.** For performance reasons, when building this matrix, we prune the ConceptNet graph by discarding terms connected to fewer than three edges.
+
+We consider this matrix to represent terms and their contexts. In a corpus of text, the context of a term would be the terms that appear nearby in the text; here, the context is the other nodes it is connected to in ConceptNet. **We can calculate word embeddings directly from this sparse matrix by following the practical recommendations of Levy, Goldberg, and Dagan (2015)**.
 
