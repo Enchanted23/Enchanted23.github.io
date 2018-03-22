@@ -4,7 +4,7 @@ Logging is a means of tracking events that happen when some software runs. ***Th
 
 ## Basic Logging Tutorial
 
-### When to use logging
+### - When to use logging
 
 Logging provides a set of convenience functions for simple logging usage. These are [`debug()`](https://docs.python.org/2/library/logging.html#logging.debug), [`info()`](https://docs.python.org/2/library/logging.html#logging.info),[`warning()`](https://docs.python.org/2/library/logging.html#logging.warning), [`error()`](https://docs.python.org/2/library/logging.html#logging.error) and [`critical()`](https://docs.python.org/2/library/logging.html#logging.critical). To determine when to use logging, see the table below, which states, for each of a set of common tasks, the best tool to use for it.
 
@@ -30,7 +30,7 @@ The default level is `WARNING`, which means that only events of this level and a
 
 Events that are tracked can be handled in different ways. The simplest way of handling tracked events is to print them to the console. Another common way is to write them to a disk file.
 
-### A simple example
+### - A simple example
 
 A very simple example is:
 
@@ -48,7 +48,7 @@ WARNING:root:Watch out!
 
 printed out on the console. 
 
-### Logging to a file
+### - Logging to a file
 
 A very common situation is that of recording logging events in a file, so let’s look at that next. Be sure to try the following in a newly-started Python interpreter, and don’t just continue from the session described above:
 
@@ -104,7 +104,7 @@ logging.basicConfig(filename='example.log', filemode='w', level=logging.DEBUG)
 
 The output will be the same as before, but the log file is no longer appended to, so the messages from earlier runs are lost.
 
-### Logging from multiple modules
+### - Logging from multiple modules
 
 If your program consists of multiple modules, here’s an example of how you could organize logging in it:
 
@@ -141,7 +141,7 @@ INFO:root:Finished
 
 which is hopefully what you were expecting to see. You can generalize this to multiple modules, using the pattern in *mylib.py*. Note that for this simple usage pattern, you won’t know, by looking in the log file, *where* in your application your messages came from, apart from looking at the event description. If you want to track the location of your messages, you’ll need to refer to the documentation beyond the tutorial level – see[Advanced Logging Tutorial](https://docs.python.org/2/howto/logging.html#logging-advanced-tutorial).
 
-### Logging variable data
+### - Logging variable data
 
 To log variable data, use a format string for the event description message and append the variable data as arguments. For example:
 
@@ -158,7 +158,7 @@ WARNING:root:Look before you leap!
 
 As you can see, merging of variable data into the event description message uses the old, %-style of string formatting. This is for backwards compatibility: the logging package pre-dates newer formatting options such as [`str.format()`](https://docs.python.org/2/library/stdtypes.html#str.format) and [`string.Template`](https://docs.python.org/2/library/string.html#string.Template). These newer formatting options *are* supported, but exploring them is outside the scope of this tutorial.
 
-### Changing the format of displayed messages
+### - Changing the format of displayed messages
 
 To change the format which is used to display messages, you need to specify the format you want to use:
 
@@ -180,7 +180,7 @@ WARNING:And this, too
 
 Notice that the ‘root’ which appeared in earlier examples has disappeared. For a full set of things that can appear in format strings, you can refer to the documentation for [LogRecord attributes](https://docs.python.org/2/library/logging.html#logrecord-attributes), but for simple usage, you just need the *levelname* (severity), *message* (event description, including variable data) and perhaps to display when the event occurred. This is described in the next section.
 
-### Displaying the date/time in messages
+### - Displaying the date/time in messages
 
 To display the date and time of an event, you would place ‘%(asctime)s’ in your format string:
 
