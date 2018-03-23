@@ -170,7 +170,7 @@ $$T(n) = \begin{cases} \Theta(1) & \mbox{if }n=1 \\ 2T(n/2)+\Theta(n) & \mbox{if
 
 $$\implies T(n)=\Theta(n\,lg\,n)$$
 
-##### Substitution Method
+##### - Substitution Method
 
 1. guess a solution $$G(n)$$
 2. replace $$T(n)$$ with $$G(n)$$ to prove the correctness
@@ -189,7 +189,7 @@ we usually select $$c>T(1)+1$$
 
    eg. $$log(n) = t,\;T(n)=T'(e^t)$$	*(keep the monotony)*
 
-##### Recursion Tree Method
+##### - Recursion Tree Method
 
 $$\sum \mbox{row sum}$$
 
@@ -197,7 +197,7 @@ $$\sum \mbox{row sum}$$
 
 *we often use **Recursion Tree Method** to get $$G(n)$$, then use **Substitution Method** to prove it.*
 
-##### Master Method
+##### - Master Method
 
 $$T(n)=aT(n/b)+f(n)\quad a\geq1,b>1$$ 
 
@@ -223,17 +223,83 @@ $$T(n)=aT(n/b)+f(n)\quad a\geq1,b>1$$
 
 #### Selection sort
 
-![](https://image.slidesharecdn.com/insertionsortbubblesortselectionsort-170516055539/95/insertion-sort-bubble-sort-selection-sort-31-638.jpg?cb=1494914307)
+![](https://lh3.googleusercontent.com/-bsSMvXPukXo/VJ_6LdoaufI/AAAAAAAAC1Q/xOoEpiK-n4I/w955-h499-no/selectionSor2.png)
 
-- **loop invariant**: At the start of each iteration of the for loop of lines 1–8, the subarray $$A[1…j-1]$$ consists of the elements originally in $$A[1…j-1]$$, but in sorted order.
+- **loop invariant**: At the start of each iteration of the for loop, the subarray $$A[1…j]$$ consists of the elements originally in $$A[1…j]$$, but in sorted order.
+
 - $$T(n) : \Theta (n^2)$$
+
 - $$S(n): O(1)$$
-- **stability**: stable
+
+- **stability**: unstable
+
 - **illustration**:
+
+  ![](https://lh3.googleusercontent.com/-F4ZeTNi1W_I/VJ_6K20wVEI/AAAAAAAAC1M/bvwhPX63MCg/w894-h316-no/selectionSort1.png)
 
 
 
 #### Bubble sort
 
+![](https://lh4.googleusercontent.com/-IoTOqR5baXg/VJ_1sqHt1TI/AAAAAAAAC00/05jfBWtyphA/w776-h383-no/bubbleSort2.png)
 
+- **loop invariant**: At the start of each iteration of the for loop, the subarray $$A[1…i]$$ consists of the elements originally in $$A[1…i]$$, but in sorted order.
+
+- $$T(n) : \Theta (n^2)$$
+
+- $$S(n): O(1)$$
+
+- **stability**: stable
+
+- **illustration**:
+
+  ![](https://lh4.googleusercontent.com/-oG6PwAsInf0/VJ_1s1dFhBI/AAAAAAAAC04/ln9PMPs9_tI/w834-h587-no/bubbleSort1.png)
+
+#### Heap Sort
+
+![](https://lionelliu.com/static/images/2014/heap-sort-demo.png)
+
+![](http://draperg.cis.byuh.edu/archive/winter2010/cs301/hw/heap/heap_sort.png)
+
+- $$T(n) : O (nlgn)$$
+
+- $$S(n): O(1)$$
+
+- **stability**: unstable
+
+- **illustration**:
+
+  ![](https://cdn-images-1.medium.com/max/1600/1*nbN4DNPdFcTrD3BTGGuUKQ.png)
+
+#### Quick Sort
+
+![](http://www.myassignmenthelp.net/images/quick-sort-pseudo-code.png)
+
+- **loop invariant**: The four regions maintained by the procedure PARTITION on a subarray $$A[p..r]$$. The values in  $$A[p..i]$$are all less than or equal to $$x$$, the values in $$A[i+1..j-1]$$  are all greater than $$x$$, and $$A[r]=x$$. The subarray $$A[j..r-1]$$ can take on any values.
+
+- $$T(n) : \Theta (nlgn)$$ (worst case: $$\Theta (n^2)$$)
+
+- $$S(n): O(1)$$
+
+- **stability**: unstable
+
+- **illustration**:
+
+  ![](http://img.my.csdn.net/uploads/201302/18/1361175605_3156.jpg)
+
+#### Sorting in Linear Time
+
+##### - Counting sort
+
+![](https://i.stack.imgur.com/JVGpq.png)
+
+- $$T(n) : \Theta (n)$$ 
+
+- $$S(n): O(k)$$
+
+- **stability**: stable
+
+- **illustration**:
+
+  ![](http://staff.ustc.edu.cn/~csli/graduate/algorithms/book6/176_a.gif)
 
