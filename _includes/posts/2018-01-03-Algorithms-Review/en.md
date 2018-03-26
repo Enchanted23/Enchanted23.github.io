@@ -2,6 +2,8 @@
 
 Firstly, I will write some important concepts and facts I learned from the course *Introduction to Algorithms*. Then I will look at some problems on *LeetCode*.
 
+[TOC]
+
 ## Introduction to Algorithms [Third Edition]
 
 ### Getting Started
@@ -218,7 +220,6 @@ $$T(n)=aT(n/b)+f(n)\quad a\geq1,b>1$$
    $$T(n)=\Theta(f(n))$$
 
 
-
 ### Sorting and Order Statistics
 
 #### Selection sort
@@ -255,7 +256,7 @@ $$T(n)=aT(n/b)+f(n)\quad a\geq1,b>1$$
 
   ![](https://lh4.googleusercontent.com/-oG6PwAsInf0/VJ_1s1dFhBI/AAAAAAAAC04/ln9PMPs9_tI/w834-h587-no/bubbleSort1.png)
 
-#### Heap Sort
+#### Heap sort
 
 ![](https://lionelliu.com/static/images/2014/heap-sort-demo.png)
 
@@ -271,7 +272,7 @@ $$T(n)=aT(n/b)+f(n)\quad a\geq1,b>1$$
 
   ![](https://cdn-images-1.medium.com/max/1600/1*nbN4DNPdFcTrD3BTGGuUKQ.png)
 
-#### Quick Sort
+#### Quick sort
 
 ![](http://www.myassignmenthelp.net/images/quick-sort-pseudo-code.png)
 
@@ -293,7 +294,7 @@ $$T(n)=aT(n/b)+f(n)\quad a\geq1,b>1$$
 
 ![](https://i.stack.imgur.com/JVGpq.png)
 
-- $$T(n) : \Theta (n)$$ 
+- $$T(n) : \Theta (k + n)$$
 
 - $$S(n): O(k)$$
 
@@ -302,4 +303,128 @@ $$T(n)=aT(n/b)+f(n)\quad a\geq1,b>1$$
 - **illustration**:
 
   ![](http://staff.ustc.edu.cn/~csli/graduate/algorithms/book6/176_a.gif)
+
+##### - Radix sort
+
+```python
+RADIX-SORT(A, d):
+    for i in range(d):
+        use a stable sort (eg. counting sort) to sort array A on digit i
+```
+
+- $$T(n) : \Theta (d(n+k))$$
+
+- $$S(n): depends$$
+
+- **stability**: stable
+
+- **illustration**:
+
+  ![](http://www.includehelp.com/ds/Images/radix-sort.jpg)
+
+##### - Bucket sort
+
+![](http://www2.hawaii.edu/~nodari/teaching/s15/Notes/Topic-10/pseudocode-bucket-sort.jpg)
+
+- $$T(n) : \Theta (n)$$ (worst case: $$\Theta (n^2)$$)
+
+- $$S(n): O(n)$$ 
+
+- **stability**: stable
+
+- **illustration**:
+
+  ![](https://upload.wikimedia.org/wikipedia/fa/a/a6/BucketSort3.gif)
+
+#### Supplement
+
+[An useful website](https://www.geeksforgeeks.org/time-complexities-of-all-sorting-algorithms/)
+
+##### - Algorithm Comparison
+
+![](https://3.bp.blogspot.com/-HtI9w4m1MLE/V0mfhnq7CkI/AAAAAAAAANk/aI5DZEsHbgAAnt-nP-6UxCwf0BAgzNijgCLcB/s1600/sorting.png)
+
+##### - Shell sort
+
+```python
+def shell_sort(list):
+    n = len(list)
+    # 初始步长
+    gap = n // 2
+    while gap > 0:
+        for i in range(gap, n):
+            # 每个步长进行插入排序
+            temp = list[i]
+            j = i
+            # 插入排序
+            while j >= gap and list[j - gap] > temp:
+                list[j] = list[j - gap]
+                j -= gap
+            list[j] = temp
+        # 得到新的步长
+        gap = gap // 2
+    return list
+```
+
+- $$T(n) :$$
+
+  | gap list   | worst case time complexity |
+  | ---------- | -------------------------- |
+  | $$2^i3^j$$ | $$O(nlog^2n)$$             |
+  | $$2^k-1$$  | $$O(n^{3/2})$$             |
+  | $$n/2^i$$  | $$O(n^2)$$                 |
+
+- $$S(n): O(1)$$ 
+
+- **stability**: unstable
+
+- **illustration**:
+
+  ![](https://raw.githubusercontent.com/heray1990/AlgorithmVisualization/master/images/shell_sort.png)
+
+  ![](http://images.slideplayer.com/32/10050174/slides/slide_42.jpg)
+
+#### Medians and Order Statistics
+
+##### - Simultaneous minimum and maximum
+
+![](https://www.researchgate.net/profile/Cyril_Nicaud/publication/282679313/figure/fig1/AS:391500828561417@1470352479893/Naive-and-optimized-implementations-of-simultaneous-maximum-and-minimum-finding.png)
+
+##### - Selection in expected linear time
+
+The following code for **RANDOMIZED-SELECT** returns the $$i_{th}$$ smallest element of the array $$A[p..r]$$ .
+
+![](https://web.cs.dal.ca/~arc/teaching/CSci6702/2014/Assignment2/Select.jpg)
+
+##### - Selection in worst-case linear time
+
+The **SELECT** algorithm determines the $$i_{th}$$ smallest of an input array of $$n > 1$$ distinct elements by executing the following steps. (If $$n = 1$$, then **SELECT** merely returns its only input value as the ith smallest.)
+
+1. Divide the $$n$$ elements of the input array into $$\lfloor n/5 \rfloor$$ groups of $$5$$ elements each and at most one group made up of the remaining $$n$$ mod $$5$$ elements.
+2. Find the median of each of the $$\lceil n/5 \rceil$$ groups by first insertion-sorting the elements of each group (of which there are at most $$5$$) and then picking the median from the sorted list of group elements.
+3. Use **SELECT**  recursively to find the median $$x$$ of the $$\lceil n/5 \rceil$$ medians found instep 2. (If there are an even number of medians, then by our convention, x is the lower median.)
+4. Partition the input array around the median-of-medians $$x$$ using the modified version of PARTITION. Let $$k$$ be one more than the number of elements on the low side of the partition, so that $$x$$ is the $$k_{th}$$ smallest element and there are $$n$$ kelements on the high side of the partition.
+5. If $$i = k$$, then return $$x$$. Otherwise, use **SELECT** recursively to find the $$i_{th}$$ smallest element on the low side if $$i < k$$, or the $$(i-k)_{th}$$ smallest element on the high side if $$i > k$$.
+
+![](https://i.stack.imgur.com/IVK74.png)
+
+We can now develop a recurrence for the worst-case running time $$T(n)$$ of the algorithm **SELECT**. Steps 1, 2, and 4 take $$O(n)$$ time. (Step 2 consists of $$O(n)$$ calls of insertion sort on sets of size $$O(1)$$.) Step 3 takes time $$T(\lceil n/5 \rceil)$$, and step 5 takes time at most $$T(7n/10+6)$$, assuming that $$T$$ is monotonically increasing. We make the assumption, which seems unmotivated at first, that any input of fewer than 140 elements requires $$T(1)$$ time; the origin of the magic constant 140 will be clear shortly.
+
+### Data Structures
+
+#### Elementary Data Structures
+
+*This part will be ignored. If you encounter problems in the following sections, you can read the book to find out.*
+
+**Stacks**:
+
+**Queues**:
+
+**Linked lists**:
+
+**Implementing pointers and objects**:
+
+**Representing rooted trees**：
+
+#### Hash Tables
 
