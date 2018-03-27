@@ -412,19 +412,9 @@ We can now develop a recurrence for the worst-case running time $$T(n)$$ of the 
 
 ### Data Structures
 
-#### Elementary Data Structures
-
-*This part will be ignored. If you encounter problems in the following sections, you can read the book to find out.*
-
-**Stacks**:
-
-**Queues**:
-
-**Linked lists**:
-
-**Implementing pointers and objects**:
-
-**Representing rooted trees**：
+**Stacks**, **Queues**, **Linked lists**, **Implementing pointers and objects**, and **Representing rooted trees** *will be ignored. If you encounter problems in the following sections, you can read the book, Introduction to Algorithms.*
 
 #### Hash Tables
+
+
 
