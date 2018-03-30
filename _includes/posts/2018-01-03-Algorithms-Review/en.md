@@ -485,11 +485,11 @@ The keys in a binary search tree are always stored in such a way as to satisfy t
 Let $$x$$ be a node in a binary search tree. If $$y$$ is a node in the left subtree of $$x$$, then $$y.key \le x.key$$. If $$y$$ is a node in the right subtree of $$x$$, then $$y.key \ge x.key$$.
 
 ```python
-def INORDER_TREE_WALK(x):
+def inorder_tree_walk(x):
     if x <> NIL:
-        INORDER_TREE_WALK(x.left)
+        inorder_tree_walk(x.left)
         print(x.key)
-        INORDER_TREE_WALK(x.right)
+        inorder_tree_walk(x.right)
 ```
 
 ```python
@@ -624,7 +624,7 @@ When we do a left rotation on a node $$x$$, we assume that its right child $$y$$
 ![](https://images0.cnblogs.com/blog2015/779368/201507/270939323913500.png)
 
 ```python
-def LEFT_ROTATE(T, x):
+def left_rotate(T, x):
     y = x.right				# set y
     x.right = y.left			# turn y's left subtree into x's right tree
     if y.left <> T.nil:
