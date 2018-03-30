@@ -416,5 +416,280 @@ We can now develop a recurrence for the worst-case running time $$T(n)$$ of the 
 
 #### Hash Tables
 
+##### - Hash functions
+
+**Interpreting keys as natural numbers**:
+
+Most hash functions assume that the universe of keys is the set $$\mathbb{N}=\{0,1,2,...\}$$ of natural numbers. Thus, if the keys are not natural numbers, we find a way to interpret them as natural numbers.
+
+* The division method
+
+  $$h(k) = k\,\bmod\,m$$
+
+* The multiplication method
+
+  $$h(k) = \lfloor m(kA\,\bmod\,1) \rfloor\;$$ 
+
+  where $$0 < A < 1$$ and “$$kA\,\bmod\,1$$” means the fractional part of $$kA$$, that is, $$kA-\lfloor kA \rfloor$$.
+
+  ***An advantage of the multiplication method is that the value of m is not critical.***
+
+* Universal hashing
+
+  Choosing the hash function randomly in a way that is independent of the keys that are actually going to be stored to avoid $$n$$ keys that all hash to the same slot.
+
+##### - Open addressing
+
+In open addressing, all elements occupy the hash table itself. That is, ***each table entry contains either an element of the dynamic set or NIL***. When searching for an element, we systematically examine table slots until either we find the desired element or we have ascertained that the element is not in the table. ***No lists and no elements are stored outside the table***, unlike in chaining.
+
+* Linear probing
+
+  $$h(k, i) = (h'(k)+i)\,\bmod\,m$$
+
+* Quadratic probing
+
+  $$h(k, i) = (h'(k)+c_1i+c_2i^2)\,\bmod\,m$$
+
+* Double hashing
+
+  $$h(k, i) = (h_1(k)+ih_2(k))\,\bmod\,m$$
+
+Given an open-address hash table with load factor $$\alpha=n/m<1$$, the expected number of probes in an **unsuccessful search** is at most $$1/(1-\alpha)$$, assuming uniform hashing.
+
+Given an open-address hash table with load factor $$\alpha < 1$$, the expected number of probes in a **successful search** is at most
+
+$$\frac{1}{\alpha}\ln \frac{1}{1-\alpha}$$, 
+
+assuming uniform hashing and assuming that each key in the table is equally likely to be searched for.
+
+##### - Perfect hashing 
+
+Although hashing is often a good choice for its excellent average-case performance, hashing can also provide excellent worst-case performance when the set of keys is ***static***: once the keys are stored in the table, the set of keys never changes.
+
+We call a hashing technique ***perfect hashing*** if $$O(1)$$ memory accesses are required to perform a search in the worst case.
+
+Instead of making a linked list of the keys hashing to slot $$j$$ , however, we use a small ***secondary hash table*** $$S_j$$ with an associated hash function $$h_j$$. By choosing the hash function $$h_j$$ carefully, we can guarantee that there are no collisions at the secondary level.
+
+* Suppose that we store n keys in a hash table of size $$m = n^2$$ using a hash function h randomly chosen from a universal class of hash functions. Then, the probability is less than $$1/2$$ that there are any collisions.
+
+* Suppose that we store n keys in a hash table of size $$m = n$$ using a hash function $$h$$ randomly chosen from a universal class of hash functions. Then, we have 
+
+  $$E(\sum\limits_{j=0}^{m-1}n_j^2) < 2n$$ 
+
+  where $$n_j$$ is the number of keys hashing to slot $$j$$.
+
+#### Binary Search Trees
+
+The keys in a binary search tree are always stored in such a way as to satisfy the ***binary-search-tree property***: 
+
+Let $$x$$ be a node in a binary search tree. If $$y$$ is a node in the left subtree of $$x$$, then $$y.key \le x.key$$. If $$y$$ is a node in the right subtree of $$x$$, then $$y.key \ge x.key$$.
+
+```python
+INORDER_TREE_WALK(x):
+    if x <> NIL:
+        INORDER_TREE_WALK(x.left)
+        print(x.key)
+        INORDER_TREE_WALK(x.right)
+```
+
+```python
+# recursion version
+TREE_SEARCH(x, k):
+    if x == NIL or k == x.key:
+        return x
+    if k < x.key:
+        return TREE_SEARCH(x.left, k)
+    else:
+        return TREE_SEARCH(x.right, k)
+    
+# iterative version
+ITERATIVE_TREE_SEARCH(x):
+    while x <> NIL and k <> x.key:
+        if k < x.key:
+            x = x.left
+        else:
+            x = x.right
+    return x
+```
+
+```python
+TREE_MINIMUM(x):
+    while x.left <> NIL:
+        x = x.left
+    return x
+
+TREE_MAXIMUM(x):
+    while x.right <> NIL:
+        x = x.right
+    return x
+```
+
+```python
+TREE_SUCCESSOR(x):
+    if x.right <> NIL:
+        return TREE_SUCCESSOR(x.right)
+    '''
+    if the right subtree of node x is empty and x has a successor y, then y is the lowest        
+    ancestor of x whose left child is also an ancestor of x.
+    '''
+    y = x.p
+    while y <> NIL and x == y.right:
+        x = y
+        y = y.p
+    return y
+
+TREE_PREDECESSOR(x):
+    if x.left <> NIL:
+        return TREE_PREDECESSOR(x.left)
+    '''
+    if the left subtree of node x is empty and x has a predecessor y, then y is the lowest        
+    ancestor of x whose right child is also an ancestor of x.
+    '''
+    y = x.p
+    while y <> NIL and x == y.left:
+        x = y
+        y = y.p
+    return y
+```
+
+```python
+TREE_INSERT(T, z):
+    y = NIL
+    x = T.root
+    while x <> NIL:
+        y = x
+        if z.key < x.key:
+            x = x.left
+        else:
+            x = x.right
+    z.p = y
+    if y == NIL:
+        T.root = z	# tree T was empty
+    elif z.key < y.key:
+        y.left = z
+    else:
+        y.right = z
+```
+
+```python
+TREE_DELETE(T, z):
+    if z.left == NIL:
+        TRANSPLANT(T, z, z.right)
+    elif z.right == NIL:
+        TRANSPLANT(T, z, z.left)
+    else:
+        y = TREE_MINIMUM(Z.right)
+        if y.p <> z:
+            TRANSPLANT(T, y, y.right)
+            y.right = z.right
+            y.right.p = y
+        TRANSPLANT(T, z, y)
+        y.left = z.left
+        y.left.p = y
+
+# turn u's parent into v's parent
+TRANSPLANT(T, u, v):
+    if u.p == NIL:
+        T.root = v
+    elif u == u.p.left:
+        u.p.left = v
+    else:
+        u.p.right = v
+    if v <> NIL:
+        v.p = u.p
+```
+
+***The expected height of a randomly built binary search tree on n distinct keys is $$O(\lg n)$$.***
+
+#### Red-Black Trees
+
+By constraining the node colors on any simple path from the root to a leaf, red-black trees ensure that no such path is more than twice as long as any other, so that the tree is approximately ***balanced***. Each node of the tree now contains the attributes $$color, key, left, right,$$ and $$p$$.
+
+A red-black tree is a binary tree that satisfies the following ***red-black properties***:
+
+1. Every node is either red or black.
+2. The root is black.
+3. Every leaf (NIL) is black.
+4. If a node is red, then both its children are black.
+5. For each node, all simple paths from the node to descendant leaves contain the same number of black nodes.
+
+***A red-black tree with $$n$$ internal nodes has height at most $$2\lg(n+1)$$.***
+
+**Rotation:**
+
+We change the pointer structure through ***rotation***, which is a local operation in a search tree that preserves the binary-search-tree property.
+
+When we do a left rotation on a node $$x$$, we assume that its right child $$y$$ is not $$T.nil$$; $$x$$ may be any node in the tree whose right child is not $$T.nil$$.
+
+![](https://images0.cnblogs.com/blog2015/779368/201507/270939323913500.png)
+
+```python
+LEFT_ROTATE(T, x):
+    y = x.right				# set y
+    x.right = y.left		# turn y's left subtree into x's right tree
+    if y.left <> T.nil:
+        y.left.p = x
+    y.p = x.p
+    if x.p == T.nil:			# turn x's parent into y's parent
+        T.root = y
+    elif x == x.p.left:
+        x.p.left = y
+    else:
+        x.p.right = y
+    y.left = x				# put x on y's left
+    x.p = y
+```
+
+**Insertion:**
+
+```python
+RB_INSERT(T, z):
+    y = T.nil
+    x = T.root
+    while x <> T.nil:
+        y = x
+        if z.key < x.key:
+            x = x.left
+        else:
+            x = x.right
+    z.p = y
+    if y == T.nil:
+        T.root = z
+    elif z.key < y.key:
+        y.left = z
+    else:
+        z.right = z
+    z.left = T.nil
+    z.right = T.nil
+    '''
+    All simple paths from the node to descendant leaves contain the same number of black nodes.
+    '''
+    z.color = RED			# initialize z's color to RED
+    RB_INSERT_FIXUP(T, z) 	# added a fix-up step
+
+RB_INSERT_FIXUP(T, z):
+    while z.p.color == RED:	# RED node's child must be black
+        if z.p == z.p.p.left:
+            y = z.p.p.right
+            if y.color == RED:
+                z.p.color = BLACK		 # Case 1
+                y.color = BLACK			 # Case 1
+                z.p.p.color = RED		 # Case 1
+                z = z.p.p				# Case 1
+            elif z == z.p.right:
+                z = z.p					# Case 2
+                LEFT_ROTATE(T, z)		 # Case 2
+            z.p.color = BLACK					# Case 3
+            z.p.p.color = RED					# Case 3
+            RIGHT_ROTATE(T, z.p.p)				 # Case 3
+        else:
+            '''
+            same as then clause with "right" and "left" exchanged
+            '''
+   T.root.color = BLACK		# The root must be black.
+```
+
+![](http://ww1.sinaimg.cn/mw690/76f286d1jw1e5znpv7uifj20i60lmt9z.jpg)
+
 
 
