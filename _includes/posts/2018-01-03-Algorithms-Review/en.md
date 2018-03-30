@@ -485,7 +485,7 @@ The keys in a binary search tree are always stored in such a way as to satisfy t
 Let $$x$$ be a node in a binary search tree. If $$y$$ is a node in the left subtree of $$x$$, then $$y.key \le x.key$$. If $$y$$ is a node in the right subtree of $$x$$, then $$y.key \ge x.key$$.
 
 ```python
-INORDER_TREE_WALK(x):
+inorder_tree_walk(x):
     if x <> NIL:
         INORDER_TREE_WALK(x.left)
         print(x.key)
