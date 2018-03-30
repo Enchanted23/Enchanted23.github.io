@@ -307,7 +307,7 @@ $$T(n)=aT(n/b)+f(n)\quad a\geq1,b>1$$
 ##### - Radix sort
 
 ```python
-RADIX-SORT(A, d):
+def RADIX-SORT(A, d):
     for i in range(d):
         use a stable sort (eg. counting sort) to sort array A on digit i
 ```
@@ -485,7 +485,7 @@ The keys in a binary search tree are always stored in such a way as to satisfy t
 Let $$x$$ be a node in a binary search tree. If $$y$$ is a node in the left subtree of $$x$$, then $$y.key \le x.key$$. If $$y$$ is a node in the right subtree of $$x$$, then $$y.key \ge x.key$$.
 
 ```python
-inorder_tree_walk(x):
+def INORDER_TREE_WALK(x):
     if x <> NIL:
         INORDER_TREE_WALK(x.left)
         print(x.key)
@@ -494,7 +494,7 @@ inorder_tree_walk(x):
 
 ```python
 # recursion version
-TREE_SEARCH(x, k):
+def TREE_SEARCH(x, k):
     if x == NIL or k == x.key:
         return x
     if k < x.key:
@@ -503,7 +503,7 @@ TREE_SEARCH(x, k):
         return TREE_SEARCH(x.right, k)
     
 # iterative version
-ITERATIVE_TREE_SEARCH(x):
+def ITERATIVE_TREE_SEARCH(x):
     while x <> NIL and k <> x.key:
         if k < x.key:
             x = x.left
@@ -513,19 +513,19 @@ ITERATIVE_TREE_SEARCH(x):
 ```
 
 ```python
-TREE_MINIMUM(x):
+def TREE_MINIMUM(x):
     while x.left <> NIL:
         x = x.left
     return x
 
-TREE_MAXIMUM(x):
+def TREE_MAXIMUM(x):
     while x.right <> NIL:
         x = x.right
     return x
 ```
 
 ```python
-TREE_SUCCESSOR(x):
+def TREE_SUCCESSOR(x):
     if x.right <> NIL:
         return TREE_SUCCESSOR(x.right)
     '''
@@ -538,7 +538,7 @@ TREE_SUCCESSOR(x):
         y = y.p
     return y
 
-TREE_PREDECESSOR(x):
+def TREE_PREDECESSOR(x):
     if x.left <> NIL:
         return TREE_PREDECESSOR(x.left)
     '''
@@ -553,7 +553,7 @@ TREE_PREDECESSOR(x):
 ```
 
 ```python
-TREE_INSERT(T, z):
+def TREE_INSERT(T, z):
     y = NIL
     x = T.root
     while x <> NIL:
@@ -572,7 +572,7 @@ TREE_INSERT(T, z):
 ```
 
 ```python
-TREE_DELETE(T, z):
+def TREE_DELETE(T, z):
     if z.left == NIL:
         TRANSPLANT(T, z, z.right)
     elif z.right == NIL:
@@ -588,7 +588,7 @@ TREE_DELETE(T, z):
         y.left.p = y
 
 # turn u's parent into v's parent
-TRANSPLANT(T, u, v):
+def TRANSPLANT(T, u, v):
     if u.p == NIL:
         T.root = v
     elif u == u.p.left:
@@ -624,9 +624,9 @@ When we do a left rotation on a node $$x$$, we assume that its right child $$y$$
 ![](https://images0.cnblogs.com/blog2015/779368/201507/270939323913500.png)
 
 ```python
-LEFT_ROTATE(T, x):
+def LEFT_ROTATE(T, x):
     y = x.right				# set y
-    x.right = y.left		# turn y's left subtree into x's right tree
+    x.right = y.left			# turn y's left subtree into x's right tree
     if y.left <> T.nil:
         y.left.p = x
     y.p = x.p
@@ -643,7 +643,7 @@ LEFT_ROTATE(T, x):
 **Insertion:**
 
 ```python
-RB_INSERT(T, z):
+def RB_INSERT(T, z):
     y = T.nil
     x = T.root
     while x <> T.nil:
@@ -665,9 +665,9 @@ RB_INSERT(T, z):
     All simple paths from the node to descendant leaves contain the same number of black nodes.
     '''
     z.color = RED			# initialize z's color to RED
-    RB_INSERT_FIXUP(T, z) 	# added a fix-up step
+    RB_INSERT_FIXUP(T, z) 		# added a fix-up step
 
-RB_INSERT_FIXUP(T, z):
+def RB_INSERT_FIXUP(T, z):
     while z.p.color == RED:	# RED node's child must be black
         if z.p == z.p.p.left:
             y = z.p.p.right
@@ -675,13 +675,13 @@ RB_INSERT_FIXUP(T, z):
                 z.p.color = BLACK		 # Case 1
                 y.color = BLACK			 # Case 1
                 z.p.p.color = RED		 # Case 1
-                z = z.p.p				# Case 1
+                z = z.p.p			# Case 1
             elif z == z.p.right:
-                z = z.p					# Case 2
+                z = z.p				# Case 2
                 LEFT_ROTATE(T, z)		 # Case 2
             z.p.color = BLACK					# Case 3
             z.p.p.color = RED					# Case 3
-            RIGHT_ROTATE(T, z.p.p)				 # Case 3
+            RIGHT_ROTATE(T, z.p.p)				# Case 3
         else:
             '''
             same as then clause with "right" and "left" exchanged
