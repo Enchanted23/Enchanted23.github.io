@@ -307,9 +307,9 @@ $$T(n)=aT(n/b)+f(n)\quad a\geq1,b>1$$
 ##### - Radix sort
 
 ```python
-def RADIX-SORT(A, d):
+def RADIX_SORT(A, d):
     for i in range(d):
-        use a stable sort (eg. counting sort) to sort array A on digit i
+        # use a stable sort (eg. counting sort) to sort array A on digit i
 ```
 
 - $$T(n) : \Theta (d(n+k))$$
@@ -347,23 +347,23 @@ def RADIX-SORT(A, d):
 ##### - Shell sort
 
 ```python
-def shell_sort(list):
-    n = len(list)
+def shell_sort(target_list):
+    n = len(target_list)
     # 初始步长
     gap = n // 2
     while gap > 0:
         for i in range(gap, n):
             # 每个步长进行插入排序
-            temp = list[i]
+            temp = target_list[i]
             j = i
             # 插入排序
-            while j >= gap and list[j - gap] > temp:
-                list[j] = list[j - gap]
+            while j >= gap and target_list[j - gap] > temp:
+                target_list[j] = target_list[j - gap]
                 j -= gap
-            list[j] = temp
+            target_list[j] = temp
         # 得到新的步长
         gap = gap // 2
-    return list
+    return target_list
 ```
 
 - $$T(n) :$$
@@ -485,11 +485,11 @@ The keys in a binary search tree are always stored in such a way as to satisfy t
 Let $$x$$ be a node in a binary search tree. If $$y$$ is a node in the left subtree of $$x$$, then $$y.key \le x.key$$. If $$y$$ is a node in the right subtree of $$x$$, then $$y.key \ge x.key$$.
 
 ```python
-def inorder_tree_walk(x):
+def INORDER_TREE_WALK(x):
     if x <> NIL:
-        inorder_tree_walk(x.left)
+        INORDER_TREE_WALK(x.left)
         print(x.key)
-        inorder_tree_walk(x.right)
+        INORDER_TREE_WALK(x.right)
 ```
 
 ```python
@@ -624,7 +624,7 @@ When we do a left rotation on a node $$x$$, we assume that its right child $$y$$
 ![](https://images0.cnblogs.com/blog2015/779368/201507/270939323913500.png)
 
 ```python
-def left_rotate(T, x):
+def LEFT_ROTATE(T, x):
     y = x.right				# set y
     x.right = y.left			# turn y's left subtree into x's right tree
     if y.left <> T.nil:
