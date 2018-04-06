@@ -673,15 +673,15 @@ def RB_INSERT_FIXUP(T, z):
             y = z.p.p.right
             if y.color == 'red':
                 z.p.color = 'black'		# Case 1
-                y.color = 'black'			# Case 1
+                y.color = 'black'		# Case 1
                 z.p.p.color = 'red'		# Case 1
-                z = z.p.p				# Case 1
+                z = z.p.p			# Case 1
             else:
                 if z == z.p.right:
-                    z = z.p					# Case 2
+                    z = z.p				# Case 2
                     LEFT_ROTATE(T, z)		# Case 2
-                z.p.color = 'black'			# Case 3
-            	z.p.p.color = 'red'			# Case 3
+                z.p.color = 'black'		# Case 3
+            	z.p.p.color = 'red'		# Case 3
             	RIGHT_ROTATE(T, z.p.p)		# Case 3
         else:
             '''
@@ -710,7 +710,7 @@ def RB_TRANSPLANT(T, u, v):
 ```python
 def RB_DELETE(T, z):
     y = z
-    y_original_color = y.color			# store y's original color
+    y_original_color = y.color		# store y's original color
     if z.left == T.nil:
         x = z.right
         RB_TRANSPLANT(T, z, z.right)
@@ -718,9 +718,9 @@ def RB_DELETE(T, z):
         x = z.left
         RB_TRANSPLANT(T, z, z.left)
     else:
-        y = TREE_MINIMUM(z.right)		# find z's successor
+        y = TREE_MINIMUM(z.right)	# find z's successor
         y_original_color = y.color
-        x = y.right						# z's successor only has right child			
+        x = y.right			# z's successor only has right child			
         if y.p == z:
             x.p = y			# z will be deleted
         else:
@@ -731,32 +731,32 @@ def RB_DELETE(T, z):
         y.left = z.left
         y.left.p = y
         y.color = z.color
-    if y_original_color == 'black':		# if cause violations of the red-black properties 
+    if y_original_color == 'black':	# if cause violations of the red-black properties 
         RB_DELETE_FIXUP(T, x)
 
 def RB_DELETE_FIXUP(T, x):
     while x <> T.root and x.color == 'black':
         if x == x.p.left:
             w = x.p.right
-            if w.color == 'red':										# Case 1
-                w.color = 'black'										# Case 1
-                x.p.color = 'red'										# Case 1
-                LEFT_ROTATE(T, x.p)										# Case 1
+            if w.color == 'red':				# Case 1
+                w.color = 'black'				# Case 1
+                x.p.color = 'red'				# Case 1
+                LEFT_ROTATE(T, x.p)				# Case 1
                 w = x.p.right
             if w.left.color == 'black' and w.right.color == 'black':
-                w.color = 'red'											# Case 2
-                x = x.p												# Case 2
+                w.color = 'red'						# Case 2
+                x = x.p							# Case 2
             else:
                 if w.right.color == 'black':
-                    w.left.color = 'black'								# Case 3
-                    w.color = 'red'										# Case 3
-                    RIGHT_ROTATE(T, w)									# Case 3
-                    w = x.p.right										# Case 3
-                w.color = x.p.color										# Case 4
-                x.p.color = 'black'										# Case 4
-                w.right.color = 'black'									# Case 4
-                LEFT_ROTATE(T, x.p)										# Case 4
-                x = T.root											# Case 4
+                    w.left.color = 'black'			# Case 3
+                    w.color = 'red'				# Case 3
+                    RIGHT_ROTATE(T, w)				# Case 3
+                    w = x.p.right				# Case 3
+                w.color = x.p.color				# Case 4
+                x.p.color = 'black'			# Case 4
+                w.right.color = 'black'			# Case 4
+                LEFT_ROTATE(T, x.p)			# Case 4
+                x = T.root					# Case 4
         else:
             '''
             same as then clause with "right" and "left" exchanged
