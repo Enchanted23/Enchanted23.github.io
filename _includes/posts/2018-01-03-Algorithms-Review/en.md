@@ -527,7 +527,7 @@ def TREE_MAXIMUM(x):
 ```python
 def TREE_SUCCESSOR(x):
     if x.right <> NIL:
-        return TREE_SUCCESSOR(x.right)
+        return TREE_MINIMUM(x.right)
     '''
     if the right subtree of node x is empty and x has a successor y, then y is the lowest        
     ancestor of x whose left child is also an ancestor of x.
@@ -540,7 +540,7 @@ def TREE_SUCCESSOR(x):
 
 def TREE_PREDECESSOR(x):
     if x.left <> NIL:
-        return TREE_PREDECESSOR(x.left)
+        return TREE_MAXIMUM(x.left)
     '''
     if the left subtree of node x is empty and x has a predecessor y, then y is the lowest        
     ancestor of x whose right child is also an ancestor of x.
@@ -765,4 +765,117 @@ def RB_DELETE_FIXUP(T, x):
 ```
 
 ![](https://okl2aaa54.qnssl.com/delete-fixup.gif)
+
+#### Augmenting Data Structures
+
+We now discusses two data structures that we construct by ***augmenting red-black trees***. 
+
+1. We describes a data structure that supports general ***order-statistic operations*** on a dynamic set. We can then quickly find the ith smallest number in a set or the rank of a given element in the total ordering of the set.
+2. We abstracts the process of augmenting a data structure and provides a theorem that can simplify the process of augmenting red-black trees. Then we uses this theorem to help design a data structure for ***maintaining a dynamic set of intervals***, such as time intervals. Given a query interval, we can then quickly find an interval in the set that overlaps it.
+
+##### - Dynamic order statistics
+
+![](http://staff.ustc.edu.cn/~csli/graduate/algorithms/book6/282_a.gif)
+
+
+
+An order-statistic tree T is simply a red-black tree with additional information stored in each node. Besides the usual red-black tree attributes $$x.key, x.color, x.p, x.left$$ and $$x.right$$ in a node $$x$$, we have another attribute, $$x.size$$. This attribute contains the number of (internal) nodes in the subtree rooted at x (including x itself), that is, the size of the subtree. If we define the sentinel’s size to be $$0$$—that is, we set $$T.nil.size$$ to be $$0$$—then we have the identity:
+
+$$x.size = x.left.size + x.right.size + 1$$
+
+**Retrieving an element with a given rank:**
+
+```python
+def OS_SELECT(x, i):
+    r = x.left.size + 1
+    if i == r:
+        return x
+    elif i < r:
+        return OS_SELECT(x.left, i)
+    else:
+        return OS_SELECT(x.right, i-r)
+```
+
+**Determining the rank of an element:**
+
+```python
+def OS_RANK(T, x):
+    r = x.left.size + 1
+    y = x
+    while y <> T.root:
+        if y == y.p.right:
+            r = r + y.p.left.size + 1
+        y = y.p
+    return r
+```
+
+**Maintaining subtree sizes:**
+
+* Insertion
+
+  Insertion into a red-black tree consists of two phases. The first phase goes down the tree from the root, inserting the new node as a child of an existing node. The second phase goes up the tree, changing colors and performing rotations to maintain the red-black properties.
+
+  1. To maintain the subtree sizes in the first phase, we simply ***increment*** $$x.size$$ for each node x on the simple path traversed from the root down toward the leaves.
+
+  2. Referring to the code for ***LEFT_ROTATE(T, x)***, we add the following lines:
+
+     $$y.size = x.size$$
+
+     $$x.size = x.left.size + x.right.size + 1$$
+
+* Deletion
+
+  Deletion from a red-black tree also consists of two phases: the first operates on the underlying search tree, and the second causes at most three rotations and otherwise performs no structural changes.
+
+  1. The first phase either removes one node y from the tree or moves upward it within the tree. To update the subtree sizes, we simply traverse a simple path from node y (starting from its original position within the tree) up to the root, ***decrementing*** the size attribute of each node on the path.
+  2. We handle the $$O(1)$$ rotations in the second phase of deletion in the same manner as for insertion.
+
+##### - How to augment a data structure
+
+1. Choose an underlying data structure.
+2. Determine additional information to maintain in the underlying datastructure.
+3. Verify that we can maintain the additional information for the basic modifying operations on the underlying data structure.
+4. Develop new operations.
+
+##### - Interval trees
+
+***Step 1: Underlying data structure***
+
+We choose a red-black tree in which each node $$x$$ contains an interval $$x.int$$ and the key of $$x$$ is the low endpoint, $$x.int.low$$, of the interval. Thus, an inorder tree walk of the data structure lists the intervals in sorted order by low endpoint.
+
+***Step 2: Additional information***
+
+In addition to the intervals themselves, each node x contains a value $$x.max$$, which is the maximum value of any interval endpoint stored in the subtree rooted at $$x$$.
+
+***Step 3: Maintaining the information***
+
+We must verify that insertion and deletion take $$O(\lg n)$$ time on an interval tree of $$n$$ nodes. We can determine $$x.max$$ given interval $$x.int$$ and the max values ofnode $$x$$’s children:
+
+![](http://www.euroinformatica.ro/documentation/programming/!!!Algorithms_CORMEN!!!/images/fig335_01_0.jpg)
+
+$$x.max = \max(x.int.high,\;x.left.max,\;x.right.max)$$
+
+Insertion and deletion run in $$O(\lg n)$$ time. In fact, we can update the max attributes after a rotation in $$O(1)$$ time.
+
+***Step 4: Developing new operations***
+
+The only new operation we need is ***INTERVAL_SEARCH(T, i)***, which finds a node in tree T whose interval overlaps interval $$i$$. If there is no interval that overlaps $$i$$ in the tree, the procedure returns a pointer to the sentinel $$T.nil$$.
+
+```python
+# to see whether x overlaps y
+def OVERLAP(x, y):
+    if x.high < y.low or x.low > y.high:
+        return false
+    else:
+        return true
+
+def INTERVAL_SEARCH(T, i):
+     x = T.root
+     while x <> T.nil and (not OVERLAP(i, x.int)):
+        if x.left <> T.nil and x.left.max >= i.low:
+            x = x.left
+        else:
+            x = x.right
+     return x
+```
 
