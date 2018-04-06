@@ -678,7 +678,7 @@ def RB_INSERT_FIXUP(T, z):
                 z = z.p.p			# Case 1
             else:
                 if z == z.p.right:
-                    z = z.p				# Case 2
+                    z = z.p			# Case 2
                     LEFT_ROTATE(T, z)		# Case 2
                 z.p.color = 'black'		# Case 3
             	z.p.p.color = 'red'		# Case 3
@@ -752,11 +752,11 @@ def RB_DELETE_FIXUP(T, x):
                     w.color = 'red'				# Case 3
                     RIGHT_ROTATE(T, w)				# Case 3
                     w = x.p.right				# Case 3
-                w.color = x.p.color				# Case 4
+                w.color = x.p.color			# Case 4
                 x.p.color = 'black'			# Case 4
                 w.right.color = 'black'			# Case 4
                 LEFT_ROTATE(T, x.p)			# Case 4
-                x = T.root					# Case 4
+                x = T.root				# Case 4
         else:
             '''
             same as then clause with "right" and "left" exchanged
