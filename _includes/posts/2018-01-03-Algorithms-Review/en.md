@@ -915,7 +915,7 @@ def MEMOIZED_CUT_ROD_AUX(p, n, r):
         q == 0
     else:
         q == minus_infinity
-        for i in range(n+1):
+        for i in range(1, n+1):
             q = max(q, p[i]+MEMOIZED_CUT_ROD_AUX(p, n-i, r))
     r[n] = q
     return q
@@ -929,5 +929,24 @@ def BOTTOM_UP_CUT_ROD(p, n):
             q = max(q, p[i] + r[j - i])
         r[j] = q
     return r[n]
+
+# reconstructing a solution
+def EXTENDED_BOTTOM_UP_CUT_ROD(p, n):
+    r = [0 for _ in range(n+1)]
+    s = [0 for _ in range(n+1)]
+    for j in range(1, n+1):
+        q = minus_infinity
+        for i in range(1, j+1):
+            if q < p[i] + r[j - i]:
+                q = p[i] + r[j - i]
+                s[j] = i
+        r[j] = q
+    return r, s
+
+def PRINT_CUT_ROD_SOLUTION(p, n):
+    r, s = EXTENDED_BOTTOM_UP_CUT_ROD(p, n)
+    while n > 0:
+        print(s[n])
+        n = n - s[n]
 ```
 
