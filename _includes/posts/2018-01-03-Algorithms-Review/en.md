@@ -879,3 +879,55 @@ def INTERVAL_SEARCH(T, i):
      return x
 ```
 
+### Advanced Design and Analysis Techniques
+
+***Dynamic programming*** is effective when a given subproblem may arise from more than one partial set of choices; the key technique is to ***store the solution to each such subproblem*** in case it should reappear.
+
+The idea of a ***greedy algorithm*** is to make each choice in a ***locally optimal manner***. A simple example is coin-changing: to minimize the number of U.S. coins needed to make change for a given amount, we can repeatedly select the largest-denomination coin that is not larger than the amount that remains. A greedy approach provides an optimal solution for many such problems much more quickly than would a dynamic-programming approach. We cannot always easily tell whether a greedy approach will be effective, however.
+
+We use ***amortized analysis*** to analyze certain algorithms that perform ***a sequence of similar operations***. Instead of bounding the cost of the sequence of operations by bounding the actual cost of each operation separately, an amortized analysis provides a bound on the actual cost of the entire sequence. One advantage of this approach is that although some operations might be expensive, many others might be cheap.
+
+#### Dynamic Programming
+
+Dynamic programming, like the divide-and-conquer method, solves problems by combining the solutions to subproblems.
+
+When developing a dynamic-programming algorithm, we follow a sequence of ***four steps***:
+
+1. Characterize the structure of an optimal solution.
+2. Recursively define the value of an optimal solution.
+3. Compute the value of an optimal solution,typically in a bottom-up fashion.
+4. Construct an optimal solution from computed information.
+
+##### - Rod cutting
+
+The rod-cutting problem is the following. Given a rod of length $$n$$ inches and a table of prices $$p_i$$ for $$i = 1, 2,…,n$$, determine the maximum revenue $$r_n$$ obtainable by cutting up the rod and selling the pieces.
+
+```python
+# top-down with memoization
+def MEMOIZED_CUT_ROD(p, n):
+    r = [minus_infinity for _ in range(n+1)]
+    return MEMOIZED_CUT_ROD_AUX(p, n, r)
+
+def MEMOIZED_CUT_ROD_AUX(p, n, r):
+    if r[n] >= 0:
+        return r[n]
+    if n == 0:
+        q == 0
+    else:
+        q == minus_infinity
+        for i in range(n+1):
+            q = max(q, p[i]+MEMOIZED_CUT_ROD_AUX(p, n-i, r))
+    r[n] = q
+    return q
+
+# bottom-up method
+def BOTTOM_UP_CUT_ROD(p, n):
+    r = [0 for _ in range(n+1)]
+    for j in range(1, n+1):
+        q = minus_infinity
+        for i in range(1, j+1):
+            q = max(q, p[i] + r[j - i])
+        r[j] = q
+    return r[n]
+```
+
