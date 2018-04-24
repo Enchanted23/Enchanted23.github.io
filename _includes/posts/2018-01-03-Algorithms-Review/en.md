@@ -939,7 +939,7 @@ def EXTENDED_BOTTOM_UP_CUT_ROD(p, n):
         for i in range(1, j+1):
             if q < p[i] + r[j - i]:
                 q = p[i] + r[j - i]
-                s[j] = i
+                s[j] = i	# moptimal first-piece size of cutting a rod of length j
         r[j] = q
     return r, s
 
@@ -948,5 +948,200 @@ def PRINT_CUT_ROD_SOLUTION(p, n):
     while n > 0:
         print(s[n])
         n = n - s[n]
+```
+
+##### - Matrix-chain multiplication
+
+We state the ***matrix-chain multiplication problem*** as follows: given a chain $$ \langle A_1, A_2,…, A_n  \rangle $$ of $$n$$ matrices,where for $$i = 1,2,\ldots,n$$, matrix $$A_i$$ has dimension $$p_{i-1} \times p_i$$, fully parenthesize the product $$A_1A_2 \cdots A_n$$ in a way that minimizes the number of scalar multiplications.
+
+**Counting the number of parenthesizations:**
+
+$$p(n) = \begin{cases} 1,  & \mbox{if }n = 1 \\  \sum\limits_{k=1}^{n-1}P(k)P(n-k) & \mbox{if }n \ge 2 \end{cases}$$
+
+The solution to the recurrence is $$ \Omega(2^n)$$.
+
+**Applying dynamic programming:**
+
+***Step 1: The structure of an optimal parenthesization***
+
+For our first step in the dynamic-programming paradigm, we find the optimal substructure and then use it to construct an optimal solution to the problem from optimal solutions to subproblems.
+
+**Step 2: A recursive solution**
+
+Let $$m[i,j]$$  be the minimum number of scalar multiplications needed to compute the matrix $$A_{i\ldots j}$$; for the full problem, the lowest-cost way to compute $$A_{1\ldots n}$$ would thus be $$m[1,n]$$.
+
+$$m[i,j] = \begin{cases} 0,  & \mbox{if }i=j \\  \min\limits_{i \le k <j} \{m[i,k] + m[k+1,j]+p_{i-1}p_kp_j\} & \mbox{if }i<j \end{cases}$$
+
+Then we define $$s[i,j]$$  to be a value of $$k$$ at which we split the product $$A_iA_{i+1} \cdots A_j$$ in an optimal parenthesization.
+
+**Step 3: Computing the optimal costs**
+
+```python
+def MATRIX_CHAIN_ORDER(p):
+    n = len(p) - 1
+    m = [[0 for _ in range(n+1)] for _ in range(n+1)]
+    s = [[0 for _ in range(n+1)] for _ in range(n+1)]
+    for l in range(2, n+1):		# l is the chain length
+        for i in range(1, n-l+2):
+            j = i + l - 1
+            m[i, j] = infinity
+            for k in range(i, j):
+                q = m[i][k] + m[k+1][j] + p[i-1]*p[k]*p[j]
+                if q < m[i][j]:
+                    m[i, j] = q
+                    s[i, j] = k
+	return m, s
+```
+
+**Step 4: Constructing an optimal solution:**
+
+```python
+def PRINT_OPTIMAL_PARENS(s, i , j):
+    if i == j:
+        print("A"+str(i))
+    else:
+        print("(")
+        PRINT_OPTIMAL_PARENS(s, i , s[i][j])
+        PRINT_OPTIMAL_PARENS(s, s[i][j]+1 , j)
+        print(")")
+```
+
+##### - Elements of dynamic programming
+
+In this section, we examine the two key ingredients that an optimization problem must have in order for dynamic programming to apply: ***optimal substructure*** and ***overlapping subproblems***. We also revisit and discuss more fully how ***memoization*** might help us take advantage of the overlapping-subproblems property in a top-down recursive approach.
+
+* **Optimal substructure**
+
+  A problem exhibits optimal substructure if an optimal solution to the problem contains within it optimal solutions to subproblems.
+
+  Optimal substructure varies across problem domains in two ways:
+
+  1. how many subproblems an optimal solution to the original problem uses
+  2. how many choices we have in determining which subproblem(s) to use in anoptimal solution
+
+  Informally, the running time of a dynamic-programming algorithm depends on the product of two factors: ***the number of subproblems overall*** and ***how many choices we look at for each subproblem***.
+
+  * **Subtleties**
+
+    You should be careful not to assume that optimal substructure applies when it does not. Consider the following two problems in which we are given a directed graph $$G=(V,E)$$ and vertices $$u,v \in V$$.
+
+    **Unweighted shortest path** $$\surd$$
+
+    Find a path from $$u$$ to $$v$$ consisting of the fewest edges. Such a path must be simple, since removing a cycle from a path produces a path with fewer edges.
+
+    **Unweighted longest simple path** $$\large{\times}$$
+
+    Find a simple path from $$u$$ to $$v$$  consisting of the most edges. We need to include the requirement of simplicity because otherwise we can traverse a cycle as many times as we like to create paths with an arbitrarily large number of edges.
+
+* **Overlapping subproblems**
+
+  The second ingredient that an optimization problem must have for dynamic programming to apply is that ***the space of subproblems must be “small”*** in the sense that a recursive algorithm for the problem solves the same subproblems over and over, rather than always generating new subproblems. Typically, the total number of distinct subproblems is a polynomial in the input size. When a recursive algorithm revisits the same problem repeatedly, we say that the optimization problem has ***overlapping subproblems***.
+
+  ![](http://www.cs.fsu.edu/~burmeste/slideshow/images_content/figure16_2.gif)
+
+  Matrix-chain multiplication has only $$\Theta(n^2)$$ distinct subproblems, and the dynamic-programming algorithm solves each exactly once.
+
+##### - Longest common subsequence
+
+In the longest-common-subsequence problem, we are given two sequences $$X = \langle x_1,x_2,\ldots,x_m \rangle$$ and $$Y = \langle y_1,y_2,\ldots,y_n \rangle$$ and wish to find a maximum-length common subsequence of $$X$$ and $$Y$$ .
+
+***Optimal substructure of an LCS***
+
+Let $$Z = \langle z_1,z_2,\ldots,z_k \rangle$$ be any LCS of $$X$$ and $$Y$$.
+
+1. If $$x_m = y_n$$, then $$ z_k = x_m = y_n$$ and $$Z_{k-1}$$ is an LCS of $$X_{m-1}$$ and $$Y_{n-1}$$.
+2. If $$x_m \neq y_n$$, then $$ z_k \neq x_m$$ implies that $$Z_{k-1}$$ is an LCS of $$X_{m-1}$$ and $$Y$$.
+3. If $$x_m \neq y_n$$, then $$ z_k \neq y_n$$ implies that $$Z_{k-1}$$ is an LCS of $$X$$ and $$Y_{n-1}$$.
+
+***A recursive solution***
+
+$$c[i,j] = \begin{cases} 0,  & \mbox{if }i=0\mbox{ or }j=0,\\ c[i-1,j-1]+1, & \mbox{if }i,j>0\mbox{ and }x_i=y_j,  \\  \max\{c[i,j-1], c[i-1,j]\} & \mbox{if }i,j>0\mbox{ and }x_i \neq y_j, \end{cases}$$
+
+***Computing the length of an LCS***
+
+```python
+def LCS_LENGTH(X, Y):
+    m = len(X)
+    n = len(Y)
+    b = [[0 for _ in range(n+1)] for _ in range(m+1)]
+    c = [[0 for _ in range(n+1)] for _ in range(m+1)]
+    for i in range(1, m+1):
+        for j in range(1, n+1):
+            if X[i] == Y[j]:
+                c[i][j] = c[i-1][j-1] + 1
+                b[i][j] = 'upleft'
+            elif c[i-1][j] >= c[i][j-1]:
+                c[i][j] = c[i-1][j]
+                b[i][j] = 'up'
+            else:
+                c[i][j] = c[i-1][j]
+                b[i][j] = 'left'
+     return c, b
+```
+
+![](http://dovgalecs.com/blog/wp-content/uploads/2012/12/fig376_01.jpg)
+
+***Constructing an LCS***
+
+```python
+def PRINT_LCS(b, X, i, j):
+    if i == 0 and j == 0:
+        return
+    if b[i][j] == 'upleft':
+        PRINT_LCS(b, X, i-1, j-1)
+        print X[i]
+    elif b[i][j] == 'up':
+        PRINT_LCS(b, X, i-1, j)
+    else:
+        PRINT_LCS(b, X, i, j-1)
+```
+
+##### - Optimal binary search trees
+
+Formally, we are given a sequence $$K = \langle k_1,k_2,\ldots,k_m \rangle$$  of n distinct keys in sorted order (so that $$k_1 < k_2 <     < k_n$$), and we wish to build a binary search tree from these keys. For each key $$k_i$$ , we have a probability $$p_i$$ that a search will be for $$ki$$. Some searches may be for values not in $$K$$, and so we also have $$n + 1$$ “dummy keys” $$d_0 , d_1 , d2 , \ldots ,d_n$$ representing values not in $$K$$. For each dummy key $$d_i$$, we have a probability $$q_i$$ that a search will correspond to $$d_i$$.
+
+Every search is either successful (finding some key $$k_i$$ ) or unsuccessful (finding some dummy key $$d_i$$ ), and so we have $$\sum\limits_{i=1}^{n}p_i + \sum\limits_{i=0}^{n}q_i = 1$$.
+
+$$E[\text{search cost in }T] = 1 + \sum\limits_{i=1}^{n}\text{depth}_T(k_i) \cdot p_i + \sum\limits_{i=0}^{n}\text{depth}_T(d_i) \cdot q_i$$
+
+***Step 1: The structure of an optimal binary search tree***
+
+If an optimal binary search tree $$T$$ has a subtree $$T'$$ containing $$k_i,\ldots,k_j$$, then this subtree $$T'$$ must be optimal as well for the subproblem with keys $$k_i,\ldots,k_j$$ and dummy keys $$d_{i-1},\ldots,d_j$$.
+
+***Step 2: A recursive solution***
+
+$$w(i, j) = \sum\limits_{l=i}^{j}p_l + \sum\limits_{l=i-1}^{j}q_l$$
+
+If $$k_r$$ is the root of an optimal subtree containing keys $$k_i,\ldots,k_j$$, let us denote this sum of probabilities as
+
+$$e[i ,j] = p_r + (e[i, r-1] + w(i, r-1)) + (e[r+1, j] + w(r+1,j))$$
+
+$$e[i ,j] = e[i,r-1] + e[r+1,j] + w(i,j)$$
+
+$$e[i ,j] = \begin{cases} q_{i-1}  & \mbox{if }j=i-1, \\ \min\limits_{i \le r \le j}\{ e[i,r-1] + e[r+1,j] + w(i,j) \} & \mbox{if }i\leq j. \end{cases}$$
+
+***Step 3: Computing the expected search cost of an optimal binary search tree***
+
+$$w(i ,j) = w(i, j-1) + p_j + q_j$$
+
+```python
+def OPTIMAL_BST(p, q, n):
+    e = [[0 for _ in range(n+1)] for _ in range(n+2)]
+    w = [[0 for _ in range(n+1)] for _ in range(n+2)]
+    root = [[0 for _ in range(n+1)] for _ in range(n+1)]
+    for i in range(1, n+2):
+        e[i][i-1] = q[i-1]
+        w[i][i-1] = q[i-1]
+    for l in range(1, n+1):
+        for i in range(l, n-l+2):
+            j = i+l-1
+            e[i][j] = 'infinity'
+            w[i][j] = w[i][j-1] + p[j] + q[j]
+            for i in range(i, j+1):
+                t = e[i][r-1] + e[r+1][j] + w[i][j]
+                if t < e[i][j]:
+                    e[i][j] = t
+                    root[i][j] = r
+    return e, root
 ```
 
