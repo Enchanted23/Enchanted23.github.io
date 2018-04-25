@@ -984,12 +984,12 @@ def MATRIX_CHAIN_ORDER(p):
     for l in range(2, n+1):		# l is the chain length
         for i in range(1, n-l+2):
             j = i + l - 1
-            m[i, j] = infinity
+            m[i][j] = infinity
             for k in range(i, j):
                 q = m[i][k] + m[k+1][j] + p[i-1]*p[k]*p[j]
                 if q < m[i][j]:
-                    m[i, j] = q
-                    s[i, j] = k
+                    m[i][j] = q
+                    s[i][j] = k
 	return m, s
 ```
 
@@ -1217,7 +1217,7 @@ A ***matroid*** is an ordered pair $$M = (S, \mathcal{I})$$ satisfying the follo
 
 1. $$S$$ is a finite set.
 2. $$\mathcal{I}$$ is a nonempty family of subsets of $$S$$, called the independent subsets of $$S$$, such that if $$B\in \mathcal{I}$$  and $$A\subseteq B$$, then $$A \in \mathcal{I}$$. We say that $$\mathcal{I}$$ is ***hereditary*** if it satisfies this property. Note that the empty set $$\emptyset$$ is necessarily a member of $$\mathcal{I}$$.
-3. If $$A \in \mathcal{I}$$, $$B \in \mathcal{I}$$, and $$|A|< |B|$$, then there exists some element $$ x \in B - A$$ such that $$A \cup \{x\} \in \mathcal{I}$$ . We say that $$M$$ satisfies the ***exchange property***.
+3. If $$A \in \mathcal{I}$$, $$B \in \mathcal{I}$$, and $$\left | A \right \vert < \left | B \right \vert$$, then there exists some element $$ x \in B - A$$ such that $$A \cup \{x\} \in \mathcal{I}$$ . We say that $$M$$ satisfies the ***exchange property***.
 
 Theorems:
 
