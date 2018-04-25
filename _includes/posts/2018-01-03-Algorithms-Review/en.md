@@ -1217,7 +1217,7 @@ A ***matroid*** is an ordered pair $$M = (S, \mathcal{I})$$ satisfying the follo
 
 1. $$S$$ is a finite set.
 2. $$\mathcal{I}$$ is a nonempty family of subsets of $$S$$, called the independent subsets of $$S$$, such that if $$B\in \mathcal{I}$$  and $$A\subseteq B$$, then $$A \in \mathcal{I}$$. We say that $$\mathcal{I}$$ is ***hereditary*** if it satisfies this property. Note that the empty set $$\emptyset$$ is necessarily a member of $$\mathcal{I}$$.
-3. If $$A \in \mathcal{I}$$, $$B \in \mathcal{I}$$, and $$\left | A \right \vert < \left | B \right \vert$$, then there exists some element $$ x \in B - A$$ such that $$A \cup \{x\} \in \mathcal{I}$$ . We say that $$M$$ satisfies the ***exchange property***.
+3. If $$A \in \mathcal{I}$$, $$B \in \mathcal{I}$$, and $$\mid  A \mid < \mid B \mid$$, then there exists some element $$ x \in B - A$$ such that $$A \cup \{x\} \in \mathcal{I}$$ . We say that $$M$$ satisfies the ***exchange property***.
 
 Theorems:
 
