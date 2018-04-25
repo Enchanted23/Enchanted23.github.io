@@ -1,6 +1,6 @@
 > In this blog, I will review basic algorithms I had learned and expolre some questions on *LeetCode*, preparing for some interviews and further graduate study.
-
-Firstly, I will write some important concepts and facts I learned from the course *Introduction to Algorithms*. Then I will look at some problems on *LeetCode*.
+>
+> Firstly, I will write some important concepts and facts I learned from the course *Introduction to Algorithms*. Then I will look at some problems on *LeetCode*.
 
 [TOC]
 
@@ -1144,4 +1144,137 @@ def OPTIMAL_BST(p, q, n):
                     root[i][j] = r
     return e, root
 ```
+
+#### Greedy Algorithms
+
+Algorithms for optimization problems typically go through a sequence of steps, with a set of choices at each step. For many optimization problems, using dynamic programming to determine the best choices is overkill; simpler, more efficient algorithms will do.
+
+A ***greedy algorithm*** always makes the choice that looks best at the moment. That is, it makes ***a locally optimal choice*** in the hope that this choice will lead to a globally optimal solution. This chapter explores optimization prob- lems for which greedy algorithms provide optimal solutions.
+
+##### - An activity-selection problem
+
+```python
+def RECURSIVE_ACTIVITY_SELECTOR(s, f, k, n):
+    m = k+1
+    while m <= n and s[m] < f[k]:
+        m = m + 1
+    if m <= n:
+        return [a[m]] + RECURSIVE_ACTIVITY_SELECTOR(s, f, m, n)
+    return []
+
+def GREEDY_ACTIVTY_SELECTOR(s, f):
+    n = len(s)
+    A = [a[1]]
+    k = 1
+    for m in range(2, n+1):
+        if s[m] >= f[k]:
+            A = A + [a[m]]
+            k = m
+    return A
+```
+
+##### - Elements of the greedy strategy
+
+We went through the following steps:
+
+1. Determine the optimal substructure of the problem.
+2. Develop a recursive solution. (For the activity-selection problem, we formulated recurrence, but we bypassed developing a recursive algorithm based on this recurrence.)
+3. Show that if we make the greedy choice, then only one sub problem remains.
+4. Prove that it is always safe to make the greedy choice.
+5. Develop a recursive algorithm that implements the greedy strategy.
+6. Convert the recursive algorithm to an iterative algorithm.
+
+More generally, we design greedy algorithms according to the following sequenceof steps:
+
+1. Cast the optimization problem as one in which we make a choice and are leftwith one subproblem to solve.
+2. Prove that there is always an optimal solution to the original problem that makes the greedy choice, so that the greedy choice is always safe.
+3. Demonstrate optimal substructure by showing that, having made the greedy choice, what remains is a subproblem with the property that if we combine an optimal solution to the subproblem with the greedy choice we have made, we arrive at an optimal solution to the original problem.
+
+***Greedy-choice property***
+
+***Optimal substructure***
+
+***Greedy versus dynamic programming***
+
+##### - Huffman codes
+
+```python
+def HUFFMAN(C):
+    n = len(C)
+    Q = C
+    for i in range(1, n):
+        z = {}
+        z['left'] = x = EXTRACT_MIN(Q)
+        z['right'] = y = EXTRACT_MIN(Q)
+        z['freq'] = x.freq + y.freq
+        Q.append(z)
+    return EXTRACT_MIN(Q)
+```
+
+##### - Matroids and greedy methods
+
+A ***matroid*** is an ordered pair $$M = (S, \mathcal{I})$$ satisfying the following conditions.
+
+1. $$S$$ is a finite set.
+2. $$\mathcal{I}$$ is a nonempty family of subsets of $$S$$, called the independent subsets of $$S$$, such that if $$B\in \mathcal{I}$$  and $$A\subseteq B$$, then $$A \in \mathcal{I}$$. We say that $$\mathcal{I}$$ is ***hereditary*** if it satisfies this property. Note that the empty set $$\emptyset$$ is necessarily a member of $$\mathcal{I}$$.
+3. If $$A \in \mathcal{I}$$, $$B \in \mathcal{I}$$, and $$|A|< |B|$$, then there exists some element $$ x \in B - A$$ such that $$A \cup \{x\} \in \mathcal{I}$$ . We say that $$M$$ satisfies the ***exchange property***.
+
+Theorems:
+
+* If $$G = (V, E)$$ is an undirected graph, then $$M = (S_G, \mathcal{I}_G)$$ is a matroid.
+* All maximal independent subsets in a matroid have the same size.
+
+**Greedy algorithms on a weighted matroid**
+
+We say that a matroid $$M = (S, \mathcal{I})$$ is weighted if it is associated with a weight function $$w$$ that assigns a strictly positive weight $$w(x)$$ to each element $$x \in S$$. The weight function $$w$$ extends to subsets of $$S$$ by summation:
+
+$$w(A) = \sum\limits_{x \in A}w(x)$$ for any $$A \subseteq S$$.
+
+Many problems for which a greedy approach provides optimal solutions can be formulated in terms of finding a maximum-weight independent subset in a weighted matroid. That is, we are given a weighted matroid $$M = (S, \mathcal{I})$$, and we wish to find an independent set $$A \in \mathcal{I}$$ such that $$w(A)$$ is maximized. We call such a subset that is independent and has maximum possible weight an optimal subset of the matroid. Because the weight $$w(x)$$ of any element $$x \in S$$ is positive, an optimal subset is always a maximal independent subset—it always helps to make $$A$$ as large as possible.
+
+eg. ***minimum-spanning-tree problem***
+
+##### - A task-scheduling problem as a matroid
+
+An interesting problem that we can solve using matroids is the problem of optimally scheduling unit-time tasks on a single processor, where each task has a deadline, along with a penalty paid if the task misses its deadline
+
+A ***unit-time task*** is a job, such as a program to be run on a computer, that requires exactly one unit of time to complete. Given a finite set $$S$$ of unit-time tasks, a ***schedule*** for $$S$$ is a permutation of $$S$$ specifying the order in which to perform these tasks. The first task in the schedule begins at time 0 and finishes at time 1, the second task begins at time 1 and finishes at time 2, and so on.
+
+#### Amortized Analysis
+
+##### - Aggregate analysis
+
+In ***aggregate analysis***, we show that for all $$n$$, a sequence of $$n$$ operations takes worst-case time $$T(n)$$ in total. In the worst case, the average cost, or amortized cost, per operation is therefore $$T(n)/n$$. Note that this amortized cost applies to each operation, even when there are several types of operations in the sequence. The other two methods we shall study in this chapter, the accounting method and the potential method, may assign different amortized costs to different types of operations.
+
+***1. Stack operations***
+
+For any value of $$n$$, any sequence of n **PUSH**, **POP**, and **MULTIPOP** operations takes a total of O(n) time.
+
+We can pop each object from the stack at most once for each time we have pushed it onto the stack.
+
+***2. Incrementing a binary counter***
+
+As another example of aggregate analysis, consider the problem of implementing a $$k$$-bit binary counter that counts upward from $$0$$. The cost of each **INCREMENT** operation is linear in the number of bits flipped.
+
+In general, for $$i = 0,1,\ldots,k - 1$$, bit $$A[i]$$  flips $$\lfloor n/2^i \rfloor$$ times in a sequence of $$n$$ INCREMENT operations on an initially zero counter. For $$i \geq  k$$, bit $$A[i]$$ does not exist, and so it cannot flip. The total number of flips in the sequence is thus $$2n$$. The average cost of each operation, and therefore the amortized cost per operation, is $$O(n) / n = O(1)$$.
+
+##### - The accounting method
+
+In the ***accounting method*** of amortized analysis, we assign differing charges to different operations, with some operations charged more or less than they actually cost. We call the amount we charge an operation its ***amortized cost***. When an operation’s amortized cost exceeds its actual cost, we assign the difference to specific objects in the data structure as ***credit***.
+
+***1. Stack operations***
+
+***2. Incrementing a binary counter***
+
+##### - The potential method
+
+Instead of representing prepaid work as credit stored with specific objects in the data structure, the ***potential method*** of amortized analysis represents the prepaid work as “potential energy,” or just “potential,” which can be released to pay for future operations.
+
+##### - Dynamic tables
+
+A vivid example of applying amortized analysis to a more complex data structure.
+
+### Advanced Data Structures
+
+#### B-Trees
 
