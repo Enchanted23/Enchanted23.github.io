@@ -1278,3 +1278,140 @@ A vivid example of applying amortized analysis to a more complex data structure.
 
 #### B-Trees
 
+B-trees are balanced search trees designed to work well on disks or other direct-access  secondary  storage  devices.   B-trees  are  similar  to  red-black  trees, but they are better at minimizing disk I/O operations.  Many database systems use B-trees, or variants of B-trees, to store information.
+
+B-trees differ from red-black trees in that ***B-tree nodes may have many children***, from a few to thousands. 
+
+A ***B-tree*** $$T$$ is a rooted tree (whose root is $$T.root$$) having the following properties:
+
+1. Every node x hass the following attributes:
+
+   a. $$x.n$$ , the number of keys currently stored in node $$x$$,
+
+   b. the $$x.n$$ keys themslves, $$x.key_1, x.key_2,\ldots , x.key_{x.n}$$, stored in nondecreasing order, so that $$x.key_1 \leq x.key_2 \leq \cdots \leq x.key_{x.n}$$,
+
+   c. $$x.leaf$$, a boolean value that is TRUE if $$x$$ is a leaf and FALSE if x is internal node.
+
+2. Each internal node $$x$$ also contains $$x.n+1$$ pointers $$x.c_1, x.c_2, \ldots , x.c_{x.n+1}$$ to
+   its children. Leaf nodes have no children, and so their $$c_i$$ attributes are undefined.
+
+3. The keys $$x.key_i$$ separate the ranges of keys stored in each subtree: if $$k_i$$ is any
+   key stored in the subtree with root $$x.c_i$$, then $$k_1 \leq x.key_1 \leq k_2 \leq x.key_2 \leq \cdots \leq x.key_{x.n} \leq k_{x.{n+1}}$$.
+
+4. All leaves have the same depth, which is the tree’s height $$h$$.
+
+5. Nodes have lower and upper bounds on the number of keys they can contain.
+  We express these bounds in terms of a fixed integer $$t \geq 2$$ called the minimum
+  degree of the B-tree:
+
+  a. Every node other than the root must have at least $$t - 1$$ keys. Every internal
+  node other than the root thus has at least $$t$$ children. If the tree is nonempty,
+  the root must have at least one key.
+
+  b. Every node may contain at most $$2t - 1$$ keys. Therefore, an internal node
+  may have at most $$2$$ children. We say that a node is full if it contains exactly
+  $$2t - 1$$ keys.
+
+The number of disk accesses required for most operations on a B-tree is proportional
+to the height of the B-tree. We now analyze the worst-case height of a B-tree.
+
+If $$n \geq 1$$, then for any $$n$$-key B-tree $$T$$ of height $$h$$ and minimum degree $$t \geq 2$$,
+
+$$h \leq log_t \frac{n+1}{2}$$.
+
+##### Basic operations on B-trees
+
+```python
+# Searching a B-tree
+def B_TREE_SEARCH(x, k):
+    i = 1
+    while i <= x.n and k > x.key[i]:
+        i += 1
+    if i <= x.n and k == x.key[i]:
+        return x, i
+    elif x.leaf == True:
+        return NIL
+    else:
+        DISK_READ(x.c[i])
+        return B_TREE_SEARCH(x.c[i], k)
+
+# Creating an empty B-tree
+def B_TREE_DCREATE(T):
+    x = ALLOCATE_NODE()
+    x.leaf = True
+    x.n = 0
+    DISK_WRITE(x)
+    T.root = x
+```
+
+![](http://og43lpuu1.bkt.clouddn.com/b_tree_summary/img/02_B-Tree-split-child.png)
+
+```python
+# Splitting a node in a B-tree
+# x.c[i] is a full child of x -> x.c[i].n = 2t - 1
+def B_TREE_SPLIT_CHILD(x, i):
+    z = ALLOCATE_NODE()
+    y = x.c[i]
+    z.leaf = y.leaf
+    z.n = t-1
+    for j in range(1, t):
+        z.key[j] = y.key[j+t]
+    if not y.leaf:
+        for j in range(1, t+1):
+            z.c[j] = y.c[j+t]
+    y.n = t-1
+    for j in range(x.n + 1, i, -1):
+        x.c[j+1] = x.c[j]
+    x.c[i+1] = z
+    for j in range(x.n, i-1, -1):
+        x.key[j+1] = x.key[j]
+    x.key[i] = y.key[t]
+    x.n += 1
+    DISK_WRITE(y)
+    DISK_WRITE(z)
+    DISK_WRITE(x)
+```
+
+![](http://staff.ustc.edu.cn/~csli/graduate/algorithms/book6/391_a.gif)
+
+```python
+def B_TREE_INSERT(T, k):
+    r = T.root
+    if r.n == 2t-1:
+        s = ALLOCATE_NODE()
+        T.root = s
+        s.leaf = False
+        s.n = 0
+        s.c[1] = r
+        B_TREE_SPLIT_CHILD(s, 1)
+        B_TREE_INSERT_NONFULL(s, k)
+    else:
+        B_TREE_INSERT_NONFULL(r, k)
+
+def B_TREE_INSERT_NONFULL(x, k):
+    i = x.n
+    if x.leaf:
+        while i >= 1 and k < x.key[i]:
+            x.key[i+1] = x.key[i]
+            i -= 1
+        x.key[i+1] = k
+        x.n = x.n + 1
+    else:
+        while i >= 1 and k < x.key[i]:
+            i = i - 1
+        i += 1
+        DISK_READ(x.c[i])
+        if x.c[i].n == 2t-1:
+            B_TREE_SPLIT_CHILD(X, i)
+            if k > x.key[i]:
+                i += 1
+        B_TREE_INSERT_NONFULL(x.c[i], k)
+```
+
+For a B-tree of height h, B-TREE-INSERT performs $$O(h)$$ disk accesses, since only $$O(1)$$ DISK-READ and DISK-WRITE operations occur between calls to B-TREE-INSERT-NONFULL. The total CPU time used is $$O(th) = O(t\log_tn)$$.
+Since B-TREE-INSERT-NONFULL is tail-recursive, we can alternatively implement it as a while loop, thereby demonstrating that the number of pages that need to be in main memory at any time is $$O(1)$$.
+
+```python
+
+```
+
