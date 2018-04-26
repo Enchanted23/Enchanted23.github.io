@@ -1319,7 +1319,7 @@ If $$n \geq 1$$, then for any $$n$$-key B-tree $$T$$ of height $$h$$ and minimum
 
 $$h \leq log_t \frac{n+1}{2}$$.
 
-##### Basic operations on B-trees
+##### - Basic operations on B-trees
 
 ```python
 # Searching a B-tree
@@ -1411,7 +1411,216 @@ def B_TREE_INSERT_NONFULL(x, k):
 For a B-tree of height h, B-TREE-INSERT performs $$O(h)$$ disk accesses, since only $$O(1)$$ DISK-READ and DISK-WRITE operations occur between calls to B-TREE-INSERT-NONFULL. The total CPU time used is $$O(th) = O(t\log_tn)$$.
 Since B-TREE-INSERT-NONFULL is tail-recursive, we can alternatively implement it as a while loop, thereby demonstrating that the number of pages that need to be in main memory at any time is $$O(1)$$.
 
-```python
+***Deleting a key from a B-tree***
 
+![](http://www.euroinformatica.ro/documentation/programming/!!!Algorithms_CORMEN!!!/images/fig472_01_0.jpg)
+
+
+
+![](http://www.euroinformatica.ro/documentation/programming/!!!Algorithms_CORMEN!!!/images/fig473_01_0.jpg)
+
+
+
+#### Fibonacci Heaps
+
+##### - Mergeable-heap operations
+
+##### - Decreasing a key and deleting a node
+
+##### - Bounding the maximum degree
+
+#### van Emde Boas Trees
+
+#### Data Structures for Disjoint Sets
+
+### Graph Algorithms
+
+#### Elementary Graph Algorithms
+
+##### - Representations of graphs
+
+##### - Breadth-first search
+
+##### - Depth-first search
+
+##### - Topological sort
+
+##### - Strongly connected components
+
+#### Minimum Spanning Trees
+
+##### - Growing a minimum spanning tree
+
+##### - The algorithms of Kruskal and Prim
+
+#### Single-Source Shortest Paths
+
+##### - The Bellman-Ford algorithm
+
+##### - Single-source shortest paths in directed acyclic graphs
+
+##### - Dijkstra’s algorithm
+
+##### - Difference constraints and shortest paths
+
+##### - Proofs of shortest-paths properties
+
+#### All-Pairs Shortest Paths
+
+##### - Shortest paths and matrix multiplication
+
+##### - The Floyd-Warshall algorithm
+
+##### - Johnson’s algorithm for sparse graphs
+
+#### Maximum Flow
+
+##### - Flow networks
+
+##### - The Ford-Fulkerson method
+
+##### - Maximum bipartite matching
+
+##### - Push-relabel algorithms
+
+##### - The relabel-to-front algorithm
+
+### Selected Topics
+
+#### Multithreaded Algorithms
+
+##### - The basics of dynamic multithreading
+
+##### - Multithreaded matrix multiplication
+
+##### - Multithreaded merge sort
+
+#### Matrix Operations
+
+##### - Solving systems of linear equations
+
+##### - Inverting matrices
+
+##### - Symmetric positive-definite matrices and least-squares approximation
+
+#### Linear Programming
+
+##### - Standard and slack forms
+
+##### - Formulating problems as linear programs
+
+##### - The simplex algorithm
+
+##### - Duality
+
+##### - The initial basic feasible solution
+
+#### Polynomials and the FFT
+
+##### - Representing polynomials
+
+##### - The DFT and FFT
+
+##### - Efficient FFT implementations
+
+#### Number-Theoretic Algorithms
+
+##### - Elementary number-theoretic notions
+
+##### - Greatest common divisor
+
+##### - Modular arithmetic
+
+##### - Solving modular linear equations
+
+##### - The Chinese remainder theorem
+
+##### - Powers of an element
+
+##### - The RSA public-key cryptosystem
+
+##### - Primality testing
+
+##### - Integer factorization
+
+#### String Matching
+
+##### - The naive string-matching algorithm
+
+##### - The Rabin-Karp algorithm
+
+##### - String matching with finite automata
+
+##### - The Knuth-Morris-Pratt algorithm
+
+```python
+class Solution(object):
+    def strStr(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        # using KMP algorithm
+        n = len(haystack)
+        m = len(needle)
+        
+        # compute prefix
+        prefx = [0] * m
+        k = -1
+        for q in range(1, m):
+            while k > -1 and needle[k+1] <> needle[q]:
+                k = prefx[k]
+            if needle[k+1] == needle[q]:
+                k += 1
+            prefx[q] = k
+        
+        print(prefx)
+        
+        # matching
+        q = -1
+        for i in range(n):
+            while q > -1 and needle[q+1] <> haystack[i]:
+                q = prefx[q]
+            if needle[q+1] == haystack[i]:
+                q += 1
+            if q+1 == m:
+                return i-m
+        
+        return -1
 ```
+
+#### Computational Geometry
+
+##### - Line-segment properties
+
+##### - Determining whether any pair of segments intersects
+
+##### - Finding the convex hull
+
+##### - Finding the closest pair of points
+
+#### NP-Completeness
+
+##### - Polynomial time
+
+##### - Polynomial-time verification
+
+##### - NP-completeness and reducibility
+
+##### - NP-completeness proofs
+
+##### - NP-complete problems
+
+#### Approximation Algorithms
+
+##### - The vertex-cover problem
+
+##### - The traveling-salesman problem
+
+##### - The set-covering problem
+
+##### - Randomization and linear programming
+
+##### - The subset-sum problem
 
