@@ -1553,6 +1553,12 @@ Since B-TREE-INSERT-NONFULL is tail-recursive, we can alternatively implement it
 
 ##### - The Knuth-Morris-Pratt algorithm
 
+Given that pattern characters $$P[1..q]$$ match text characters $$T[s+1.. s+q]$$ ,what is the least shifts $$s' > s$$ such that for some $$k<q$$,
+
+$$P[1..k] = T[s'+1..s'+k]$$
+
+where $$s'+k = s + q$$.
+
 ```python
 class Solution(object):
     def strStr(self, haystack, needle):
@@ -1564,12 +1570,14 @@ class Solution(object):
         # using KMP algorithm
         n = len(haystack)
         m = len(needle)
+        if m == 0:
+            return 0
         
         # compute prefix
-        prefx = [0] * m
+        prefx = [-1] * m
         k = -1
         for q in range(1, m):
-            while k > -1 and needle[k+1] <> needle[q]:
+            while k > -1 and needle[k+1] != needle[q]:
                 k = prefx[k]
             if needle[k+1] == needle[q]:
                 k += 1
@@ -1577,15 +1585,15 @@ class Solution(object):
         
         print(prefx)
         
-        # matching
+        # string matching
         q = -1
         for i in range(n):
-            while q > -1 and needle[q+1] <> haystack[i]:
+            while q > -1 and needle[q+1] != haystack[i]:
                 q = prefx[q]
             if needle[q+1] == haystack[i]:
                 q += 1
             if q+1 == m:
-                return i-m
+                return i-m+1
         
         return -1
 ```
