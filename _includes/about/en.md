@@ -2,9 +2,11 @@
 
 ## Introduction
 
-I am Zhan Cheng, a senior student studying Computer Science and Technology at [University of Science and Technology of China (USTC)](http://en.ustc.edu.cn).
+I am Zhan Cheng, a graduate student pursuing master degree of Computer Science at [University of California, Irvine](https://uci.edu/). And I earned my bachelor degree of Computer Science and Technology at [University of Science and Technology of China (USTC)](http://en.ustc.edu.cn). 
 
-I worked as a research assistant in the NLP subgroup of the Jia Jia (a human-like robot) group inside the [Multi-Agent Systems Lab](http://ai.ustc.edu.cn/en/home/index.php) at USTC from my sophomore year under the supervision of [Prof. Xiaoping Chen](http://ai.ustc.edu.cn/en/people/xpchen.php). From Jun. 2017 to Aug. 2017, I did my summer research at [University of Waterloo](https://uwaterloo.ca) under the supervision of [Prof. Ming Li](https://cs.uwaterloo.ca/~mli/). Now I am leading a small research team to work on a project about Knowledge Base Construction under the supervision of [Dr. Yi Zhou](https://staff.scm.uws.edu.au/~yzhou/).
+I worked as an Algorithm Research Intern at [Tencent](https://www.tencent.com/en-us/index.html) YOUTU Lab for 3 months during my senior year. Most of my responsibilities are closely related to Computer Vision and Data Engineering. 
+
+I worked as a research assistant in the NLP subgroup of the Jia Jia (a human-like robot) group inside the [Multi-Agent Systems Lab](http://ai.ustc.edu.cn/en/home/index.php) at USTC from my sophomore year under the supervision of [Prof. Xiaoping Chen](http://ai.ustc.edu.cn/en/people/xpchen.php). From Jun. 2017 to Aug. 2017, I did my summer research at [University of Waterloo](https://uwaterloo.ca) under the supervision of [Prof. Ming Li](https://cs.uwaterloo.ca/~mli/). I also led a small research team to work on a project about Knowledge Base Construction under the supervision of [Dr. Yi Zhou](https://staff.scm.uws.edu.au/~yzhou/).
 
 ## My Projects
 
